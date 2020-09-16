@@ -6,7 +6,7 @@ import static org.testng.Assert.*;
 
 public class SinFunctionTest {
     @Test
-    public void ApplyTest(){
+    public void applyTest(){
         SinFunction function = new SinFunction();
 
         assertEquals(function.apply(0), 0.0);
