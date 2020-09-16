@@ -6,7 +6,7 @@ import static org.testng.Assert.*;
 
 public class IdentityFunctionTest {
     @Test
-    public void TestMathFunction() {
+    public void ApplyTest() {
         IdentityFunction function = new IdentityFunction();
 
         assertEquals(function.apply(4), 4.0);
