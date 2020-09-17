@@ -6,7 +6,7 @@ import static org.testng.Assert.*;
 
 public class SqrFunctionTest {
     @Test
-    public void sqrFunctionTest() {
+    public void SqrFunctionAppTest() {
         SqrFunction x = new SqrFunction();
 
         assertEquals(x.apply(2), 4.0);
