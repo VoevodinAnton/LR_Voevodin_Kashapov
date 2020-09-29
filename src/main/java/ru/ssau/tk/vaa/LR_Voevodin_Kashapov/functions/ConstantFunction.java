@@ -1,18 +1,18 @@
 package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions;
 
 public class ConstantFunction {
-    final private double EXPONENTA;
+    private final double CONSTANT;
 
-    public ConstantFunction(double EXPONENTA) {
-        this.EXPONENTA = EXPONENTA;
+    public ConstantFunction(double CONSTANT) {
+        this.CONSTANT = CONSTANT;
     }
 
-    public double getEXPONENTA() {
-        return EXPONENTA;
+    public double getCONSTANT() {
+        return CONSTANT;
     }
 
     public double apply(double x) {
-        return EXPONENTA;
+        return CONSTANT;
     }
 
 
