@@ -19,7 +19,7 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction{
 
         xValues = new double[count];
         yValues = new double[count];
-        for (int i = 0; i < count - 1; i++) {
+        for (int i = 0; i < count ; i++) {
             this.xValues[i] = xFrom + i*step;
             this.yValues[i] = source.apply(xFrom + i*step);
         }
@@ -50,7 +50,7 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction{
     }
 
     public int indexOfX(double xValue) {
-        for (int index = 0; index < count - 1; index++) {
+        for (int index = 0; index < count; index++) {
             if (xValues[index] == xValue) {
                 return index;
             }
@@ -59,7 +59,7 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction{
     }
 
     public int indexOfY(double yValue) {
-        for (int index = 0; index < count - 1; index++) {
+        for (int index = 0; index < count; index++) {
             if (yValues[index] == yValue) {
                 return index;
             }
@@ -71,7 +71,7 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction{
         if (xValue < xValues[0]) {
             return 0;
         }
-        for (int index = 1; index < count - 1; index++) {
+        for (int index = 1; index < count; index++) {
             if (xValue < xValues[index]) {
                 return index - 1;
             }
@@ -80,7 +80,7 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction{
     }
 
     public double interpolate(double x, int floorIndex) {
-        return interpolate(x, xValues[floorIndex], xValues[floorIndex + 1], yValues[floorIndex], yValues[floorIndex + 1]);
+        return interpolate(x, xValues[floorIndex - 1], xValues[floorIndex], yValues[floorIndex - 1], yValues[floorIndex]);
     }
 
     public double extrapolateLeft(double x) {
