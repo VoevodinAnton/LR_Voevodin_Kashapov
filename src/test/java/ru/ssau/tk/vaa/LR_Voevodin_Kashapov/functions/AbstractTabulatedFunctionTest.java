@@ -20,5 +20,10 @@ public class AbstractTabulatedFunctionTest {
 
     @Test
     public void applyTest() {
+        assertEquals(mock.apply(5), 2.0, ACCURACY);
+        assertEquals(mock.apply(7), 1.0, ACCURACY);
+        assertEquals(mock.apply(3), 3.0, ACCURACY);
+        assertEquals(mock.apply(1), 4.0, ACCURACY);
+        assertEquals(mock.apply(0), 4.5, ACCURACY);
     }
 }
