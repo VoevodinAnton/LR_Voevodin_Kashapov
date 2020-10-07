@@ -1,6 +1,6 @@
 package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions;
 
-public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
+public class LinkedListTabulatedFunction extends AbstractTabulatedFunction implements Insertable {
     private int count;
     private Node head;
     private Node last;
@@ -29,16 +29,17 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
             node.next = head;
             last = node;
         }
-        count = +1;
     }
 
     public LinkedListTabulatedFunction(double[] xValues, double[] yValues) {
         for (int i = 0; i < xValues.length; i++) {
             this.addNode(xValues[i], yValues[i]);
         }
+        this.count = xValues.length;
     }
 
     public LinkedListTabulatedFunction(MathFunction source, double xFrom, double xTo, int count) {
+        this.count = count;
         double step = (xTo - xFrom) / (count - 1);
         for (int i = 0; i < count; i++) {
             addNode(xFrom, source.apply(xFrom));
@@ -189,6 +190,18 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
                 return interpolate(x, node.x, node.next.x, node.y, node.next.y);
             }
         }
-
     }
+
+    @Override
+    public void insert(double x, double y) {
+        Node node = new Node();
+        node.x = x;
+        node.y = y;
+        if (floorIndexOfX(x) == 0){
+            node.next = head;
+            node.prev = last;
+            head = node;
+        }
+    }
+
 }
