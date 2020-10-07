@@ -29,8 +29,43 @@ public class MockTabulatedFunction extends AbstractTabulatedFunction {
         return interpolate(x, x0, x1, y0, y1);
     }
 
-    public int GetCount() {
+    public int getCount() {
         return 2;
+    }
+
+    @Override
+    public double getX(int index) {
+        return 0;
+    }
+
+    @Override
+    public double getY(int index) {
+        return 0;
+    }
+
+    @Override
+    public void setY(int index, double value) {
+
+    }
+
+    @Override
+    public int indexOfX(double x) {
+        return 0;
+    }
+
+    @Override
+    public int indexOfY(double y) {
+        return 0;
+    }
+
+    @Override
+    public double leftBound() {
+        return x0;
+    }
+
+    @Override
+    public double rightBound() {
+        return x1;
     }
 
 }
