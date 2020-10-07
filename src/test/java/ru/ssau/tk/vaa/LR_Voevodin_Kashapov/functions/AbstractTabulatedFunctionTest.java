@@ -10,10 +10,11 @@ public class AbstractTabulatedFunctionTest {
 
     @Test
     public void testInterpolate() {
-        assertEquals(mock.interpolate(2.0, 1.0, 5.0, 4.0, 2.0), 4.5, ACCURACY);
+        assertEquals(mock.interpolate(2.0, 1.0, 5.0, 4.0, 2.0), 3.5, ACCURACY);
     }
 
     @Test
     public void applyTest(){
+        assertEquals(mock.apply(5), 2.0, ACCURACY);
     }
 }
