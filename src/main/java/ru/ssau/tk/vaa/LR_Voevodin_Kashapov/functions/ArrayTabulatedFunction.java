@@ -2,7 +2,7 @@ package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions;
 
 import java.util.Arrays;
 
-public class ArrayTabulatedFunction {
+public class ArrayTabulatedFunction extends AbstractTabulatedFunction{
     private double[] xValues;
     private double[] yValues;
     private int count;
@@ -19,7 +19,7 @@ public class ArrayTabulatedFunction {
 
         xValues = new double[count];
         yValues = new double[count];
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < count - 1; i++) {
             this.xValues[i] = xFrom + i*step;
             this.yValues[i] = source.apply(xFrom + i*step);
         }
@@ -29,12 +29,12 @@ public class ArrayTabulatedFunction {
         return count;
     }
 
-    public double[] getX() {
-        return xValues;
+    public double getX(int index) {
+        return xValues[index];
     }
 
-    public double[] getY() {
-        return yValues;
+    public double getY(int index) {
+        return yValues[index];
     }
 
     public void setY(int index, double value) {
@@ -46,11 +46,11 @@ public class ArrayTabulatedFunction {
     }
 
     public double rightBound() {
-        return xValues[count];
+        return xValues[count - 1];
     }
 
     public int indexOfX(double xValue) {
-        for (int index = 0; index < count; index++) {
+        for (int index = 0; index < count - 1; index++) {
             if (xValues[index] == xValue) {
                 return index;
             }
@@ -59,7 +59,7 @@ public class ArrayTabulatedFunction {
     }
 
     public int indexOfY(double yValue) {
-        for (int index = 0; index < count; index++) {
+        for (int index = 0; index < count - 1; index++) {
             if (yValues[index] == yValue) {
                 return index;
             }
@@ -71,11 +71,29 @@ public class ArrayTabulatedFunction {
         if (xValue < xValues[0]) {
             return 0;
         }
-        for (int index = 1; index < count; index++) {
+        for (int index = 1; index < count - 1; index++) {
             if (xValue < xValues[index]) {
                 return index - 1;
             }
         }
         return count;
+    }
+
+    public double interpolate(double x, int floorIndex) {
+        return interpolate(x, xValues[floorIndex], xValues[floorIndex + 1], yValues[floorIndex], yValues[floorIndex + 1]);
+    }
+
+    public double extrapolateLeft(double x) {
+        if (count == 1) {
+            return yValues[count - 1];
+        }
+        return interpolate(x, xValues[0], xValues[1],  yValues[0], yValues[1]);
+    }
+
+    public double extrapolateRight(double x) {
+        if (count == 1) {
+            return yValues[count - 1];
+        }
+        return interpolate(x, xValues[count - 2], xValues[count - 1],  yValues[count - 2], yValues[count - 1]);
     }
 }
