@@ -1,13 +1,13 @@
 package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions;
 
 public interface TabulatedFunction extends MathFunction {
-    int GetCount();
+    int getCount();
 
-    double GetX(int index);
+    double getX(int index);
 
-    double GetY(int index);
+    double getY(int index);
 
-    void SetY(int index, double value);
+    void setY(int index, double value);
 
     int indexOfX(double x);
 

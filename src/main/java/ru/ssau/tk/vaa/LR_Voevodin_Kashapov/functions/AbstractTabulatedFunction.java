@@ -25,7 +25,7 @@ public abstract class AbstractTabulatedFunction implements TabulatedFunction {
                 return interpolate(x, floorIndexOfX(x));
             }
             else {
-                return GetY(indexOfX(x));
+                return getY(indexOfX(x));
             }
         }
     }
