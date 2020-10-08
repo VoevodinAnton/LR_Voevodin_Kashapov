@@ -26,4 +26,6 @@ public class AbstractTabulatedFunctionTest {
         assertEquals(mock.apply(1), 4.0, ACCURACY);
         assertEquals(mock.apply(0), 4.5, ACCURACY);
     }
+
+
 }
