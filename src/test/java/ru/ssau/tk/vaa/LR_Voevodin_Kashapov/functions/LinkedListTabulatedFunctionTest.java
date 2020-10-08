@@ -59,7 +59,7 @@ public class LinkedListTabulatedFunctionTest {
         assertEquals(listOfMathFunc1.leftBound(), 1.0);
         assertEquals(listOfMathFunc2.leftBound(), -3.0);
         assertEquals(listOfMathFunc3.leftBound(), 10.0);
-        assertEquals(listOfArray.leftBound(), 5.0);
+        assertEquals(listOfArray.leftBound(), 1.0);
     }
 
     @Test
