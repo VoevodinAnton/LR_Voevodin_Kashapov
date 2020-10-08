@@ -21,5 +21,4 @@ public class MathFunctionTest {
         assertEquals(sq.andThen(tenth).andThen(sine).apply(10),
                 -0.645251285265781, ACCURACY);
     }
-
 }

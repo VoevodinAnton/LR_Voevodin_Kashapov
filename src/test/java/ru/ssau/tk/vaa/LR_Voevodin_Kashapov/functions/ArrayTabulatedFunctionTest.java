@@ -5,19 +5,22 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class ArrayTabulatedFunctionTest {
+
+    public static final double ACCURACY = 0.000000001;
+
     MathFunction Source = new TenthPowFunction();
-    private double xFrom = 1;
-    private double xTo = 10;
-    private int count = 256;
+    private final double xFrom = 1;
+    private final double xTo = 10;
+    private final int count = 256;
 
-    private double[] x = new double[]{1, 4, 9, 16};
-    private double[] y = new double[]{1, 16, 81, 256};
+    private final double[] x = new double[]{1, 4, 9, 16};
+    private final double[] y = new double[]{1, 16, 81, 256};
 
-    private double[] x1 = new double[]{10, 20};
-    private double[] y1 = new double[]{10, 10};
+    private final double[] x1 = new double[]{10, 20};
+    private final double[] y1 = new double[]{10, 10};
 
-    private double[] x2 = new double[]{1, 2, 3};
-    private double[] y2 = new double[]{1, 2, 1};
+    private final double[] x2 = new double[]{1, 2, 3};
+    private final double[] y2 = new double[]{1, 2, 1};
 
 
     @Test
@@ -64,15 +67,14 @@ public class ArrayTabulatedFunctionTest {
                 20.0);
         assertEquals(t11.getX(3),
                 16.0);
+        assertEquals(t21.getX(0),
+                1.0);
     }
+
 
     @Test
     public void testGetY() {
         AbstractTabulatedFunction t21 = new ArrayTabulatedFunction(Source, xFrom, xTo, count);
-
-        AbstractTabulatedFunction t11 = new ArrayTabulatedFunction(x, y);
-
-        AbstractTabulatedFunction t12 = new ArrayTabulatedFunction(x1, y1);
 
         AbstractTabulatedFunction t13 = new ArrayTabulatedFunction(x2, y2);
 
@@ -82,6 +84,8 @@ public class ArrayTabulatedFunctionTest {
                 2.0);
         assertEquals(t13.getY(2),
                 1.0);
+        assertEquals(t21.getY(0),
+                1.0);
 
     }
 
@@ -90,8 +94,6 @@ public class ArrayTabulatedFunctionTest {
         AbstractTabulatedFunction t21 = new ArrayTabulatedFunction(Source, xFrom, xTo, count);
 
         AbstractTabulatedFunction t11 = new ArrayTabulatedFunction(x, y);
-
-        AbstractTabulatedFunction t12 = new ArrayTabulatedFunction(x1, y1);
 
         AbstractTabulatedFunction t13 = new ArrayTabulatedFunction(x2, y2);
 
@@ -204,7 +206,6 @@ public class ArrayTabulatedFunctionTest {
 
     @Test
     public void testFloorIndexOfX() {
-        AbstractTabulatedFunction t21 = new ArrayTabulatedFunction(Source, xFrom, xTo, count);
 
         AbstractTabulatedFunction t11 = new ArrayTabulatedFunction(x, y);
 
@@ -290,4 +291,26 @@ public class ArrayTabulatedFunctionTest {
         assertEquals(t21.extrapolateRight(15),
                 5.921331043308460e+10);
     }
+
+    @Test
+    public void testDifficultFunc() {
+        double xFrom = 5;
+        double xTo = 10;
+        int count = 64;
+
+        MathFunction sqr = new SqrFunction();
+        MathFunction sin = new SinFunction();
+        MathFunction ten = new TenthPowFunction();
+
+        AbstractTabulatedFunction f = new ArrayTabulatedFunction(sin.andThen(sqr).andThen(ten), xFrom, xTo, count);
+
+        assertEquals(f.getY(0),
+                0.432201484323274, ACCURACY);
+        assertEquals(f.getY(1),
+                0.252063597319509, ACCURACY);
+        assertEquals(f.getY(2),
+                0.127187380992981, ACCURACY);
+
+    }
+
 }
