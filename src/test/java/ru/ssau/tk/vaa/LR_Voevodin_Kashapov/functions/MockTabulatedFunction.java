@@ -10,17 +10,17 @@ public class MockTabulatedFunction extends AbstractTabulatedFunction {
         if (x < x0) {
             return 0;
 
-        }
-        else if (x >= x0 && x <= x1)  {
+        } else if (x >= x0 && x <= x1) {
             return 1;
-        }
-        else {
+        } else {
             return 2;
         }
     }
+
     protected double extrapolateLeft(double x) {
         return interpolate(x, x0, x1, y0, y1);
     }
+
     protected double extrapolateRight(double x) {
         return interpolate(x, x0, x1, y0, y1);
     }
@@ -35,7 +35,7 @@ public class MockTabulatedFunction extends AbstractTabulatedFunction {
 
     @Override
     public double getX(int index) {
-        if(index == 1){
+        if (index == 1) {
             return x1;
         }
         return x0;
@@ -43,7 +43,7 @@ public class MockTabulatedFunction extends AbstractTabulatedFunction {
 
     @Override
     public double getY(int index) {
-        if(index == 1){
+        if (index == 1) {
             return y1;
         }
         return y0;
@@ -55,10 +55,10 @@ public class MockTabulatedFunction extends AbstractTabulatedFunction {
 
     @Override
     public int indexOfX(double x) {
-        if (x == x1){
+        if (x == x1) {
             return 1;
         }
-        if (x == x0){
+        if (x == x0) {
             return 0;
         }
         return -1;
@@ -66,10 +66,10 @@ public class MockTabulatedFunction extends AbstractTabulatedFunction {
 
     @Override
     public int indexOfY(double y) {
-        if (y == y1){
+        if (y == y1) {
             return 1;
         }
-        if (y == y0){
+        if (y == y0) {
             return 0;
         }
         return -1;

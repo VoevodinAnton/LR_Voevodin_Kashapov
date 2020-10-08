@@ -26,3 +26,4 @@ public abstract class AbstractTabulatedFunction implements TabulatedFunction {
         return getY(indexOfX(x));
     }
 }
+
