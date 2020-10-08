@@ -8,7 +8,7 @@ public class ArrayTabulatedFunctionTest {
 
     public static final double ACCURACY = 0.000000001;
 
-    MathFunction Source = new TenthPowFunction();
+    private final MathFunction source = new TenthPowFunction();
     private final double xFrom = 1;
     private final double xTo = 10;
     private final int count = 256;
@@ -25,7 +25,7 @@ public class ArrayTabulatedFunctionTest {
 
     @Test
     public void testGetCount() {
-        AbstractTabulatedFunction t21 = new ArrayTabulatedFunction(Source, xFrom, xTo, count);
+        AbstractTabulatedFunction t21 = new ArrayTabulatedFunction(source, xFrom, xTo, count);
 
         AbstractTabulatedFunction t11 = new ArrayTabulatedFunction(x, y);
 
@@ -47,7 +47,7 @@ public class ArrayTabulatedFunctionTest {
 
     @Test
     public void testGetX() {
-        AbstractTabulatedFunction t21 = new ArrayTabulatedFunction(Source, xFrom, xTo, count);
+        AbstractTabulatedFunction t21 = new ArrayTabulatedFunction(source, xFrom, xTo, count);
 
         AbstractTabulatedFunction t11 = new ArrayTabulatedFunction(x, y);
 
@@ -74,7 +74,7 @@ public class ArrayTabulatedFunctionTest {
 
     @Test
     public void testGetY() {
-        AbstractTabulatedFunction t21 = new ArrayTabulatedFunction(Source, xFrom, xTo, count);
+        AbstractTabulatedFunction t21 = new ArrayTabulatedFunction(source, xFrom, xTo, count);
 
         AbstractTabulatedFunction t13 = new ArrayTabulatedFunction(x2, y2);
 
@@ -91,7 +91,7 @@ public class ArrayTabulatedFunctionTest {
 
     @Test
     public void testSetY() {
-        AbstractTabulatedFunction t21 = new ArrayTabulatedFunction(Source, xFrom, xTo, count);
+        AbstractTabulatedFunction t21 = new ArrayTabulatedFunction(source, xFrom, xTo, count);
 
         AbstractTabulatedFunction t11 = new ArrayTabulatedFunction(x, y);
 
@@ -116,7 +116,7 @@ public class ArrayTabulatedFunctionTest {
 
     @Test
     public void testLeftBound() {
-        AbstractTabulatedFunction t21 = new ArrayTabulatedFunction(Source, xFrom, xTo, count);
+        AbstractTabulatedFunction t21 = new ArrayTabulatedFunction(source, xFrom, xTo, count);
 
         AbstractTabulatedFunction t11 = new ArrayTabulatedFunction(x, y);
 
@@ -138,7 +138,7 @@ public class ArrayTabulatedFunctionTest {
 
     @Test
     public void testRightBound() {
-        AbstractTabulatedFunction t21 = new ArrayTabulatedFunction(Source, xFrom, xTo, count);
+        AbstractTabulatedFunction t21 = new ArrayTabulatedFunction(source, xFrom, xTo, count);
 
         AbstractTabulatedFunction t11 = new ArrayTabulatedFunction(x, y);
 
@@ -160,7 +160,7 @@ public class ArrayTabulatedFunctionTest {
 
     @Test
     public void testIndexOfX() {
-        AbstractTabulatedFunction t21 = new ArrayTabulatedFunction(Source, xFrom, xTo, count);
+        AbstractTabulatedFunction t21 = new ArrayTabulatedFunction(source, xFrom, xTo, count);
 
         AbstractTabulatedFunction t11 = new ArrayTabulatedFunction(x, y);
 
@@ -183,7 +183,7 @@ public class ArrayTabulatedFunctionTest {
 
     @Test
     public void testIndexOfY() {
-        AbstractTabulatedFunction t21 = new ArrayTabulatedFunction(Source, xFrom, xTo, count);
+        AbstractTabulatedFunction t21 = new ArrayTabulatedFunction(source, xFrom, xTo, count);
 
         AbstractTabulatedFunction t11 = new ArrayTabulatedFunction(x, y);
 
@@ -225,7 +225,7 @@ public class ArrayTabulatedFunctionTest {
 
     @Test
     public void testInterpolate() {
-        AbstractTabulatedFunction t21 = new ArrayTabulatedFunction(Source, xFrom, xTo, count);
+        AbstractTabulatedFunction t21 = new ArrayTabulatedFunction(source, xFrom, xTo, count);
 
         AbstractTabulatedFunction t11 = new ArrayTabulatedFunction(x, y);
 
@@ -248,7 +248,7 @@ public class ArrayTabulatedFunctionTest {
 
     @Test
     public void testExtrapolateLeft() {
-        AbstractTabulatedFunction t21 = new ArrayTabulatedFunction(Source, xFrom, xTo, count);
+        AbstractTabulatedFunction t21 = new ArrayTabulatedFunction(source, xFrom, xTo, count);
 
         AbstractTabulatedFunction t11 = new ArrayTabulatedFunction(x, y);
 
@@ -271,7 +271,7 @@ public class ArrayTabulatedFunctionTest {
 
     @Test
     public void testExtrapolateRight() {
-        AbstractTabulatedFunction t21 = new ArrayTabulatedFunction(Source, xFrom, xTo, count);
+        AbstractTabulatedFunction t21 = new ArrayTabulatedFunction(source, xFrom, xTo, count);
 
         AbstractTabulatedFunction t11 = new ArrayTabulatedFunction(x, y);
 
