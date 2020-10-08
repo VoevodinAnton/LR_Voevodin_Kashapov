@@ -5,7 +5,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class MathFunctionTest {
-    public static final double ACCURACY = 0.00000001;
+    public static final double ACCURACY = 0.0001;
 
     @Test
     public void testMathFunction() {
@@ -26,11 +26,12 @@ public class MathFunctionTest {
     public void compositeTest() {
         MathFunction sqr = new SqrFunction();
 
-        MathFunction func = new LinkedListTabulatedFunction(sqr, 1, 5, 5);
-        ArrayTabulatedFunction gunc = new ArrayTabulatedFunction(func, 1, 5, 5);
+        LinkedListTabulatedFunction func = new LinkedListTabulatedFunction(sqr, 1, 100,50000);
+        ArrayTabulatedFunction gunc = new ArrayTabulatedFunction(func, 1, 100, 50000);
 
-        assertEquals(gunc.getY(1), 4.0);
-        assertEquals(gunc.getY(2), 9.0);
-        assertEquals(gunc.getY(3), 16.0);
+
+        assertEquals(func.andThen(gunc).apply(2), 16.0, ACCURACY);
+        assertEquals(func.andThen(gunc).apply(3), 81.0, ACCURACY);
+        assertEquals(func.andThen(gunc).apply(4), 256.0, ACCURACY);
     }
 }
