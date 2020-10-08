@@ -226,13 +226,14 @@ public class ArrayTabulatedFunctionTest {
         MathFunction sqr = new SqrFunction();
         MathFunction sin = new SinFunction();
         MathFunction ten = new TenthPowFunction();
-        AbstractTabulatedFunction f = new ArrayTabulatedFunction(sin.andThen(sqr).andThen(ten), xFrom, xTo, count);
+        ArrayTabulatedFunction f = new ArrayTabulatedFunction(sin.andThen(sqr).andThen(ten), xFrom, xTo, count);
+        LinkedListTabulatedFunction g = new LinkedListTabulatedFunction(sin.andThen(sqr).andThen(ten), xFrom, xTo, count);
         assertEquals(f.getY(0),
-                0.432201484323274, ACCURACY);
+                g.getY(0), ACCURACY);
         assertEquals(f.getY(1),
-                0.252063597319509, ACCURACY);
+                g.getY(1), ACCURACY);
         assertEquals(f.getY(2),
-                0.127187380992981, ACCURACY);
+                g.getY(2), ACCURACY);
     }
 
 }
