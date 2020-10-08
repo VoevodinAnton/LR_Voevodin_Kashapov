@@ -3,9 +3,9 @@ package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions;
 import java.util.Arrays;
 
 public class ArrayTabulatedFunction extends AbstractTabulatedFunction{
-    private double[] xValues;
-    private double[] yValues;
-    private int count;
+    private final double[] xValues;
+    private final double[] yValues;
+    private final int count;
 
     ArrayTabulatedFunction(double[] xValues, double[] yValues) {
         this.count = xValues.length;

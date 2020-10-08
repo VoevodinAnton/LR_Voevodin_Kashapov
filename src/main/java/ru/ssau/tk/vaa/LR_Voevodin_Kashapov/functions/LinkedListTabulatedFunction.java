@@ -1,18 +1,18 @@
 package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions;
 
 public class LinkedListTabulatedFunction extends AbstractTabulatedFunction implements Insertable {
-    private int count;
+    private final int count;
     private Node head;
     private Node last;
 
-    static protected class Node {
+    protected static class Node {
         public Node next;
         public Node prev;
         public double x;
         public double y;
     }
 
-    private void addNode(double x, double y) {
+    protected void addNode(double x, double y) {
         Node node = new Node();
         node.x = x;
         node.y = y;
@@ -20,14 +20,14 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
             head = node;
             node.prev = node;
             node.next = node;
-            last = node;
+            last = head.prev;
 
         } else {
             last.next = node;
             head.prev = node;
             node.prev = last;
             node.next = head;
-            last = node;
+            last = head.prev;
         }
     }
 
