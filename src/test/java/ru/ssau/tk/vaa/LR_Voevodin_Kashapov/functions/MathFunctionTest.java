@@ -21,4 +21,16 @@ public class MathFunctionTest {
         assertEquals(sq.andThen(tenth).andThen(sine).apply(10),
                 -0.645251285265781, ACCURACY);
     }
+
+    @Test
+    public void compositeTest(){
+        MathFunction sqr = new SqrFunction();
+
+        MathFunction func = new LinkedListTabulatedFunction(sqr, 1, 5, 5);
+        ArrayTabulatedFunction gunc = new ArrayTabulatedFunction(func, 1, 5, 5);
+
+        assertEquals(gunc.getY(1), 4.0);
+        assertEquals(gunc.getY(2), 9.0);
+        assertEquals(gunc.getY(3), 16.0);
+    }
 }
