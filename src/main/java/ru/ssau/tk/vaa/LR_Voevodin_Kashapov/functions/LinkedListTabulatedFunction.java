@@ -20,15 +20,14 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
             head = node;
             node.prev = node;
             node.next = node;
-            last = head.prev;
 
         } else {
             last.next = node;
             head.prev = node;
             node.prev = last;
             node.next = head;
-            last = head.prev;
         }
+        last = head.prev;
     }
 
     public LinkedListTabulatedFunction(double[] xValues, double[] yValues) {
