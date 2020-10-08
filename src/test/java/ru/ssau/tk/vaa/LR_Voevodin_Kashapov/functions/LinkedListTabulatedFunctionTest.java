@@ -206,6 +206,15 @@ public class LinkedListTabulatedFunctionTest {
 
     @Test
     public void testApply() {
+        LinkedListTabulatedFunction listOfArray = getListOfArray();
+        LinkedListTabulatedFunction listOfMathFunc1 = getListOfMathFunc1();
+        LinkedListTabulatedFunction listOfMathFunc2 = getListOfMathFunc2();
+        LinkedListTabulatedFunction listOfMathFunc3 = getListOfMathFunc3();
+
+        assertEquals(listOfMathFunc1.apply(6),-0.894118534015851, ACCURACY );
+        assertEquals(listOfMathFunc2.apply(-4), 0.810402615850074, ACCURACY);
+        assertEquals(listOfArray.apply(5), 10.0, ACCURACY);
+
     }
 
     @Test
