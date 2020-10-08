@@ -160,15 +160,15 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
         return interpolate(x, node.x, nodeNext.x, node.y, nodeNext.y);
     }
 
-    protected Node floorNodeOfX(double x){
+    protected Node floorNodeOfX(double x) {
         Node node = head;
-        if (node.x > x){
+        if (node.x > x) {
             return head;
         }
-        for (int i = 0; i < count; i++){
-            if( node.x < x){
+        for (int i = 0; i < count; i++) {
+            if (node.x < x) {
                 node = node.next;
-            } else{
+            } else {
                 return node.prev;
             }
         }
@@ -178,15 +178,13 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
     public double apply(double x) {
         if (x < leftBound()) {
             return extrapolateLeft(x);
-        }
-        else if (x > rightBound()) {
+        } else if (x > rightBound()) {
             return extrapolateRight(x);
-        }
-        else{
+        } else {
             Node node = floorNodeOfX(x);
-            if (node.x == x){
+            if (node.x == x) {
                 return node.y;
-            } else{
+            } else {
                 return interpolate(x, node.x, node.next.x, node.y, node.next.y);
             }
         }
@@ -197,7 +195,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
         Node node = new Node();
         node.x = x;
         node.y = y;
-        if (floorIndexOfX(x) == 0){
+        if (floorIndexOfX(x) == 0) {
             node.next = head;
             node.prev = last;
             head = node;

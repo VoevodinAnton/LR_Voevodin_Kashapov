@@ -5,7 +5,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class TenthPowFunctionTest {
-@Test
+    @Test
     public void TenthPowFunctionAppTest() {
         TenthPowFunction x = new TenthPowFunction();
 

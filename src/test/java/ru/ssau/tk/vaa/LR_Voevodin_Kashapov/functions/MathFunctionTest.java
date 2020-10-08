@@ -4,8 +4,9 @@ import org.testng.annotations.Test;
 
 import static org.testng.Assert.*;
 
-public class MathFunctionTest  {
-   public static final double ACCURACY = 0.000001;
+public class MathFunctionTest {
+    public static final double ACCURACY = 0.000001;
+
     @Test
     public void testMathFunction() {
         MathFunction sq = new SqrFunction();
