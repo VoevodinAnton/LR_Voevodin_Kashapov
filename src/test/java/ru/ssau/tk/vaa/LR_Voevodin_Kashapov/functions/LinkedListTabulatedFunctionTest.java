@@ -12,19 +12,19 @@ public class LinkedListTabulatedFunctionTest {
     private final double[] xValues = new double[]{1, 2, 3, 4, 5};
     private final double[] yValues = new double[]{2, 4, 6, 8, 10};
 
-    private LinkedListTabulatedFunction getListOfMathFunc1(){
+    private LinkedListTabulatedFunction getListOfMathFunc1() {
         return new LinkedListTabulatedFunction(function, 1, 5, 10);
     }
 
-    private LinkedListTabulatedFunction getListOfMathFunc2(){
+    private LinkedListTabulatedFunction getListOfMathFunc2() {
         return new LinkedListTabulatedFunction(function, -3, 3, 20);
     }
 
-    private LinkedListTabulatedFunction getListOfMathFunc3(){
+    private LinkedListTabulatedFunction getListOfMathFunc3() {
         return new LinkedListTabulatedFunction(function, 10, 20, 50);
     }
 
-    private LinkedListTabulatedFunction getListOfArray(){
+    private LinkedListTabulatedFunction getListOfArray() {
         return new LinkedListTabulatedFunction(xValues, yValues);
     }
 
@@ -211,9 +211,21 @@ public class LinkedListTabulatedFunctionTest {
         LinkedListTabulatedFunction listOfMathFunc2 = getListOfMathFunc2();
         LinkedListTabulatedFunction listOfMathFunc3 = getListOfMathFunc3();
 
-        assertEquals(listOfMathFunc1.apply(6),-0.894118534015851, ACCURACY );
+        assertEquals(listOfMathFunc1.apply(6), -0.894118534015851, ACCURACY);
         assertEquals(listOfMathFunc2.apply(-4), 0.810402615850074, ACCURACY);
         assertEquals(listOfArray.apply(5), 10.0, ACCURACY);
+
+    }
+
+    @Test
+    public void testCompositeFunction(){
+        MathFunction listOfArray = getListOfArray();
+        MathFunction listOfMathFunc1 = getListOfMathFunc1();
+        MathFunction listOfMathFunc2 = getListOfMathFunc2();
+        MathFunction listOfMathFunc3 = getListOfMathFunc3();
+
+
+        assertEquals(listOfMathFunc1.andThen(listOfMathFunc2).apply(2), 0.770258, ACCURACY);
 
     }
 
