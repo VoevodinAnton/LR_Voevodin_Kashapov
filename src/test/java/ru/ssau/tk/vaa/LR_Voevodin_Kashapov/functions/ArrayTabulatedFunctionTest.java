@@ -94,8 +94,8 @@ public class ArrayTabulatedFunctionTest {
 
         assertEquals(T13.leftBound(),
                 1.0);
-    assertEquals(T21.leftBound(),
-            1.0);
+        assertEquals(T21.leftBound(),
+                1.0);
     }
 
     @Test

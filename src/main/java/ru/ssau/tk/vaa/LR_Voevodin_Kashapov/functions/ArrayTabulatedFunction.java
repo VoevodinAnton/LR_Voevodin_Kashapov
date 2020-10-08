@@ -2,10 +2,10 @@ package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions;
 
 import java.util.Arrays;
 
-public class ArrayTabulatedFunction extends AbstractTabulatedFunction{
-    private double[] xValues;
-    private double[] yValues;
-    private int count;
+public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
+    final double[] xValues;
+    final double[] yValues;
+    final int count;
 
     ArrayTabulatedFunction(double[] xValues, double[] yValues) {
         this.count = xValues.length;
@@ -19,9 +19,9 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction{
 
         xValues = new double[count];
         yValues = new double[count];
-        for (int i = 0; i < count ; i++) {
-            this.xValues[i] = xFrom + i*step;
-            this.yValues[i] = source.apply(xFrom + i*step);
+        for (int i = 0; i < count; i++) {
+            this.xValues[i] = xFrom + i * step;
+            this.yValues[i] = source.apply(xFrom + i * step);
         }
     }
 
@@ -87,13 +87,13 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction{
         if (count == 1) {
             return yValues[count - 1];
         }
-        return interpolate(x, xValues[0], xValues[1],  yValues[0], yValues[1]);
+        return interpolate(x, xValues[0], xValues[1], yValues[0], yValues[1]);
     }
 
     public double extrapolateRight(double x) {
         if (count == 1) {
             return yValues[count - 1];
         }
-        return interpolate(x, xValues[count - 2], xValues[count - 1],  yValues[count - 2], yValues[count - 1]);
+        return interpolate(x, xValues[count - 2], xValues[count - 1], yValues[count - 2], yValues[count - 1]);
     }
 }
