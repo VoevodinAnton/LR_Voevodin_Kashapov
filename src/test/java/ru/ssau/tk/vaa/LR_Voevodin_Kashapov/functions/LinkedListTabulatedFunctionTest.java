@@ -7,7 +7,7 @@ import static org.testng.Assert.*;
 public class LinkedListTabulatedFunctionTest {
     public static final double ACCURACY = 0.00001;
 
-    MathFunction function = new SinFunction();
+    private final MathFunction function = new SinFunction();
 
     private final double[] xValues = new double[]{1, 2, 3, 4, 5};
     private final double[] yValues = new double[]{2, 4, 6, 8, 10};
