@@ -77,10 +77,6 @@ public class LinkedListTabulatedFunctionTest {
     }
 
     @Test
-    public void testGetNode() {
-    }
-
-    @Test
     public void testGetX() {
         LinkedListTabulatedFunction listOfArray = getListOfArray();
         LinkedListTabulatedFunction listOfMathFunc1 = getListOfMathFunc1();
@@ -194,7 +190,7 @@ public class LinkedListTabulatedFunctionTest {
     }
 
     @Test
-    public void testCompositeFunction(){
+    public void testCompositeFunction() {
         MathFunction listOfMathFunc1 = getListOfMathFunc1();
         MathFunction listOfMathFunc2 = getListOfMathFunc2();
 
@@ -202,8 +198,4 @@ public class LinkedListTabulatedFunctionTest {
 
     }
 
-
-    @Test
-    public void testInsert() {
-    }
 }

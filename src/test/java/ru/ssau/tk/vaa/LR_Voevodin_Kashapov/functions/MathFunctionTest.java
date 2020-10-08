@@ -23,7 +23,7 @@ public class MathFunctionTest {
     }
 
     @Test
-    public void compositeTest(){
+    public void compositeTest() {
         MathFunction sqr = new SqrFunction();
 
         MathFunction func = new LinkedListTabulatedFunction(sqr, 1, 5, 5);
