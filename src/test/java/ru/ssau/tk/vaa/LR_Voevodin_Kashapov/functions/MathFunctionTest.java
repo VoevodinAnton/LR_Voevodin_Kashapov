@@ -25,13 +25,14 @@ public class MathFunctionTest {
     @Test
     public void compositeTest() {
         MathFunction sqr = new SqrFunction();
+        MathFunction sin = new SinFunction();
 
-        LinkedListTabulatedFunction func = new LinkedListTabulatedFunction(sqr, 1, 100,50000);
-        ArrayTabulatedFunction gunc = new ArrayTabulatedFunction(func, 1, 100, 50000);
+        LinkedListTabulatedFunction fSqr = new LinkedListTabulatedFunction(sqr, 1, 100,50000);
+        ArrayTabulatedFunction gSin = new ArrayTabulatedFunction(sin, 1, 100, 50000);
 
 
-        assertEquals(func.andThen(gunc).apply(2), 16.0, ACCURACY);
-        assertEquals(func.andThen(gunc).apply(3), 81.0, ACCURACY);
-        assertEquals(func.andThen(gunc).apply(4), 256.0, ACCURACY);
+        assertEquals(fSqr.andThen(gSin).apply(2), -0.75680249, ACCURACY);
+        assertEquals(fSqr.andThen(gSin).apply(3), 0.41211848, ACCURACY);
+        assertEquals(fSqr.andThen(gSin).apply(4), -0.287903316, ACCURACY);
     }
 }
