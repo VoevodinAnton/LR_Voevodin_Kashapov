@@ -1,7 +1,7 @@
 package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions;
 
 public class LinkedListTabulatedFunction extends AbstractTabulatedFunction implements Insertable {
-    private final int count;
+    private int count;
     private Node head;
     private Node last;
 
@@ -191,14 +191,36 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
 
     @Override
     public void insert(double x, double y) {
+        if (indexOfX(x) != 1) {
+            setY(indexOfX(x), y);
+        }
         Node node = new Node();
         node.x = x;
         node.y = y;
+        if (head == null) {
+            addNode(x, y);
+            count++;
+        }
         if (floorIndexOfX(x) == 0) {
             node.next = head;
-            node.prev = last;
+            node.prev = head.prev;
             head = node;
+            count++;
+        }
+        if (floorIndexOfX(x) < count) {
+            Node check = new Node();
+            int ind = floorIndexOfX(x);
+            check = getNode(ind);
+            node.prev = check;
+            node.next = check.next;
+            check.next = node;
+            count++;
+        } else {
+            node.next = head;
+            node.prev = head.prev;
+            count++;
         }
     }
-
 }
+
+

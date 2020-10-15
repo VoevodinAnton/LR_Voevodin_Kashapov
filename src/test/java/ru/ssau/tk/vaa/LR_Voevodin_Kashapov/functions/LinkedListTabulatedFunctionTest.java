@@ -198,4 +198,11 @@ public class LinkedListTabulatedFunctionTest {
 
     }
 
+    @Test
+    public void testInsert() {
+        LinkedListTabulatedFunction listOfArray = getListOfArray();
+        listOfArray.insert(0, 1);
+        assertEquals(listOfArray.getX(1),
+                0.0);
+    }
 }
