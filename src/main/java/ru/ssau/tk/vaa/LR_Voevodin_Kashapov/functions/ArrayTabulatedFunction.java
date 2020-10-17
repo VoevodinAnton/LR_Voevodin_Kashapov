@@ -2,7 +2,7 @@ package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions;
 
 import java.util.Arrays;
 
-public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
+public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements Insertable {
     private final double[] xValues;
     private final double[] yValues;
     private final int count;
@@ -95,5 +95,9 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
             return yValues[count - 1];
         }
         return interpolate(x, xValues[count - 2], xValues[count - 1], yValues[count - 2], yValues[count - 1]);
+    }
+
+    public void insert(double x, double y){
+
     }
 }

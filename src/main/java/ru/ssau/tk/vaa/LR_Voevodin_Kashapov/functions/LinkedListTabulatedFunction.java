@@ -20,14 +20,14 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
             head = node;
             node.prev = node;
             node.next = node;
-
         } else {
             last.next = node;
             head.prev = node;
             node.prev = last;
             node.next = head;
         }
-        last = head.prev;
+        last = node;
+        //count = +1;
     }
 
     public LinkedListTabulatedFunction(double[] xValues, double[] yValues) {
@@ -125,7 +125,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
             return 0;
         }
         Node node = head;
-        for (int i = 0; i <= count; i++) {
+        for (int i = 0; i < count; i++) {
             if (node.x < x) {
                 node = node.next;
             } else {
@@ -137,21 +137,21 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
     }
 
     protected double extrapolateLeft(double x) {
-        if (head.x == last.x) {
+        if (head.x == head.prev.x) {
             return head.y;
         }
         return interpolate(x, head.x, head.next.x, head.y, head.next.y);
     }
 
     protected double extrapolateRight(double x) {
-        if (head.x == last.x) {
+        if (head.x == head.prev.x) {
             return head.y;
         }
         return interpolate(x, last.prev.x, last.x, last.prev.y, last.y);
     }
 
     protected double interpolate(double x, int floorIndex) {
-        if (head.x == last.x) {
+        if (head.x == head.prev.x) {
             return head.y;
         }
         Node node = getNode(floorIndex);
@@ -191,34 +191,40 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
 
     @Override
     public void insert(double x, double y) {
-        if (indexOfX(x) != 1) {
+        if (indexOfX(x) != -1) {
             setY(indexOfX(x), y);
         }
-        Node node = new Node();
-        node.x = x;
-        node.y = y;
+
         if (head == null) {
             addNode(x, y);
-            count++;
         }
-        if (floorIndexOfX(x) == 0) {
-            node.next = head;
-            node.prev = head.prev;
-            head = node;
-            count++;
-        }
-        if (floorIndexOfX(x) < count) {
-            Node check = new Node();
-            int ind = floorIndexOfX(x);
-            check = getNode(ind);
-            node.prev = check;
-            node.next = check.next;
-            check.next = node;
-            count++;
-        } else {
-            node.next = head;
-            node.prev = head.prev;
-            count++;
+        else {
+            Node node = new Node();
+            node.x = x;
+            node.y = y;
+
+            if (floorIndexOfX(x) == 0) {
+                node.next = head;
+                node.prev = head.prev;
+                head.prev.next = node;
+                head = node;
+                count++;
+            } else{
+                if (floorIndexOfX(x) == count) {
+                    node.next = head;
+                    node.prev = head.prev;
+
+                } else {
+                    int ind = floorIndexOfX(x);
+                    Node check = getNode(ind);
+                    node.next = check.next;
+                    node.prev = check;
+                    check.next = node;
+                }
+                node.next.prev = node;
+                count++;
+            }
+
         }
     }
 }

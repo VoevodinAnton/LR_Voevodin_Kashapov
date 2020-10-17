@@ -32,7 +32,6 @@ public class LinkedListTabulatedFunctionTest {
     public void testAddNode() {
         LinkedListTabulatedFunction listOfArray = getListOfArray();
         listOfArray.addNode(9, 99);
-
         assertEquals(listOfArray.rightBound(), 9, ACCURACY);
     }
 
@@ -117,7 +116,7 @@ public class LinkedListTabulatedFunctionTest {
         LinkedListTabulatedFunction listOfArray = getListOfArray();
         LinkedListTabulatedFunction listOfMathFunc1 = getListOfMathFunc1();
 
-        assertEquals(listOfArray.indexOfX(3), 2);
+        assertEquals(listOfArray.indexOfX(4), 3);
         assertEquals(listOfMathFunc1.indexOfX(3), -1);
         assertEquals(listOfMathFunc1.indexOfX(100), -1);
     }
@@ -136,7 +135,7 @@ public class LinkedListTabulatedFunctionTest {
         LinkedListTabulatedFunction listOfArray = getListOfArray();
         LinkedListTabulatedFunction listOfMathFunc1 = getListOfMathFunc1();
 
-        assertEquals(listOfArray.floorIndexOfX(4.5), 3);
+        assertEquals(listOfArray.floorIndexOfX(3.0), 1);
         assertEquals(listOfArray.floorIndexOfX(3.2), 2);
         assertEquals(listOfMathFunc1.floorIndexOfX(1.1), 0);
         assertEquals(listOfMathFunc1.floorIndexOfX(100), 10);
@@ -175,6 +174,11 @@ public class LinkedListTabulatedFunctionTest {
 
     @Test
     public void testFloorNodeOfX() {
+        LinkedListTabulatedFunction listOfArray = getListOfArray();
+
+        assertEquals(listOfArray.floorNodeOfX(2.5).x, 2.0);
+        assertEquals(listOfArray.floorNodeOfX(0).x, 1.0);
+        assertEquals(listOfArray.floorNodeOfX(10).x, 5.0);
     }
 
     @Test
@@ -201,8 +205,19 @@ public class LinkedListTabulatedFunctionTest {
     @Test
     public void testInsert() {
         LinkedListTabulatedFunction listOfArray = getListOfArray();
-        listOfArray.insert(0, 1);
-        assertEquals(listOfArray.getX(1),
-                0.0);
+       listOfArray.insert(1.5, 1);
+        assertEquals(listOfArray.indexOfX(1.5), 0);
+
+        //assertEquals(listOfArray.getX(0), 1.0, ACCURACY);
+
+
+        double[] valuesXFirst = new double[]{};
+        double[] valuesYFirst = new double[]{};
+        LinkedListTabulatedFunction testListArray = new LinkedListTabulatedFunction(valuesXFirst, valuesYFirst);
+
+        testListArray.insert(2, 10);
+
+        assertEquals(testListArray.getX(0), 2, ACCURACY);
+
     }
 }
