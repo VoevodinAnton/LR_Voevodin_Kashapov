@@ -205,19 +205,25 @@ public class LinkedListTabulatedFunctionTest {
     @Test
     public void testInsert() {
         LinkedListTabulatedFunction listOfArray = getListOfArray();
-       listOfArray.insert(1.5, 1);
-        assertEquals(listOfArray.indexOfX(1.5), 0);
 
-        //assertEquals(listOfArray.getX(0), 1.0, ACCURACY);
+        //out of list on the left
+        listOfArray.insert(0, 1);
+        assertEquals(listOfArray.indexOfX(0), 0);
+        assertEquals(listOfArray.getX(0), 0, ACCURACY);
 
+        LinkedListTabulatedFunction listOfArray1 = getListOfArray();
 
-        double[] valuesXFirst = new double[]{};
-        double[] valuesYFirst = new double[]{};
-        LinkedListTabulatedFunction testListArray = new LinkedListTabulatedFunction(valuesXFirst, valuesYFirst);
+        //inside the list
+        listOfArray1.insert(1.5, 1);
+        assertEquals(listOfArray1.indexOfX(1.5), 1);
+        assertEquals(listOfArray1.getX(1), 1.5, ACCURACY);
 
-        testListArray.insert(2, 10);
+        LinkedListTabulatedFunction listOfArray2 = getListOfArray();
 
-        assertEquals(testListArray.getX(0), 2, ACCURACY);
+        //out of list on the right
+        listOfArray2.insert(9, 5);
+        assertEquals(listOfArray2.indexOfX(9), 5);
+        assertEquals(listOfArray2.getX(5),9, ACCURACY);
 
     }
 }

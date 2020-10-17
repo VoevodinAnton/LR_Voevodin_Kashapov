@@ -62,7 +62,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
         Node iNode;
         if (index < count / 2) {
             iNode = head;
-            for (int i = 0; i <= count / 2; i++) {
+            for (int i = 0; i < count / 2; i++) {
                 if (i == index) {
                     return iNode;
                 } else {
@@ -197,34 +197,37 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
 
         if (head == null) {
             addNode(x, y);
-        }
-        else {
+            count++;
+        } else {
             Node node = new Node();
             node.x = x;
             node.y = y;
 
-            if (floorIndexOfX(x) == 0) {
+            if (floorIndexOfX(x) == 0 && head.x > x) {
                 node.next = head;
                 node.prev = head.prev;
-                head.prev.next = node;
+                last.next = node;
                 head = node;
-                count++;
-            } else{
-                if (floorIndexOfX(x) == count) {
-                    node.next = head;
-                    node.prev = head.prev;
+            }else if (floorIndexOfX(x) == 0 && head.x < x){
+                node.next = head.next;
+                node.prev = head;
+                head.next = node;
 
-                } else {
-                    int ind = floorIndexOfX(x);
-                    Node check = getNode(ind);
-                    node.next = check.next;
-                    node.prev = check;
-                    check.next = node;
-                }
-                node.next.prev = node;
-                count++;
+            } else if (floorIndexOfX(x) == count) {
+                node.next = head;
+                node.prev = last;
+                head.prev = node;
+                last.next = node;
+                last = node;
+
+            } else {
+                int ind = floorIndexOfX(x);
+                Node check = getNode(ind);
+                node.next = check.next;
+                node.prev = check;
+                check.next = node;
             }
-
+            count++;
         }
     }
 }
