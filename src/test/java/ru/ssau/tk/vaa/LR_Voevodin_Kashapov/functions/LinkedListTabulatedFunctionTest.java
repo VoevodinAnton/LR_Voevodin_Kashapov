@@ -176,8 +176,8 @@ public class LinkedListTabulatedFunctionTest {
     public void testFloorNodeOfX() {
         LinkedListTabulatedFunction listOfArray = getListOfArray();
 
-        assertEquals(listOfArray.floorNodeOfX(2.5).x, 2.0);
-        assertEquals(listOfArray.floorNodeOfX(0).x, 1.0);
+        assertEquals(listOfArray.floorNodeOfX(listOfArray.getX(0)).x, 1.0);
+        assertEquals(listOfArray.floorNodeOfX(1.1).x, 1.0);
         assertEquals(listOfArray.floorNodeOfX(10).x, 5.0);
     }
 
@@ -224,6 +224,18 @@ public class LinkedListTabulatedFunctionTest {
         listOfArray2.insert(9, 5);
         assertEquals(listOfArray2.indexOfX(9), 5);
         assertEquals(listOfArray2.getX(5),9, ACCURACY);
+    }
+
+
+    @Test
+    public void testRemove() {
+        LinkedListTabulatedFunction listOfArray = getListOfArray();
+
+        listOfArray.remove(0);
+        listOfArray.remove(2);
+
+        assertEquals(listOfArray.getX(0),2, ACCURACY);
+        assertEquals(listOfArray.getX(2),5, ACCURACY);
 
     }
 }

@@ -1,6 +1,6 @@
 package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions;
 
-public class LinkedListTabulatedFunction extends AbstractTabulatedFunction implements Insertable {
+public class LinkedListTabulatedFunction extends AbstractTabulatedFunction implements Insertable, Removable {
     private int count;
     private Node head;
     private Node last;
@@ -161,7 +161,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
 
     protected Node floorNodeOfX(double x) {
         Node node = head;
-        if (node.x > x) {
+        if (node.x >= x) {
             return head;
         }
         for (int i = 0; i < count; i++) {
@@ -208,7 +208,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
                 node.prev = head.prev;
                 last.next = node;
                 head = node;
-            }else if (floorIndexOfX(x) == 0 && head.x < x){
+            } else if (floorIndexOfX(x) == 0 && head.x < x) {
                 node.next = head.next;
                 node.prev = head;
                 head.next = node;
@@ -229,6 +229,25 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
             }
             count++;
         }
+    }
+
+    @Override
+    public void remove(int index) {
+        Node node = floorNodeOfX(getX(index));
+        Node delete;
+        if (index == 0){
+            delete = node;
+            last.next = delete.next;
+            head = delete.next;
+
+
+        } else{
+            delete = node.next;
+            node.next = delete.next;
+            delete = null;
+        }
+        count--;
+
     }
 }
 
