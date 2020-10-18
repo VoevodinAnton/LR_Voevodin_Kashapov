@@ -1,6 +1,7 @@
 package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions;
 
 import java.util.Arrays;
+import java.util.Iterator;
 
 public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements Insertable {
     private final double[] xValues;
@@ -99,5 +100,9 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
 
     public void insert(double x, double y){
 
+    }
+
+    public Iterator<Point> iterator() {
+        throw new UnsupportedOperationException();
     }
 }

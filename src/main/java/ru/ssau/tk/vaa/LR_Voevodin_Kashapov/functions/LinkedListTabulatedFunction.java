@@ -1,5 +1,7 @@
 package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions;
 
+import java.util.Iterator;
+
 public class LinkedListTabulatedFunction extends AbstractTabulatedFunction implements Insertable, Removable {
     private int count;
     private Node head;
@@ -258,6 +260,11 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
             throw new IndexOutOfBoundsException("The index is out of bounds");
         }
     }
+
+    public Iterator<Point> iterator() {
+        throw new UnsupportedOperationException();
+    }
 }
+
 
 
