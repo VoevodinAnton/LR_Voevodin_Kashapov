@@ -74,6 +74,16 @@ public class LinkedListTabulatedFunctionTest {
         assertEquals(listOfMathFunc2.rightBound(), 3.0, ACCURACY);
         assertEquals(listOfMathFunc3.rightBound(), 20.0, ACCURACY);
     }
+    @Test
+    public void testGetNode() {
+        LinkedListTabulatedFunction listOfArray = getListOfArray();
+
+        assertEquals(listOfArray.getNode(2).x, 3, ACCURACY);
+        assertThrows(IndexOutOfBoundsException.class, () -> getListOfArray().getNode(100));
+        assertThrows(IndexOutOfBoundsException.class, () -> getListOfArray().getNode(-1));
+        assertThrows(IndexOutOfBoundsException.class, () -> getListOfArray().getNode(5));
+
+    }
 
     @Test
     public void testGetX() {
@@ -88,10 +98,14 @@ public class LinkedListTabulatedFunctionTest {
         assertEquals(listOfMathFunc3.getX(0), 10.0);
 
         assertEquals(listOfArray.getX(0), 1.0);
+        assertThrows(IndexOutOfBoundsException.class, () -> getListOfArray().getX(100));
+        assertThrows(IndexOutOfBoundsException.class, () -> getListOfArray().getX(5));
+        assertThrows(IndexOutOfBoundsException.class, () -> getListOfArray().getX(-1));
     }
 
     @Test
     public void testGetY() {
+        LinkedListTabulatedFunction listOfArray = getListOfArray();
         LinkedListTabulatedFunction listOfMathFunc1 = getListOfMathFunc1();
         LinkedListTabulatedFunction listOfMathFunc2 = getListOfMathFunc2();
         LinkedListTabulatedFunction listOfMathFunc3 = getListOfMathFunc3();
@@ -99,6 +113,10 @@ public class LinkedListTabulatedFunctionTest {
         assertEquals(listOfMathFunc1.getY(0), 0.841470984807, ACCURACY);
         assertEquals(listOfMathFunc2.getY(0), -0.1411200081, ACCURACY);
         assertEquals(listOfMathFunc3.getY(0), -0.5440211109, ACCURACY);
+
+        assertThrows(IndexOutOfBoundsException.class, () -> getListOfArray().getY(100));
+        assertThrows(IndexOutOfBoundsException.class, () -> getListOfArray().getY(-1));
+        assertThrows(IndexOutOfBoundsException.class, () -> getListOfArray().getY(5));
 
     }
 
@@ -109,6 +127,9 @@ public class LinkedListTabulatedFunctionTest {
         listOfArray.setY(2, 39);
         assertEquals(listOfArray.getY(2), 39, ACCURACY);
 
+        assertThrows(IndexOutOfBoundsException.class, () -> getListOfArray().setY(100, 1));
+        assertThrows(IndexOutOfBoundsException.class, () -> getListOfArray().setY(-1, 1));
+        assertThrows(IndexOutOfBoundsException.class, () -> getListOfArray().setY(5, 1));
     }
 
     @Test
@@ -135,10 +156,13 @@ public class LinkedListTabulatedFunctionTest {
         LinkedListTabulatedFunction listOfArray = getListOfArray();
         LinkedListTabulatedFunction listOfMathFunc1 = getListOfMathFunc1();
 
-        assertEquals(listOfArray.floorIndexOfX(3.0), 1);
+        assertEquals(listOfArray.floorIndexOfX(1.1), 0);
         assertEquals(listOfArray.floorIndexOfX(3.2), 2);
         assertEquals(listOfMathFunc1.floorIndexOfX(1.1), 0);
         assertEquals(listOfMathFunc1.floorIndexOfX(100), 10);
+
+        assertThrows(IllegalArgumentException.class, () -> getListOfArray().floorIndexOfX(-1));
+        assertThrows(IllegalArgumentException.class, () -> getListOfArray().floorIndexOfX(0));
 
     }
 
@@ -167,7 +191,6 @@ public class LinkedListTabulatedFunctionTest {
     public void testInterpolate() {
         LinkedListTabulatedFunction listOfArray = getListOfArray();
 
-        assertEquals(listOfArray.interpolate(5, 4), 10.0);
         assertEquals(listOfArray.interpolate(4, 3), 8.0);
         assertEquals(listOfArray.interpolate(3, 2), 6.0);
     }
@@ -177,8 +200,11 @@ public class LinkedListTabulatedFunctionTest {
         LinkedListTabulatedFunction listOfArray = getListOfArray();
 
         assertEquals(listOfArray.floorNodeOfX(listOfArray.getX(0)).x, 1.0);
-        assertEquals(listOfArray.floorNodeOfX(1.1).x, 1.0);
+        assertEquals(listOfArray.floorNodeOfX(1).x, 1.0);
         assertEquals(listOfArray.floorNodeOfX(10).x, 5.0);
+
+        assertThrows(IllegalArgumentException.class, () -> getListOfArray().floorNodeOfX(0));
+        assertThrows(IllegalArgumentException.class, () -> getListOfArray().floorNodeOfX(-1));
     }
 
     @Test
