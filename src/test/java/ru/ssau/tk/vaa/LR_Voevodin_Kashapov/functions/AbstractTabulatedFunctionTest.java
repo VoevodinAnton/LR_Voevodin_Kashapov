@@ -28,4 +28,12 @@ public class AbstractTabulatedFunctionTest {
     }
 
 
+    @Test
+    public void testCheckLengthIsTheSame() {
+
+    }
+
+    @Test
+    public void testCheckSorted() {
+    }
 }

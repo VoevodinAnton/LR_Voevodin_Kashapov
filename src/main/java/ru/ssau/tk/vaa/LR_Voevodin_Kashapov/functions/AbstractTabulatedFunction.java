@@ -1,4 +1,5 @@
 package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions;
+import exeptions.*;
 
 public abstract class AbstractTabulatedFunction implements TabulatedFunction {
     abstract protected int floorIndexOfX(double x);
@@ -24,6 +25,20 @@ public abstract class AbstractTabulatedFunction implements TabulatedFunction {
             return interpolate(x, floorIndexOfX(x));
         }
         return getY(indexOfX(x));
+    }
+
+    void checkLengthIsTheSame(double[] xValues, double[] yValues) {
+        if (xValues.length != yValues.length) {
+            throw new DifferentLengthOfArraysException("Lengths of xValues and yValues are different");
+        }
+    }
+
+    void checkSorted(double[] xValues) {
+        for (int i = 0; i < xValues.length - 1; i++) {
+            if (xValues[i + 1] < xValues[i]) {
+                throw new ArrayIsNotSortedException("xValues is not sorted");
+            }
+        }
     }
 }
 

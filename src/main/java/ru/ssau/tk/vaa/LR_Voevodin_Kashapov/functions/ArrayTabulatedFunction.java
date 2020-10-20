@@ -4,12 +4,12 @@ import java.util.Arrays;
 import java.util.Iterator;
 
 public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements Insertable {
-    private final double[] xValues;
-    private final double[] yValues;
-    private final int count;
+    private double[] xValues;
+    private double[] yValues;
+    private int count;
 
     ArrayTabulatedFunction(double[] xValues, double[] yValues) {
-        if (xValues.length < 2){
+        if (xValues.length < 2) {
             throw new IllegalArgumentException("length less than 2 points");
         }
         this.count = xValues.length;
@@ -93,7 +93,7 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
     }
 
     public double interpolate(double x, int floorIndex) {
-        if (x < xValues[floorIndex] || x > xValues[floorIndex + 1]){
+        if (x < xValues[floorIndex] || x > xValues[floorIndex + 1]) {
             throw new IllegalArgumentException("x is out of interval boundary");
         }
         return interpolate(x, xValues[floorIndex], xValues[floorIndex + 1], yValues[floorIndex], yValues[floorIndex + 1]);
@@ -113,12 +113,51 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
         return interpolate(x, xValues[count - 2], xValues[count - 1], yValues[count - 2], yValues[count - 1]);
     }
 
-    public void insert(double x, double y){
+    public void insert(double x, double y) {
+        int ch = 0;
+        for (int u = 0; u < count; u++) {
+            if (xValues[u] == x) {
+                yValues[u] = y;
+                ch = 1;
+                break;
+            }
+        }
+        if (ch == 0) {
+            double[] yValues1 = new double[count + 1];
+            double[] xValues1 = new double[count + 1];
+            for (int u = 0; u < count; u++) {
+                if (xValues[u] > x) {
+                    System.arraycopy(yValues, 0, yValues1, 0, u);
+                    yValues1[u] = y;
+                    System.arraycopy(yValues, u, yValues1, u + 1, count - u);
 
+                    System.arraycopy(xValues, 0, xValues1, 0, u);
+                    xValues1[u] = x;
+                    System.arraycopy(xValues, u, xValues1, u + 1, count - u);
+                    break;
+                }
+            }
+            count++;
+            this.yValues = yValues1;
+            this.xValues = xValues1;
+        }
     }
 
-    private void checkIndex(int index){
-        if (index < 0 || index > count - 1){
+    public void remove(int index) {
+        double[] xValues1 = new double[count - 1];
+        double[] yValues1 = new double[count - 1];
+        System.arraycopy(yValues, 0, yValues1, 0, index);
+        System.arraycopy(yValues, index + 1, yValues1, index, count - index - 1);
+
+        System.arraycopy(xValues, 0, xValues1, 0, index);
+        System.arraycopy(xValues, index + 1, xValues1, index, count - index - 1);
+        count--;
+        this.xValues = xValues1;
+        this.yValues = yValues1;
+    }
+
+    private void checkIndex(int index) {
+        if (index < 0 || index > count - 1) {
             throw new IndexOutOfBoundsException("The index is out of bounds");
         }
     }
