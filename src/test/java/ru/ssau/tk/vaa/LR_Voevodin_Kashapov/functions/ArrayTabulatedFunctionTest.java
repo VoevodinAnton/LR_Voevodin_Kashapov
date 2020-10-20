@@ -74,6 +74,10 @@ public class ArrayTabulatedFunctionTest {
                 16.0);
         assertEquals(t21.getX(0),
                 1.0);
+
+        assertThrows(IndexOutOfBoundsException.class, ()-> t11.getX(34));
+        assertThrows(IndexOutOfBoundsException.class, ()-> t12.getX(58));
+        assertThrows(IndexOutOfBoundsException.class, ()-> t13.getX(-1));
     }
 
     @Test
@@ -88,6 +92,10 @@ public class ArrayTabulatedFunctionTest {
                 1.0);
         assertEquals(t21.getY(0),
                 1.0);
+
+        assertThrows(IndexOutOfBoundsException.class, ()-> t21.getY(-1));
+        assertThrows(IndexOutOfBoundsException.class, ()-> t21.getY(582));
+        assertThrows(IndexOutOfBoundsException.class, ()-> t13.getY(-1));
     }
 
     @Test
@@ -107,6 +115,10 @@ public class ArrayTabulatedFunctionTest {
         t11.setY(1, 0);
         assertEquals(t11.getY(1),
                 0.0);
+
+        assertThrows(IndexOutOfBoundsException.class, ()-> t11.getX(34));
+        assertThrows(IndexOutOfBoundsException.class, ()-> t21.getX(584));
+        assertThrows(IndexOutOfBoundsException.class, ()-> t13.getX(-1));
     }
 
     @Test
@@ -181,8 +193,8 @@ public class ArrayTabulatedFunctionTest {
         ArrayTabulatedFunction t13 = arr4();
         assertEquals(t11.floorIndexOfX(7),
                 1);
-        assertEquals(t12.floorIndexOfX(4),
-                0);
+        assertThrows(IllegalArgumentException.class, () -> t12.floorIndexOfX(4));
+        assertThrows(IllegalArgumentException.class, () -> t12.floorIndexOfX(9));
         assertEquals(t13.floorIndexOfX(5),
                 3);
     }
@@ -193,14 +205,14 @@ public class ArrayTabulatedFunctionTest {
         ArrayTabulatedFunction t11 = arr2();
         ArrayTabulatedFunction t12 = arr3();
         ArrayTabulatedFunction t13 = arr4();
-        assertEquals(t11.interpolate(10, 3),
-                106.0);
-        assertEquals(t12.interpolate(15, 1),
-                10.0);
-        assertEquals(t13.interpolate(2.5, 2),
-                1.5);
-        assertEquals(t21.interpolate(1.32, 10),
-                16.09399414199557);
+
+        assertEquals(t11.interpolate(3, 0), 11, ACCURACY);
+        assertEquals(t12.interpolate(15, 0), 10, ACCURACY);
+
+        assertThrows(IllegalArgumentException.class, ()-> t12.interpolate(15, 1));
+        assertThrows(IllegalArgumentException.class, ()-> t21.interpolate(9, 34));
+
+
     }
 
     @Test
