@@ -296,5 +296,3 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
     }
 }
 
-
-

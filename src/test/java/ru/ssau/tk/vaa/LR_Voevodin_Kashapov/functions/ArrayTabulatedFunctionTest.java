@@ -253,4 +253,31 @@ public class ArrayTabulatedFunctionTest {
                 g.getY(2), ACCURACY);
     }
 
+    @Test
+    public void testInsert() {
+        ArrayTabulatedFunction t11 = arr2();
+        t11.insert(4, 2);
+        assertEquals(t11.getX(1), 4.0);
+        assertEquals(t11.getY(1), 2.0);
+
+        t11.insert(5, 6);
+        assertEquals(t11.getY(2), 6.0);
+        assertEquals(t11.getCount(), 5);
+        assertEquals(t11.getY(4), 256.0);
+
+
+    }
+
+    @Test
+    public void testRemove() {
+        ArrayTabulatedFunction a = arr2();
+        a.remove(0);
+        assertEquals(a.getX(0), 4.0);
+        assertEquals(a.getCount(), 3);
+
+        assertEquals(a.getY(1), 81.0);
+        a.remove(1);
+        assertEquals(a.getX(1), 16.0);
+        assertEquals(a.getY(1), 256.0);
+    }
 }
