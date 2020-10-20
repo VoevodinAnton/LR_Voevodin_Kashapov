@@ -9,12 +9,21 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
     private final int count;
 
     ArrayTabulatedFunction(double[] xValues, double[] yValues) {
+        if (xValues.length < 2){
+            throw new IllegalArgumentException("length less than 2 points");
+        }
         this.count = xValues.length;
         this.xValues = Arrays.copyOf(xValues, xValues.length);
         this.yValues = Arrays.copyOf(yValues, yValues.length);
     }
 
     ArrayTabulatedFunction(MathFunction source, double xFrom, double xTo, int count) {
+        if (count < 2) {
+            throw new IllegalArgumentException("Length less than 2 points");
+        }
+        if (xFrom >= xTo) {
+            throw new IllegalArgumentException("Incorrect bounds");
+        }
         double step = (xTo - xFrom) / (count - 1);
         this.count = count;
 
@@ -31,14 +40,17 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
     }
 
     public double getX(int index) {
+        checkIndex(index);
         return xValues[index];
     }
 
     public double getY(int index) {
+        checkIndex(index);
         return yValues[index];
     }
 
     public void setY(int index, double value) {
+        checkIndex(index);
         this.yValues[index] = value;
     }
 
@@ -70,7 +82,7 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
 
     public int floorIndexOfX(double xValue) {
         if (xValue < xValues[0]) {
-            return 0;
+            throw new IllegalArgumentException("X is less than the left border");
         }
         for (int index = 1; index < count; index++) {
             if (xValue < xValues[index]) {
@@ -81,7 +93,10 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
     }
 
     public double interpolate(double x, int floorIndex) {
-        return interpolate(x, xValues[floorIndex - 1], xValues[floorIndex], yValues[floorIndex - 1], yValues[floorIndex]);
+        if (x < xValues[floorIndex] || x > xValues[floorIndex + 1]){
+            throw new IllegalArgumentException("x is out of interval boundary");
+        }
+        return interpolate(x, xValues[floorIndex], xValues[floorIndex + 1], yValues[floorIndex], yValues[floorIndex + 1]);
     }
 
     public double extrapolateLeft(double x) {
@@ -100,6 +115,12 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
 
     public void insert(double x, double y){
 
+    }
+
+    private void checkIndex(int index){
+        if (index < 0 || index > count - 1){
+            throw new IndexOutOfBoundsException("The index is out of bounds");
+        }
     }
 
     public Iterator<Point> iterator() {
