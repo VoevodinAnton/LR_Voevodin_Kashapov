@@ -1,5 +1,7 @@
 package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions;
 
+import java.util.Iterator;
+
 public class MockTabulatedFunction extends AbstractTabulatedFunction {
     final double x0 = 1.0;
     final double x1 = 5.0;
@@ -85,4 +87,8 @@ public class MockTabulatedFunction extends AbstractTabulatedFunction {
         return x1;
     }
 
+    @Override
+    public Iterator<Point> iterator() {
+        return null;
+    }
 }

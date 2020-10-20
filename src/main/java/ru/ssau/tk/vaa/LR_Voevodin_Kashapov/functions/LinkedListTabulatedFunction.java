@@ -1,6 +1,7 @@
 package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class LinkedListTabulatedFunction extends AbstractTabulatedFunction implements Insertable, Removable {
     private int count;
@@ -262,7 +263,36 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
     }
 
     public Iterator<Point> iterator() {
-        throw new UnsupportedOperationException();
+        Iterator<Point> it = new Iterator<>() {
+            Node node = head;
+
+            @Override
+            public boolean hasNext() {
+                return node != head.prev && node != null;
+            }
+
+            @Override
+            public Point next() {
+                if (!hasNext())
+                {
+                    throw new NoSuchElementException();
+                } else {
+                    Point point = new Point(node.x, node.y);
+                    if(node == head.prev){
+                        node = null;
+                    } else{
+                        node = node.next;
+                    }
+                    return point;
+                }
+            }
+
+            @Override
+            public void remove() {
+                throw new UnsupportedOperationException();
+            }
+        };
+        return it;
     }
 }
 

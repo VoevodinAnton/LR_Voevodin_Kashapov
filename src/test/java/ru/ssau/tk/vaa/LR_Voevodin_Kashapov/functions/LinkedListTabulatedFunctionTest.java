@@ -2,6 +2,8 @@ package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions;
 
 import org.testng.annotations.Test;
 
+import java.util.Iterator;
+
 import static org.testng.Assert.*;
 
 public class LinkedListTabulatedFunctionTest {
@@ -264,4 +266,27 @@ public class LinkedListTabulatedFunctionTest {
         assertEquals(listOfArray.getX(2),5, ACCURACY);
 
     }
+
+    @Test
+    public void testIteratorFirst() {
+        LinkedListTabulatedFunction listOfArray = getListOfArray();
+        Iterator<Point> iterator = listOfArray.iterator();
+        int i = 0;
+        while (iterator.hasNext()){
+            Point point = iterator.next();
+            assertEquals(listOfArray.getX(i++), point.x, ACCURACY );
+        }
+
+    }
+
+    @Test
+    public void testIteratorSecond(){
+        LinkedListTabulatedFunction listOfArray = getListOfArray();
+        Iterator<Point> iterator = listOfArray.iterator();
+        int i = 0;
+        for (Point point: listOfArray){
+            assertEquals(listOfArray.getX(i++), point.x, ACCURACY);
+        }
+    }
+
 }
