@@ -238,20 +238,39 @@ public class LinkedListTabulatedFunctionTest {
         //out of list on the left
         listOfArray.insert(0, 1);
         assertEquals(listOfArray.indexOfX(0), 0);
+
         assertEquals(listOfArray.getX(0), 0, ACCURACY);
+        assertEquals(listOfArray.getX(1), 1, ACCURACY);
+        assertEquals(listOfArray.getX(2), 2, ACCURACY);
+        assertEquals(listOfArray.getX(3), 3, ACCURACY);
+        assertEquals(listOfArray.getX(4), 4, ACCURACY);
+        assertEquals(listOfArray.getX(5), 5, ACCURACY);
+
 
         LinkedListTabulatedFunction listOfArray1 = getListOfArray();
 
         //inside the list
         listOfArray1.insert(1.5, 1);
         assertEquals(listOfArray1.indexOfX(1.5), 1);
+
+        assertEquals(listOfArray1.getX(0), 1, ACCURACY);
         assertEquals(listOfArray1.getX(1), 1.5, ACCURACY);
+        assertEquals(listOfArray1.getX(2), 2, ACCURACY);
+        assertEquals(listOfArray1.getX(3), 3, ACCURACY);
+        assertEquals(listOfArray1.getX(4), 4, ACCURACY);
+        assertEquals(listOfArray1.getX(5), 5, ACCURACY);
 
         LinkedListTabulatedFunction listOfArray2 = getListOfArray();
 
         //out of list on the right
         listOfArray2.insert(9, 5);
         assertEquals(listOfArray2.indexOfX(9), 5);
+
+        assertEquals(listOfArray2.getX(0), 1, ACCURACY);
+        assertEquals(listOfArray2.getX(1), 2, ACCURACY);
+        assertEquals(listOfArray2.getX(2), 3, ACCURACY);
+        assertEquals(listOfArray2.getX(3), 4, ACCURACY);
+        assertEquals(listOfArray2.getX(4), 5, ACCURACY);
         assertEquals(listOfArray2.getX(5), 9, ACCURACY);
     }
 
@@ -259,11 +278,14 @@ public class LinkedListTabulatedFunctionTest {
     @Test
     public void testRemove() {
         LinkedListTabulatedFunction listOfArray = getListOfArray();
+        //listOfArray = [1, 2, 3, 4, 5]
 
         listOfArray.remove(0);
         listOfArray.remove(2);
 
+
         assertEquals(listOfArray.getX(0), 2, ACCURACY);
+        assertEquals(listOfArray.getX(1), 4, ACCURACY);
         assertEquals(listOfArray.getX(2), 5, ACCURACY);
     }
 
