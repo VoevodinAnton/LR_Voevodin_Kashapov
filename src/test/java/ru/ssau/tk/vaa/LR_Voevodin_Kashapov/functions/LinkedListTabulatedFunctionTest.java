@@ -288,6 +288,17 @@ public class LinkedListTabulatedFunctionTest {
         assertEquals(listOfArray.getX(3), 5, ACCURACY);
 
         //inside the list
+        LinkedListTabulatedFunction listOfArray2 = getListOfArray();
+
+        listOfArray2.remove(2);
+
+        assertEquals(listOfArray2.getX(0), 1, ACCURACY);
+        assertEquals(listOfArray2.getX(1), 2, ACCURACY);
+        assertEquals(listOfArray2.getX(2), 4, ACCURACY);
+        assertEquals(listOfArray2.getX(3), 5, ACCURACY);
+
+
+        //out of list on the right
         LinkedListTabulatedFunction listOfArray1 = getListOfArray();
 
         listOfArray1.remove(4);
@@ -296,17 +307,6 @@ public class LinkedListTabulatedFunctionTest {
         assertEquals(listOfArray1.getX(1), 2, ACCURACY);
         assertEquals(listOfArray1.getX(2), 3, ACCURACY);
         assertEquals(listOfArray1.getX(3), 4, ACCURACY);
-
-
-        //out of list on the right
-        LinkedListTabulatedFunction listOfArray2 = getListOfArray();
-
-        listOfArray2.remove(3);
-
-        assertEquals(listOfArray2.getX(0), 1, ACCURACY);
-        assertEquals(listOfArray2.getX(1), 2, ACCURACY);
-        assertEquals(listOfArray2.getX(2), 3, ACCURACY);
-        assertEquals(listOfArray2.getX(3), 5, ACCURACY);
     }
 
     @Test
