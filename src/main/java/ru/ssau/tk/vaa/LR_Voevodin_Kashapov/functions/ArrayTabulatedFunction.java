@@ -138,7 +138,7 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
                 }
             }
             if (x > xValues[count - 1]) {
-                System.arraycopy(yValues, 0, yValues1, 0, count );
+                System.arraycopy(yValues, 0, yValues1, 0, count);
                 yValues1[count] = y;
                 System.arraycopy(xValues, 0, xValues1, 0, count);
                 xValues1[count] = x;

@@ -75,9 +75,9 @@ public class ArrayTabulatedFunctionTest {
         assertEquals(t21.getX(0),
                 1.0);
 
-        assertThrows(IndexOutOfBoundsException.class, ()-> t11.getX(34));
-        assertThrows(IndexOutOfBoundsException.class, ()-> t12.getX(58));
-        assertThrows(IndexOutOfBoundsException.class, ()-> t13.getX(-1));
+        assertThrows(IndexOutOfBoundsException.class, () -> t11.getX(34));
+        assertThrows(IndexOutOfBoundsException.class, () -> t12.getX(58));
+        assertThrows(IndexOutOfBoundsException.class, () -> t13.getX(-1));
     }
 
     @Test
@@ -93,9 +93,9 @@ public class ArrayTabulatedFunctionTest {
         assertEquals(t21.getY(0),
                 1.0);
 
-        assertThrows(IndexOutOfBoundsException.class, ()-> t21.getY(-1));
-        assertThrows(IndexOutOfBoundsException.class, ()-> t21.getY(582));
-        assertThrows(IndexOutOfBoundsException.class, ()-> t13.getY(-1));
+        assertThrows(IndexOutOfBoundsException.class, () -> t21.getY(-1));
+        assertThrows(IndexOutOfBoundsException.class, () -> t21.getY(582));
+        assertThrows(IndexOutOfBoundsException.class, () -> t13.getY(-1));
     }
 
     @Test
@@ -116,9 +116,9 @@ public class ArrayTabulatedFunctionTest {
         assertEquals(t11.getY(1),
                 0.0);
 
-        assertThrows(IndexOutOfBoundsException.class, ()-> t11.getX(34));
-        assertThrows(IndexOutOfBoundsException.class, ()-> t21.getX(584));
-        assertThrows(IndexOutOfBoundsException.class, ()-> t13.getX(-1));
+        assertThrows(IndexOutOfBoundsException.class, () -> t11.getX(34));
+        assertThrows(IndexOutOfBoundsException.class, () -> t21.getX(584));
+        assertThrows(IndexOutOfBoundsException.class, () -> t13.getX(-1));
     }
 
     @Test
@@ -209,8 +209,8 @@ public class ArrayTabulatedFunctionTest {
         assertEquals(t11.interpolate(3, 0), 11, ACCURACY);
         assertEquals(t12.interpolate(15, 0), 10, ACCURACY);
 
-        assertThrows(IllegalArgumentException.class, ()-> t12.interpolate(15, 1));
-        assertThrows(IllegalArgumentException.class, ()-> t21.interpolate(9, 34));
+        assertThrows(IllegalArgumentException.class, () -> t12.interpolate(15, 1));
+        assertThrows(IllegalArgumentException.class, () -> t21.interpolate(9, 34));
 
 
     }
