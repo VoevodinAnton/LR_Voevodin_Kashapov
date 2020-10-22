@@ -73,9 +73,9 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
     public Node getNode(int index) {
         checkIndex(index);
         Node iNode;
-        if (index < count / 2) {
+        if (index <= count / 2) {
             iNode = head;
-            for (int i = 0; i < count / 2; i++) {
+            for (int i = 0; i <= count / 2; i++) {
                 if (i == index) {
                     return iNode;
                 } else {
@@ -175,10 +175,14 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
             throw new IllegalArgumentException("X is less than the left border");
         }
         for (int i = 0; i < count; i++) {
-            if (node.x <= x) {
-                node = node.next;
-            } else {
-                return node.prev;
+            if (x == last.x){
+                return last;
+            }else{
+                if (node.x <= x) {
+                    node = node.next;
+                } else {
+                    return node.prev;
+                }
             }
         }
         return last;
@@ -249,9 +253,14 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
         if (index == 0){
             last.next = delete.next;
             head = delete.next;
-        } else{
+        } else if(index == count - 1){
+            prevDelete.next = head;
+            head.prev = prevDelete;
+            last = head.prev;
+        }else{
             prevDelete.next = delete.next;
         }
+
         count--;
 
     }
