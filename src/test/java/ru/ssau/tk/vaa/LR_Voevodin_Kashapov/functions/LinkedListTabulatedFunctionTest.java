@@ -76,6 +76,7 @@ public class LinkedListTabulatedFunctionTest {
         assertEquals(listOfMathFunc2.rightBound(), 3.0, ACCURACY);
         assertEquals(listOfMathFunc3.rightBound(), 20.0, ACCURACY);
     }
+
     @Test
     public void testGetNode() {
         LinkedListTabulatedFunction listOfArray = getListOfArray();
@@ -251,7 +252,7 @@ public class LinkedListTabulatedFunctionTest {
         //out of list on the right
         listOfArray2.insert(9, 5);
         assertEquals(listOfArray2.indexOfX(9), 5);
-        assertEquals(listOfArray2.getX(5),9, ACCURACY);
+        assertEquals(listOfArray2.getX(5), 9, ACCURACY);
     }
 
 
@@ -262,9 +263,8 @@ public class LinkedListTabulatedFunctionTest {
         listOfArray.remove(0);
         listOfArray.remove(2);
 
-        assertEquals(listOfArray.getX(0),2, ACCURACY);
-        assertEquals(listOfArray.getX(2),5, ACCURACY);
-
+        assertEquals(listOfArray.getX(0), 2, ACCURACY);
+        assertEquals(listOfArray.getX(2), 5, ACCURACY);
     }
 
     @Test
@@ -272,23 +272,22 @@ public class LinkedListTabulatedFunctionTest {
         LinkedListTabulatedFunction listOfArray = getListOfArray();
         Iterator<Point> iterator = listOfArray.iterator();
         int i = 0;
-        while (iterator.hasNext()){
+        while (iterator.hasNext()) {
             Point point = iterator.next();
-            assertEquals(listOfArray.getX(i++), point.x, ACCURACY );
+            assertEquals(listOfArray.getX(i++), point.x, ACCURACY);
         }
 
     }
 
     @Test
-    public void testIteratorSecond(){
+    public void testIteratorSecond() {
         LinkedListTabulatedFunction listOfArray = getListOfArray();
         Iterator<Point> iterator = listOfArray.iterator();
         int i = 0;
-        for (Point point: listOfArray){
+        for (Point point : listOfArray) {
             assertEquals(listOfArray.getX(i++), point.x, ACCURACY);
         }
     }
-
 
 
 }
