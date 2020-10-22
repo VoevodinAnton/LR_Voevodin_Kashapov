@@ -75,9 +75,9 @@ public class ArrayTabulatedFunctionTest {
         assertEquals(t21.getX(0),
                 1.0);
 
-        assertThrows(IndexOutOfBoundsException.class, ()-> t11.getX(34));
-        assertThrows(IndexOutOfBoundsException.class, ()-> t12.getX(58));
-        assertThrows(IndexOutOfBoundsException.class, ()-> t13.getX(-1));
+        assertThrows(IndexOutOfBoundsException.class, () -> t11.getX(34));
+        assertThrows(IndexOutOfBoundsException.class, () -> t12.getX(58));
+        assertThrows(IndexOutOfBoundsException.class, () -> t13.getX(-1));
     }
 
     @Test
@@ -93,9 +93,9 @@ public class ArrayTabulatedFunctionTest {
         assertEquals(t21.getY(0),
                 1.0);
 
-        assertThrows(IndexOutOfBoundsException.class, ()-> t21.getY(-1));
-        assertThrows(IndexOutOfBoundsException.class, ()-> t21.getY(582));
-        assertThrows(IndexOutOfBoundsException.class, ()-> t13.getY(-1));
+        assertThrows(IndexOutOfBoundsException.class, () -> t21.getY(-1));
+        assertThrows(IndexOutOfBoundsException.class, () -> t21.getY(582));
+        assertThrows(IndexOutOfBoundsException.class, () -> t13.getY(-1));
     }
 
     @Test
@@ -116,9 +116,9 @@ public class ArrayTabulatedFunctionTest {
         assertEquals(t11.getY(1),
                 0.0);
 
-        assertThrows(IndexOutOfBoundsException.class, ()-> t11.getX(34));
-        assertThrows(IndexOutOfBoundsException.class, ()-> t21.getX(584));
-        assertThrows(IndexOutOfBoundsException.class, ()-> t13.getX(-1));
+        assertThrows(IndexOutOfBoundsException.class, () -> t11.getX(34));
+        assertThrows(IndexOutOfBoundsException.class, () -> t21.getX(584));
+        assertThrows(IndexOutOfBoundsException.class, () -> t13.getX(-1));
     }
 
     @Test
@@ -209,8 +209,8 @@ public class ArrayTabulatedFunctionTest {
         assertEquals(t11.interpolate(3, 0), 11, ACCURACY);
         assertEquals(t12.interpolate(15, 0), 10, ACCURACY);
 
-        assertThrows(IllegalArgumentException.class, ()-> t12.interpolate(15, 1));
-        assertThrows(IllegalArgumentException.class, ()-> t21.interpolate(9, 34));
+        assertThrows(IllegalArgumentException.class, () -> t12.interpolate(15, 1));
+        assertThrows(IllegalArgumentException.class, () -> t21.interpolate(9, 34));
 
 
     }
@@ -268,28 +268,50 @@ public class ArrayTabulatedFunctionTest {
     @Test
     public void testInsert() {
         ArrayTabulatedFunction t11 = arr2();
+        // тестирование для одинаковых элементов
         t11.insert(4, 2);
         assertEquals(t11.getX(1), 4.0);
         assertEquals(t11.getY(1), 2.0);
-
+        // тестирование в середине массива
         t11.insert(5, 6);
         assertEquals(t11.getY(2), 6.0);
         assertEquals(t11.getCount(), 5);
         assertEquals(t11.getY(4), 256.0);
 
+        ArrayTabulatedFunction t1 = arr2();
+        t1.insert(0, 10);
+        // тест для вставки в начало
+        assertEquals(t1.getY(0), 10.0);
+        assertEquals(t1.getCount(), 5);
+        assertEquals(t1.getX(4), 16.0);
+        // тест для конца массива
+        t1.insert(27, 1010);
+        assertEquals(t1.getX(1), 1.0);
+        assertEquals(t1.getX(2), 4.0);
+        assertEquals(t1.getX(3), 9.0);
+        assertEquals(t1.getX(4), 16.0);
+        assertEquals(t1.getX(5), 27.0);
+        assertEquals(t1.getCount(), 6);
 
     }
 
     @Test
     public void testRemove() {
         ArrayTabulatedFunction a = arr2();
+        // тест для начала
         a.remove(0);
         assertEquals(a.getX(0), 4.0);
         assertEquals(a.getCount(), 3);
-
+        // тест для середины
         assertEquals(a.getY(1), 81.0);
         a.remove(1);
         assertEquals(a.getX(1), 16.0);
         assertEquals(a.getY(1), 256.0);
+        // тест для конца
+        a.remove(1);
+        assertEquals(a.getCount(), 1);
+        assertEquals(a.getY(0), 16.0);
+
+
     }
 }
