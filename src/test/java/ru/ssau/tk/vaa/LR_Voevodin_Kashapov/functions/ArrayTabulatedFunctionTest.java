@@ -270,27 +270,58 @@ public class ArrayTabulatedFunctionTest {
         ArrayTabulatedFunction t11 = arr2();
         // тестирование для одинаковых элементов
         t11.insert(4, 2);
+        assertEquals(t11.getX(0), 1.0);
+        assertEquals(t11.getY(0), 1.0);
         assertEquals(t11.getX(1), 4.0);
         assertEquals(t11.getY(1), 2.0);
+        assertEquals(t11.getX(2), 9.0);
+        assertEquals(t11.getY(2), 81.0);
+        assertEquals(t11.getX(3), 16.0);
+        assertEquals(t11.getY(3), 256.0);
+        assertEquals(t11.getCount(), 4);
         // тестирование в середине массива
         t11.insert(5, 6);
+        assertEquals(t11.getX(0), 1.0);
+        assertEquals(t11.getY(0), 1.0);
+        assertEquals(t11.getX(1), 4.0);
+        assertEquals(t11.getY(1), 2.0);
+        assertEquals(t11.getX(2), 5.0);
         assertEquals(t11.getY(2), 6.0);
-        assertEquals(t11.getCount(), 5);
+        assertEquals(t11.getX(3), 9.0);
+        assertEquals(t11.getY(3), 81.0);
+        assertEquals(t11.getX(4), 16.0);
         assertEquals(t11.getY(4), 256.0);
+        assertEquals(t11.getCount(), 5);
 
         ArrayTabulatedFunction t1 = arr2();
         t1.insert(0, 10);
         // тест для вставки в начало
+        t11.insert(5, 6);
+        assertEquals(t1.getX(0), 0.0);
         assertEquals(t1.getY(0), 10.0);
-        assertEquals(t1.getCount(), 5);
+        assertEquals(t1.getX(1), 1.0);
+        assertEquals(t1.getY(1), 1.0);
+        assertEquals(t1.getX(2), 4.0);
+        assertEquals(t1.getY(2), 16.0);
+        assertEquals(t1.getX(3), 9.0);
+        assertEquals(t1.getY(3), 81.0);
         assertEquals(t1.getX(4), 16.0);
+        assertEquals(t1.getY(4), 256.0);
+        assertEquals(t1.getCount(), 5);
         // тест для конца массива
         t1.insert(27, 1010);
+        assertEquals(t1.getX(0), 0.0);
+        assertEquals(t1.getY(0), 10.0);
         assertEquals(t1.getX(1), 1.0);
+        assertEquals(t1.getY(1), 1.0);
         assertEquals(t1.getX(2), 4.0);
+        assertEquals(t1.getY(2), 16.0);
         assertEquals(t1.getX(3), 9.0);
+        assertEquals(t1.getY(3), 81.0);
         assertEquals(t1.getX(4), 16.0);
+        assertEquals(t1.getY(4), 256.0);
         assertEquals(t1.getX(5), 27.0);
+        assertEquals(t1.getY(5), 1010.0);
         assertEquals(t1.getCount(), 6);
 
     }
@@ -301,16 +332,25 @@ public class ArrayTabulatedFunctionTest {
         // тест для начала
         a.remove(0);
         assertEquals(a.getX(0), 4.0);
+        assertEquals(a.getY(0), 16.0);
+        assertEquals(a.getX(1), 9.0);
+        assertEquals(a.getY(1), 81.0);
+        assertEquals(a.getX(2), 16.0);
+        assertEquals(a.getY(2), 256.0);
         assertEquals(a.getCount(), 3);
         // тест для середины
         assertEquals(a.getY(1), 81.0);
         a.remove(1);
+        assertEquals(a.getX(0), 4.0);
+        assertEquals(a.getY(0), 16.0);
         assertEquals(a.getX(1), 16.0);
         assertEquals(a.getY(1), 256.0);
+        assertEquals(a.getCount(), 2);
         // тест для конца
         a.remove(1);
-        assertEquals(a.getCount(), 1);
+        assertEquals(a.getX(0), 4.0);
         assertEquals(a.getY(0), 16.0);
+        assertEquals(a.getCount(), 1);
 
 
     }
