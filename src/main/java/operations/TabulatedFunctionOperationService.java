@@ -5,7 +5,7 @@ import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.TabulatedFunction;
 
 public class TabulatedFunctionOperationService {
 
-    public Point[] asPoints(TabulatedFunction tabulatedFunction){
+    public static Point[] asPoints(TabulatedFunction tabulatedFunction){
         int i = 0;
         Point[] points = new Point[tabulatedFunction.getCount()];
 
