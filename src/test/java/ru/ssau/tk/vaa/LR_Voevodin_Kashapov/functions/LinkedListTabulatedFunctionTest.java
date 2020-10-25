@@ -329,6 +329,7 @@ public class LinkedListTabulatedFunctionTest {
         for (Point point : listOfArray) {
             assertEquals(listOfArray.getX(i++), point.x, ACCURACY);
         }
+
     }
 
 
