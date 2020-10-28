@@ -2,6 +2,8 @@ package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions;
 
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 import exeptions.*;
 
 
@@ -173,6 +175,23 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
     }
 
     public Iterator<Point> iterator() {
-        throw new UnsupportedOperationException();
+        return new Iterator<>() {
+            int i = 0;
+
+            @Override
+            public boolean hasNext() {
+                return i < count;
+            }
+
+            @Override
+            public Point next() {
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
+                }
+                Point point = new Point(xValues[i], yValues[i]);
+                i++;
+                return point;
+            }
+        };
     }
 }
