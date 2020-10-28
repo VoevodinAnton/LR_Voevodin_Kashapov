@@ -1,5 +1,6 @@
 package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions;
 
+import exeptions.InterpolationException;
 import org.testng.annotations.Test;
 
 import java.util.Iterator;
@@ -196,6 +197,8 @@ public class LinkedListTabulatedFunctionTest {
 
         assertEquals(listOfArray.interpolate(4, 3), 8.0);
         assertEquals(listOfArray.interpolate(3, 2), 6.0);
+        assertThrows(InterpolationException.class, () -> listOfArray.interpolate(15, 2));
+        assertThrows(InterpolationException.class, () -> listOfArray.interpolate(9, 1));
     }
 
     @Test

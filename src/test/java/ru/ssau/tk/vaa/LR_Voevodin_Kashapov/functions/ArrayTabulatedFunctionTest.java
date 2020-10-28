@@ -1,5 +1,6 @@
 package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions;
 
+import exeptions.InterpolationException;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.*;
@@ -209,8 +210,8 @@ public class ArrayTabulatedFunctionTest {
         assertEquals(t11.interpolate(3, 0), 11, ACCURACY);
         assertEquals(t12.interpolate(15, 0), 10, ACCURACY);
 
-        assertThrows(IllegalArgumentException.class, () -> t12.interpolate(15, 1));
-        assertThrows(IllegalArgumentException.class, () -> t21.interpolate(9, 34));
+        assertThrows(InterpolationException.class, () -> t12.interpolate(15, 1));
+        assertThrows(InterpolationException.class, () -> t21.interpolate(9, 34));
 
 
     }

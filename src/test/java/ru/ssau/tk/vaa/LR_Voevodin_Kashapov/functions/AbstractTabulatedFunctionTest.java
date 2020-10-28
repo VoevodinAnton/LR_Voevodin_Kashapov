@@ -4,6 +4,8 @@ import org.testng.annotations.Test;
 
 import static org.testng.Assert.*;
 
+import exeptions.*;
+
 public class AbstractTabulatedFunctionTest {
     private final static double ACCURACY = 0.00001;
     MockTabulatedFunction mock = new MockTabulatedFunction();
@@ -30,10 +32,18 @@ public class AbstractTabulatedFunctionTest {
 
     @Test
     public void testCheckLengthIsTheSame() {
-
+        assertThrows(DifferentLengthOfArraysException.class, () -> {
+            double[] x = new double[]{1, 4, 9, 16};
+            double[] y = new double[]{1, 16, 81, 256, 22};
+            AbstractTabulatedFunction.checkLengthIsTheSame(x, y);
+        });
     }
 
     @Test
     public void testCheckSorted() {
+        assertThrows(ArrayIsNotSortedException.class, () -> {
+            double[] x = new double[]{1, 4, 33, 9, 16};
+            AbstractTabulatedFunction.checkSorted(x);
+        });
     }
 }

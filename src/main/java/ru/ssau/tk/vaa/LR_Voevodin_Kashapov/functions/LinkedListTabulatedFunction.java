@@ -1,7 +1,10 @@
 package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions;
 
+import exeptions.InterpolationException;
+
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import exeptions.*;
 
 public class LinkedListTabulatedFunction extends AbstractTabulatedFunction implements Insertable, Removable {
     private int count;
@@ -37,6 +40,8 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
         if (xValues.length < 2){
             throw new IllegalArgumentException("length less than 2 points");
         }
+        AbstractTabulatedFunction.checkSorted(xValues);
+        ArrayTabulatedFunction.checkLengthIsTheSame(xValues, yValues);
         for (int i = 0; i < xValues.length; i++) {
             this.addNode(xValues[i], yValues[i]);
         }
@@ -164,7 +169,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
         Node node = getNode(floorIndex);
         Node nodeNext = node.next;
         if (x <  node.x || x > nodeNext.x){
-            throw new IllegalArgumentException("x is out of interval boundary");
+            throw new InterpolationException("x is not in interval");
         }
         return interpolate(x, node.x, nodeNext.x, node.y, nodeNext.y);
     }

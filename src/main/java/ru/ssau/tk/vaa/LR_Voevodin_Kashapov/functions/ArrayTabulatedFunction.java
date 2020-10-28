@@ -2,6 +2,8 @@ package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions;
 
 import java.util.Arrays;
 import java.util.Iterator;
+import exeptions.*;
+
 
 public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements Insertable {
     private double[] xValues;
@@ -12,6 +14,8 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
         if (xValues.length < 2) {
             throw new IllegalArgumentException("length less than 2 points");
         }
+        AbstractTabulatedFunction.checkSorted(xValues);
+        ArrayTabulatedFunction.checkLengthIsTheSame(xValues, yValues);
         this.count = xValues.length;
         this.xValues = Arrays.copyOf(xValues, xValues.length);
         this.yValues = Arrays.copyOf(yValues, yValues.length);
@@ -94,7 +98,7 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
 
     public double interpolate(double x, int floorIndex) {
         if (x < xValues[floorIndex] || x > xValues[floorIndex + 1]) {
-            throw new IllegalArgumentException("x is out of interval boundary");
+            throw new InterpolationException("x is not in interval");
         }
         return interpolate(x, xValues[floorIndex], xValues[floorIndex + 1], yValues[floorIndex], yValues[floorIndex + 1]);
     }
