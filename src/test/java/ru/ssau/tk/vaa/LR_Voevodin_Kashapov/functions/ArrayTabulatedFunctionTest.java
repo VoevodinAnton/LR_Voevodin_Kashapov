@@ -3,6 +3,8 @@ package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions;
 import exeptions.InterpolationException;
 import org.testng.annotations.Test;
 
+import java.util.Iterator;
+
 import static org.testng.Assert.*;
 
 public class ArrayTabulatedFunctionTest {
@@ -354,5 +356,29 @@ public class ArrayTabulatedFunctionTest {
         assertEquals(a.getCount(), 1);
 
 
+    }
+
+    @Test
+    public void testItWhile() {
+        ArrayTabulatedFunction arr = arr2();
+        Iterator<Point> it1 = arr.iterator();
+        int i = 0;
+        while (it1.hasNext()) {
+            Point a = it1.next();
+            assertEquals(arr.getX(i), a.x);
+            assertEquals(arr.getY(i++), a.y);
+        }
+        assertEquals(arr.getCount(), i);
+    }
+
+    @Test
+    public void testIteratorForEach() {
+        ArrayTabulatedFunction arr0 = arr2();
+        int i = 0;
+        for (Point a : arr0) {
+            assertEquals(a.x, arr0.getX(i));
+            assertEquals(a.y, arr0.getY(i++));
+        }
+        assertEquals(arr0.getCount(), i);
     }
 }
