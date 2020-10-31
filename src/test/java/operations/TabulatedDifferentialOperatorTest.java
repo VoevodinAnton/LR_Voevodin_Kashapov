@@ -1,6 +1,7 @@
 package operations;
 
 import org.testng.annotations.Test;
+import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.ArrayTabulatedFunction;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.LinkedListTabulatedFunction;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.TabulatedFunction;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.factory.LinkedListTabulatedFunctionFactory;
@@ -15,13 +16,24 @@ public class TabulatedDifferentialOperatorTest {
 
     @Test
     public void testDerive() {
-        TabulatedFunction function = new LinkedListTabulatedFunction(xValues, yValues);
+        TabulatedFunction LinkedListTabulatedFunction = new LinkedListTabulatedFunction(xValues, yValues);
         TabulatedDifferentialOperator differentialOperator = new TabulatedDifferentialOperator(new LinkedListTabulatedFunctionFactory());
-        TabulatedFunction diffFunction = differentialOperator.derive(function);
+        TabulatedFunction diffFunctionList = differentialOperator.derive(LinkedListTabulatedFunction);
 
-        assertEquals(diffFunction.getX(0), 1, ACCURACY);
-        assertEquals(diffFunction.getX(4), 5, ACCURACY);
-        assertEquals(diffFunction.getY(0), 2, ACCURACY);
-        assertEquals(diffFunction.getY(4), 2, ACCURACY);
+        assertEquals(diffFunctionList.getX(0), 1, ACCURACY);
+        assertEquals(diffFunctionList.getX(4), 5, ACCURACY);
+        assertEquals(diffFunctionList.getY(0), 2, ACCURACY);
+        assertEquals(diffFunctionList.getY(4), 2, ACCURACY);
+
+
+        TabulatedFunction ArrayTabulatedFunction = new ArrayTabulatedFunction(xValues, yValues);
+        TabulatedDifferentialOperator differentialOperator1 = new TabulatedDifferentialOperator(new LinkedListTabulatedFunctionFactory());
+        TabulatedFunction diffFunctionArray = differentialOperator1.derive(ArrayTabulatedFunction);
+
+        assertEquals(diffFunctionArray.getX(0), 1, ACCURACY);
+        assertEquals(diffFunctionArray.getX(4), 5, ACCURACY);
+        assertEquals(diffFunctionArray.getY(0), 2, ACCURACY);
+        assertEquals(diffFunctionArray.getY(4), 2, ACCURACY);
+
     }
 }
