@@ -46,4 +46,12 @@ public class AbstractTabulatedFunctionTest {
             AbstractTabulatedFunction.checkSorted(x);
         });
     }
+
+    @Test
+    public void testTestToString() {
+        double[] xValues = {1, 2, 3, 4};
+        double[] yValues = {2, 4, 6, 8};
+        TabulatedFunction functionOfList = new LinkedListTabulatedFunction(xValues, yValues);
+        assertEquals(functionOfList.toString(), "LinkedListTabulatedFunction size = 4\n[1.0; 2.0]\n[2.0; 4.0]\n[3.0; 6.0]\n[4.0; 8.0]");
+    }
 }

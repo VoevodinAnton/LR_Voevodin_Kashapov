@@ -62,7 +62,7 @@ public class TabulatedFunctionOperationServiceTest {
     }
 
     @Test
-    public void MultiplyTest() {
+    public void multiplyTest() {
         TabulatedFunction functionListTest = getList();
         TabulatedFunction functionArrayTest = getArray();
 
