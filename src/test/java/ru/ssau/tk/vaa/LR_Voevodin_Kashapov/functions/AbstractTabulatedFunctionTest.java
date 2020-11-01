@@ -54,4 +54,5 @@ public class AbstractTabulatedFunctionTest {
         TabulatedFunction functionOfList = new LinkedListTabulatedFunction(xValues, yValues);
         assertEquals(functionOfList.toString(), "LinkedListTabulatedFunction size = 4\n[1.0; 2.0]\n[2.0; 4.0]\n[3.0; 6.0]\n[4.0; 8.0]");
     }
+
 }
