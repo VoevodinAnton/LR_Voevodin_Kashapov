@@ -26,8 +26,7 @@ final class FunctionsIO {
     }
 
     public static TabulatedFunction readTabulatedFunction(BufferedReader reader, TabulatedFunctionFactory factory) throws IOException {
-        int count;
-        count = Integer.parseInt();
+        int count = Integer.parseInt(reader.readLine());
 
         double[] xValues = new double[count];
         double[] yValues = new double[count];
