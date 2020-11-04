@@ -11,7 +11,7 @@ final class FunctionsIO {
         throw new UnsupportedOperationException("Unavailable operation");
     }
 
-    public static void writeTabulatedFunction(BufferedWriter writer, TabulatedFunction function) {
+    public static void writeTabulatedFunction(BufferedWriter writer, TabulatedFunction function) throws IOException {
         PrintWriter printWriter = new PrintWriter(writer);
         printWriter.println(function.getCount());
         int i = 0;
@@ -24,7 +24,7 @@ final class FunctionsIO {
     public static void writeTabulatedFunction(BufferedOutputStream outputStream, TabulatedFunction function) throws IOException {
         DataOutputStream out = new DataOutputStream(outputStream);
         out.writeInt(function.getCount());
-        for (Point point: function){
+        for (Point point : function) {
             out.writeDouble(point.x);
             out.writeDouble(point.y);
         }
@@ -38,7 +38,7 @@ final class FunctionsIO {
         double[] xValues = new double[count];
         double[] yValues = new double[count];
 
-        for(int i = 0; i < count; i++){
+        for (int i = 0; i < count; i++) {
             xValues[i] = in.readDouble();
             yValues[i] = in.readDouble();
         }
