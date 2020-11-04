@@ -4,7 +4,10 @@ import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.Point;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.TabulatedFunction;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.factory.TabulatedFunctionFactory;
 
+import javax.swing.text.NumberFormatter;
 import java.io.*;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 final class FunctionsIO {
     FunctionsIO() {
@@ -19,6 +22,26 @@ final class FunctionsIO {
             printWriter.printf("%f %f\n", a.x, a.y);
         }
         printWriter.flush();
+
+    }
+
+    public static TabulatedFunction readTabulatedFunction(BufferedReader reader, TabulatedFunctionFactory factory) throws IOException {
+        int count;
+        count = Integer.parseInt();
+
+        double[] xValues = new double[count];
+        double[] yValues = new double[count];
+        NumberFormatter numberFormatter = new NumberFormatter(NumberFormat.getInstance(Locale.forLanguageTag("ru")));
+        for (int i = 0; i < count; i++) {
+            String line = reader.readLine();
+            String[] splitLine = line.split(" ");
+            xValues[i] = Double.parseDouble(splitLine[1]);
+            yValues[i] = Double.parseDouble(splitLine[2]);
+        }
+
+        File fileInput = new File("input/function.txt");
+
+        return factory.create(xValues, yValues);
     }
 
     public static void writeTabulatedFunction(BufferedOutputStream outputStream, TabulatedFunction function) throws IOException {
