@@ -16,7 +16,7 @@ final class FunctionsIO {
         printWriter.println(function.getCount());
         int i = 0;
         for (Point a : function) {
-            printWriter.printf("«%f %f\n»", a.x, a.y);
+            printWriter.printf("%f %f\n", a.x, a.y);
         }
         printWriter.flush();
     }
