@@ -11,6 +11,16 @@ final class FunctionsIO {
         throw new UnsupportedOperationException("Unavailable operation");
     }
 
+    public static void writeTabulatedFunction(BufferedWriter writer, TabulatedFunction function) {
+        PrintWriter printWriter = new PrintWriter(writer);
+        printWriter.println(function.getCount());
+        int i = 0;
+        for (Point a : function) {
+            printWriter.printf("«%f %f\n»", a.x, a.y);
+        }
+        printWriter.flush();
+    }
+
     public static void writeTabulatedFunction(BufferedOutputStream outputStream, TabulatedFunction function) throws IOException {
         DataOutputStream out = new DataOutputStream(outputStream);
         out.writeInt(function.getCount());
