@@ -1,5 +1,6 @@
 package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -7,7 +8,8 @@ import java.util.NoSuchElementException;
 import exeptions.*;
 
 
-public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements Insertable {
+public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements Insertable, Removable, Serializable {
+    private static final long serialVersionUID = -6675414219615562609L;
     private double[] xValues;
     private double[] yValues;
     private int count;

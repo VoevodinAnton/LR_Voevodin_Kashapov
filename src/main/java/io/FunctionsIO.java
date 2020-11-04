@@ -11,7 +11,7 @@ final class FunctionsIO {
         throw new UnsupportedOperationException("Unavailable operation");
     }
 
-    public static void writeTabulatedFunction(BufferedWriter writer, TabulatedFunction function) throws IOException {
+    public static void writeTabulatedFunction(BufferedWriter writer, TabulatedFunction function){
         PrintWriter printWriter = new PrintWriter(writer);
         printWriter.println(function.getCount());
         int i = 0;
@@ -44,4 +44,16 @@ final class FunctionsIO {
         }
         return factory.create(xValues, yValues);
     }
+
+    public static void serialize(BufferedOutputStream stream, TabulatedFunction function) throws IOException {
+        ObjectOutputStream out = new ObjectOutputStream(stream);
+        out.writeObject(function);
+        out.flush();
+    }
+
+    public static TabulatedFunction deserialize(BufferedInputStream stream) throws IOException, ClassNotFoundException {
+        return (TabulatedFunction)new ObjectInputStream(stream).readObject();
+    }
+
+
 }

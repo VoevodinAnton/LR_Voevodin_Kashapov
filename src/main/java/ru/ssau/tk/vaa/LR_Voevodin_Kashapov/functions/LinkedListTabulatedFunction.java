@@ -2,11 +2,13 @@ package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions;
 
 import exeptions.InterpolationException;
 
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import exeptions.*;
 
-public class LinkedListTabulatedFunction extends AbstractTabulatedFunction implements Insertable, Removable {
+public class LinkedListTabulatedFunction extends AbstractTabulatedFunction implements Insertable, Removable, Serializable {
+    private static final long serialVersionUID = 3231709533062421572L;
     private int count;
     private Node head;
     private Node last;

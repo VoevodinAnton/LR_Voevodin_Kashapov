@@ -63,16 +63,13 @@ public class TabulatedFunctionOperationService {
     }
 
 
-
-    TabulatedFunction multiply(TabulatedFunction a, TabulatedFunction b){
-        return doOperation(a,b, (u, v) -> u*v);
+    TabulatedFunction multiply(TabulatedFunction a, TabulatedFunction b) {
+        return doOperation(a, b, (u, v) -> u * v);
     }
 
-    TabulatedFunction divide(TabulatedFunction a, TabulatedFunction b){
+    TabulatedFunction divide(TabulatedFunction a, TabulatedFunction b) {
         return doOperation(a, b, (u, v) -> u / v);
     }
-
-
 
 
 }

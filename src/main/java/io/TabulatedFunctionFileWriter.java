@@ -17,15 +17,15 @@ public class TabulatedFunctionFileWriter {
         TabulatedFunction functionList = new LinkedListTabulatedFunction(xValue, yValue);
         TabulatedFunction functionArray = new ArrayTabulatedFunction(xValue, yValue);
 
-        try(BufferedWriter outArray = new BufferedWriter(
+        try (BufferedWriter outArray = new BufferedWriter(
                 new FileWriter(fileArray));
-            BufferedWriter outList = new BufferedWriter(
-                    new FileWriter(fileList))){
+             BufferedWriter outList = new BufferedWriter(
+                     new FileWriter(fileList))) {
 
             FunctionsIO.writeTabulatedFunction(outArray, functionArray);
             FunctionsIO.writeTabulatedFunction(outList, functionList);
 
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

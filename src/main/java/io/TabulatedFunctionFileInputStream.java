@@ -21,7 +21,9 @@ public class TabulatedFunctionFileInputStream {
             e.printStackTrace();
         }
 
-        /*
+
+        //не работает почему-то
+/*
         try {
             BufferedInputStream in = new BufferedInputStream(
                     new InputStreamReader(System.in));
@@ -39,7 +41,8 @@ public class TabulatedFunctionFileInputStream {
         } catch (IOException e){
             e.printStackTrace();
         }
-         */
 
+ */
     }
+
 }
