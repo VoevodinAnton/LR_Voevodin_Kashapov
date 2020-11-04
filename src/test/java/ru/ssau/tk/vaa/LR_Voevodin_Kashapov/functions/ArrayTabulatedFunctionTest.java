@@ -354,8 +354,6 @@ public class ArrayTabulatedFunctionTest {
         assertEquals(a.getX(0), 4.0);
         assertEquals(a.getY(0), 16.0);
         assertEquals(a.getCount(), 1);
-
-
     }
 
     @Test
