@@ -10,7 +10,7 @@ import java.text.ParseException;
 import java.util.Locale;
 
 final class FunctionsIO {
-    FunctionsIO() {
+    private FunctionsIO() {
         throw new UnsupportedOperationException("Unavailable operation");
     }
 
