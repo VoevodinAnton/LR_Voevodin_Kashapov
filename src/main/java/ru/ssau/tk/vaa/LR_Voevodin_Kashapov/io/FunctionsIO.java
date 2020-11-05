@@ -4,9 +4,9 @@ import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.Point;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.TabulatedFunction;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.factory.TabulatedFunctionFactory;
 
-import javax.swing.text.NumberFormatter;
 import java.io.*;
 import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.Locale;
 
 final class FunctionsIO {
@@ -14,7 +14,7 @@ final class FunctionsIO {
         throw new UnsupportedOperationException("Unavailable operation");
     }
 
-    public static void writeTabulatedFunction(BufferedWriter writer, TabulatedFunction function){
+    public static void writeTabulatedFunction(BufferedWriter writer, TabulatedFunction function) {
         PrintWriter printWriter = new PrintWriter(writer);
         printWriter.println(function.getCount());
         int i = 0;
@@ -30,17 +30,17 @@ final class FunctionsIO {
 
         double[] xValues = new double[count];
         double[] yValues = new double[count];
-        NumberFormatter numberFormatter = new NumberFormatter(NumberFormat.getInstance(Locale.forLanguageTag("ru")));
-        //numberFormatter.setFormat();
+        NumberFormat numberFormat = NumberFormat.getInstance(Locale.forLanguageTag("ru"));
         for (int i = 0; i < count; i++) {
             String line = reader.readLine();
             String[] splitLine = line.split(" ");
-            xValues[i] =
-            xValues[i] = Double.parseDouble(splitLine[1]);
-            yValues[i] = Double.parseDouble(splitLine[2]);
+            try {
+                xValues[i] = numberFormat.parse(splitLine[0]).doubleValue();
+                yValues[i] = numberFormat.parse(splitLine[1]).doubleValue();
+            } catch (ParseException eParse) {
+                throw new IOException(eParse);
+            }
         }
-
-        File fileInput = new File("input/function.txt");
 
         return factory.create(xValues, yValues);
     }
@@ -76,7 +76,7 @@ final class FunctionsIO {
     }
 
     public static TabulatedFunction deserialize(BufferedInputStream stream) throws IOException, ClassNotFoundException {
-        return (TabulatedFunction)new ObjectInputStream(stream).readObject();
+        return (TabulatedFunction) new ObjectInputStream(stream).readObject();
     }
 
 
