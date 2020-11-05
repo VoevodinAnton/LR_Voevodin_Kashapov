@@ -40,6 +40,12 @@ public class AbstractTabulatedFunctionTest {
             AbstractTabulatedFunction.checkLengthIsTheSame(x, y);
         });
 
+        assertThrows(MyAssertions.assertDoesNotThrow(() -> {
+            double[] x = new double[]{1, 4, 9, 16, 20};
+            double[] y = new double[]{1, 16, 81, 256, 22};
+            ArrayTabulatedFunction.checkLengthIsTheSame(x, y);
+        }));
+
     }
 
     @Test
