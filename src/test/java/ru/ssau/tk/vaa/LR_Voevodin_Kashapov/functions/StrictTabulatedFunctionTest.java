@@ -1,6 +1,8 @@
 package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions;
 
 import org.testng.annotations.Test;
+import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.LinkedListTabulatedFunction;
+import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.StrictTabulatedFunction;
 
 import static org.testng.Assert.*;
 

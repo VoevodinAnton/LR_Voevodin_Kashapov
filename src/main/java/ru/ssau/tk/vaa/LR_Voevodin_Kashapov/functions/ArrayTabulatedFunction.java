@@ -5,7 +5,8 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-import exeptions.*;
+import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.exeptions.InterpolationException;
+import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.exeptions.*;
 
 
 public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements Insertable, Removable, Serializable {
@@ -18,8 +19,8 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
         if (xValues.length < 2) {
             throw new IllegalArgumentException("length less than 2 points");
         }
-        AbstractTabulatedFunction.checkSorted(xValues);
-        ArrayTabulatedFunction.checkLengthIsTheSame(xValues, yValues);
+        checkSorted(xValues);
+        checkLengthIsTheSame(xValues, yValues);
         this.count = xValues.length;
         this.xValues = Arrays.copyOf(xValues, xValues.length);
         this.yValues = Arrays.copyOf(yValues, yValues.length);

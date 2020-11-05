@@ -1,6 +1,7 @@
 package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions;
 
 import org.testng.annotations.Test;
+import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.IdentityFunction;
 
 import static org.testng.Assert.*;
 
