@@ -44,6 +44,15 @@ public class ArrayTabulatedFunctionTest {
     }
 
     @Test
+    public void testConstructor() {
+        double[] aX = new double[]{234};
+        double[] aY = new double[]{777};
+        assertThrows(IllegalArgumentException.class, () -> new ArrayTabulatedFunction(aX, aY));
+        assertThrows(IllegalArgumentException.class, () -> new ArrayTabulatedFunction(source, aX[0], aX[0], 1));
+        assertThrows(IllegalArgumentException.class, () -> new ArrayTabulatedFunction(source, aY[0], aX[0], count));
+    }
+
+    @Test
     public void testGetCount() {
         ArrayTabulatedFunction t21 = arr1();
         ArrayTabulatedFunction t11 = arr2();
