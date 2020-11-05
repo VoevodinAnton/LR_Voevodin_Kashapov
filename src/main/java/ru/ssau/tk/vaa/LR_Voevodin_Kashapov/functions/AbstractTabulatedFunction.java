@@ -30,13 +30,13 @@ public abstract class AbstractTabulatedFunction implements TabulatedFunction {
         return getY(indexOfX(x));
     }
 
-    static void checkLengthIsTheSame(double[] xValues, double[] yValues) {
+    protected static void checkLengthIsTheSame(double[] xValues, double[] yValues) {
         if (xValues.length != yValues.length) {
             throw new DifferentLengthOfArraysException("Lengths of xValues and yValues are different");
         }
     }
 
-    static void checkSorted(double[] xValues) {
+    protected static void checkSorted(double[] xValues) {
         for (int i = 0; i < xValues.length - 1; i++) {
             if (xValues[i + 1] < xValues[i]) {
                 throw new ArrayIsNotSortedException("xValues is not sorted");
