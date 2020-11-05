@@ -19,8 +19,8 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
         if (xValues.length < 2) {
             throw new IllegalArgumentException("length less than 2 points");
         }
-        checkSorted(xValues);
         checkLengthIsTheSame(xValues, yValues);
+        checkSorted(xValues);
         this.count = xValues.length;
         this.xValues = Arrays.copyOf(xValues, xValues.length);
         this.yValues = Arrays.copyOf(yValues, yValues.length);
