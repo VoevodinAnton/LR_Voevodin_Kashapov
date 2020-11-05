@@ -358,7 +358,6 @@ public class LinkedListTabulatedFunctionTest {
     @Test
     public void testIteratorSecond() {
         LinkedListTabulatedFunction listOfArray = getListOfArray();
-        Iterator<Point> iterator = listOfArray.iterator();
         int i = 0;
         for (Point point : listOfArray) {
             assertEquals(listOfArray.getX(i++), point.x, ACCURACY);
