@@ -1,6 +1,10 @@
 package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions;
 
-import exeptions.InterpolationException;
+import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.exeptions.InterpolationException;
+import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.LinkedListTabulatedFunction;
+import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.MathFunction;
+import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.Point;
+import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.SinFunction;
 import org.testng.annotations.Test;
 
 import java.util.Iterator;

@@ -1,11 +1,10 @@
 package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions;
 
-import exeptions.InterpolationException;
+import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.exeptions.InterpolationException;
 
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import exeptions.*;
 
 public class LinkedListTabulatedFunction extends AbstractTabulatedFunction implements Insertable, Removable, Serializable {
     private static final long serialVersionUID = 3231709533062421572L;
@@ -42,8 +41,8 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
         if (xValues.length < 2){
             throw new IllegalArgumentException("length less than 2 points");
         }
-        AbstractTabulatedFunction.checkSorted(xValues);
-        ArrayTabulatedFunction.checkLengthIsTheSame(xValues, yValues);
+        checkSorted(xValues);
+        checkLengthIsTheSame(xValues, yValues);
         for (int i = 0; i < xValues.length; i++) {
             this.addNode(xValues[i], yValues[i]);
         }

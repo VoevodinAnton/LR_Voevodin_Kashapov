@@ -4,7 +4,9 @@ import org.testng.annotations.Test;
 
 import static org.testng.Assert.*;
 
-import exeptions.*;
+import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.exeptions.ArrayIsNotSortedException;
+import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.exeptions.DifferentLengthOfArraysException;
+import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.exeptions.*;
 
 public class AbstractTabulatedFunctionTest {
     private final static double ACCURACY = 0.00001;

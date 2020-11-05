@@ -1,6 +1,8 @@
 package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions;
 
-import exeptions.*;
+import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.exeptions.ArrayIsNotSortedException;
+import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.exeptions.DifferentLengthOfArraysException;
+import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.exeptions.*;
 
 public abstract class AbstractTabulatedFunction implements TabulatedFunction {
     abstract protected int floorIndexOfX(double x);

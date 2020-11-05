@@ -1,5 +1,8 @@
 package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions;
 
+import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.AbstractTabulatedFunction;
+import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.Point;
+
 import java.util.Iterator;
 
 public class MockTabulatedFunction extends AbstractTabulatedFunction {
