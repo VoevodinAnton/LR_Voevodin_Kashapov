@@ -48,17 +48,17 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
     }
 
     public double getX(int index) {
-        checkIndex(index);
+        //checkIndex(index);
         return xValues[index];
     }
 
     public double getY(int index) {
-        checkIndex(index);
+        //checkIndex(index);
         return yValues[index];
     }
 
     public void setY(int index, double value) {
-        checkIndex(index);
+        //checkIndex(index);
         this.yValues[index] = value;
     }
 
@@ -108,16 +108,16 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
     }
 
     public double extrapolateLeft(double x) {
-        if (count == 1) {
+        /*if (count == 1) {
             return yValues[count - 1];
-        }
+        }*/
         return interpolate(x, xValues[0], xValues[1], yValues[0], yValues[1]);
     }
 
     public double extrapolateRight(double x) {
-        if (count == 1) {
+        /*if (count == 1) {
             return yValues[count - 1];
-        }
+        }*/
         return interpolate(x, xValues[count - 2], xValues[count - 1], yValues[count - 2], yValues[count - 1]);
     }
 
@@ -173,11 +173,11 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
         this.yValues = yValues1;
     }
 
-    private void checkIndex(int index) {
+    /*private void checkIndex(int index) {
         if (index < 0 || index > count - 1) {
             throw new IndexOutOfBoundsException("The index is out of bounds");
         }
-    }
+    }*/
 
     public Iterator<Point> iterator() {
         return new Iterator<>() {
