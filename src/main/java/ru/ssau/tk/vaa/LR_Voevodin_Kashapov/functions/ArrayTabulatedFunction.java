@@ -6,7 +6,6 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.exeptions.InterpolationException;
-import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.exeptions.*;
 
 
 public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements Insertable, Removable, Serializable {
