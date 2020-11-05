@@ -36,6 +36,17 @@ public class LinkedListTabulatedFunctionTest {
     }
 
     @Test
+    public void testConstructor(){
+        assertThrows(IllegalArgumentException.class, () -> {
+            LinkedListTabulatedFunction list = new LinkedListTabulatedFunction(new double[]{1}, new double[]{2});
+        });
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            LinkedListTabulatedFunction list = new LinkedListTabulatedFunction(function, 3, 1, 10);
+        });
+    }
+
+    @Test
     public void testAddNode() {
         LinkedListTabulatedFunction listOfArray = getListOfArray();
         listOfArray.addNode(9, 99);
