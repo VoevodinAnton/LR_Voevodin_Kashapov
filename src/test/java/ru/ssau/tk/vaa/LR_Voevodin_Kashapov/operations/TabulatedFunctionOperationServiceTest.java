@@ -61,28 +61,84 @@ public class TabulatedFunctionOperationServiceTest {
     }
 
     @Test
+    public void testAdd() {
+        TabulatedFunction functionListTest = getList();
+        TabulatedFunction functionArrayTest = getArray();
+
+
+        TabulatedFunction addOfList = new TabulatedFunctionOperationService().add(functionListTest, functionListTest);
+        int i = 0;
+        for (Point point : addOfList) {
+            assertEquals(point.x, xValues[i]);
+            assertEquals(point.y, yValues[i] + yValues[i++]);
+        }
+
+        TabulatedFunction addOfArray = new TabulatedFunctionOperationService().add(functionArrayTest, functionArrayTest);
+        i = 0;
+        for (Point point : addOfArray) {
+            assertEquals(point.x, xValues[i]);
+            assertEquals(point.y, yValuesArray[i] + yValuesArray[i++]);
+        }
+
+        TabulatedFunction addOfListAndArray = new TabulatedFunctionOperationService().add(functionArrayTest, functionListTest);
+        i = 0;
+        for (Point point : addOfListAndArray) {
+            assertEquals(point.x, xValues[i]);
+            assertEquals(point.y, yValuesArray[i] + yValues[i++]);
+        }
+    }
+
+    @Test
+    public void testSubtract() {
+        TabulatedFunction functionListTest = getList();
+        TabulatedFunction functionArrayTest = getArray();
+
+
+        TabulatedFunction subtractOfList = new TabulatedFunctionOperationService().subtract(functionListTest, functionListTest);
+        int i = 0;
+        for (Point point : subtractOfList) {
+            assertEquals(point.x, xValues[i]);
+            assertEquals(point.y, yValues[i] - yValues[i++]);
+        }
+
+        TabulatedFunction subtractOfArray = new TabulatedFunctionOperationService().subtract(functionArrayTest, functionArrayTest);
+        i = 0;
+        for (Point point : subtractOfArray) {
+            assertEquals(point.x, xValues[i]);
+            assertEquals(point.y, yValuesArray[i] - yValuesArray[i++]);
+        }
+
+        TabulatedFunction subtractOfListAndArray = new TabulatedFunctionOperationService().subtract(functionArrayTest, functionListTest);
+        i = 0;
+        for (Point point : subtractOfListAndArray) {
+            assertEquals(point.x, xValues[i]);
+            assertEquals(point.y, yValuesArray[i] - yValues[i++]);
+        }
+    }
+
+    @Test
     public void multiplyTest() {
         TabulatedFunction functionListTest = getList();
         TabulatedFunction functionArrayTest = getArray();
 
 
-        TabulatedFunction MultiplyOfList = new TabulatedFunctionOperationService().multiply(functionListTest, functionListTest);
+        TabulatedFunction multiplyOfList = new TabulatedFunctionOperationService().multiply(functionListTest, functionListTest);
         int i = 0;
-        for (Point point : MultiplyOfList) {
+        for (Point point : multiplyOfList) {
             assertEquals(point.x, xValues[i]);
             assertEquals(point.y, yValues[i] * yValues[i++]);
         }
 
-        TabulatedFunction MultiplyOfArray = new TabulatedFunctionOperationService().multiply(functionArrayTest, functionArrayTest);
+        TabulatedFunction multiplyOfArray = new TabulatedFunctionOperationService().multiply(functionArrayTest, functionArrayTest);
         i = 0;
-        for (Point point : MultiplyOfArray) {
+        for (Point point : multiplyOfArray) {
             assertEquals(point.x, xValues[i]);
             assertEquals(point.y, yValuesArray[i] * yValuesArray[i++]);
         }
 
-        TabulatedFunction MultiplyOfListAndArray = new TabulatedFunctionOperationService().multiply(functionArrayTest, functionListTest);
+        TabulatedFunction multiplyOfListAndArray = new TabulatedFunctionOperationService().multiply(functionArrayTest, functionListTest);
         i = 0;
-        for (Point point : MultiplyOfListAndArray) {
+        for (Point point : multiplyOfListAndArray) {
             assertEquals(point.x, xValues[i]);
             assertEquals(point.y, yValuesArray[i] * yValues[i++]);
         }
@@ -94,25 +150,26 @@ public class TabulatedFunctionOperationServiceTest {
         TabulatedFunction functionArrayTest = getArray();
 
 
-        TabulatedFunction DivideOfList = new TabulatedFunctionOperationService().divide(functionListTest, functionListTest);
+        TabulatedFunction divideOfList = new TabulatedFunctionOperationService().divide(functionListTest, functionListTest);
         int i = 0;
-        for (Point point : DivideOfList) {
+        for (Point point : divideOfList) {
             assertEquals(point.x, xValues[i]);
             assertEquals(point.y, yValues[i] / yValues[i++]);
         }
 
-        TabulatedFunction DivideOfArray = new TabulatedFunctionOperationService().divide(functionArrayTest, functionArrayTest);
+        TabulatedFunction divideOfArray = new TabulatedFunctionOperationService().divide(functionArrayTest, functionArrayTest);
         i = 0;
-        for (Point point : DivideOfArray) {
+        for (Point point : divideOfArray) {
             assertEquals(point.x, xValues[i]);
             assertEquals(point.y, yValuesArray[i] / yValuesArray[i++]);
         }
 
-        TabulatedFunction DivideOfListAndArray = new TabulatedFunctionOperationService().divide(functionArrayTest, functionListTest);
+        TabulatedFunction divideOfListAndArray = new TabulatedFunctionOperationService().divide(functionArrayTest, functionListTest);
         i = 0;
-        for (Point point : DivideOfListAndArray) {
+        for (Point point : divideOfListAndArray) {
             assertEquals(point.x, xValues[i]);
             assertEquals(point.y, yValuesArray[i] / yValues[i++]);
         }
     }
+
 }
