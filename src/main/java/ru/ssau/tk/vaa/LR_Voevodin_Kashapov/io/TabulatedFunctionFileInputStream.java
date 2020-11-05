@@ -2,6 +2,8 @@ package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.io;
 
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.TabulatedFunction;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.factory.ArrayTabulatedFunctionFactory;
+import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.factory.LinkedListTabulatedFunctionFactory;
+import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.operations.TabulatedDifferentialOperator;
 
 import java.io.*;
 
@@ -17,13 +19,13 @@ public class TabulatedFunctionFileInputStream {
         }
 
 
-        //не работает почему-то
-/*
+        //почти не работает
+
         try {
-            BufferedInputStream in = new BufferedInputStream(
+            BufferedReader in = new BufferedReader(
                     new InputStreamReader(System.in));
 
-            System.out.println("Введите размер и значения функции:");
+            System.out.println("Введите размер и значения функции: \n");
             LinkedListTabulatedFunctionFactory factory = new LinkedListTabulatedFunctionFactory();
 
             TabulatedFunction LinkedList = FunctionsIO.readTabulatedFunction(in, factory);
@@ -36,8 +38,7 @@ public class TabulatedFunctionFileInputStream {
         } catch (IOException e){
             e.printStackTrace();
         }
-        
- */
+
 
     }
 
