@@ -2,7 +2,7 @@ package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.io;
 
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.Point;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.TabulatedFunction;
-import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.factory.TabulatedFunctionFactory;
+import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.factory.TabulatedFunctionFactory;
 
 import javax.swing.text.NumberFormatter;
 import java.io.*;

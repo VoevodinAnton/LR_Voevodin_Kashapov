@@ -3,7 +3,7 @@ package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.io;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.LinkedListTabulatedFunction;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.TabulatedFunction;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.operations.TabulatedDifferentialOperator;
-import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.factory.LinkedListTabulatedFunctionFactory;
+import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.factory.LinkedListTabulatedFunctionFactory;
 
 import java.io.*;
 

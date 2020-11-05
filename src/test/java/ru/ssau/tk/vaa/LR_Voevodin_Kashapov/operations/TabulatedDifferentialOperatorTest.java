@@ -1,7 +1,7 @@
 package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.operations;
 
 import org.testng.annotations.Test;
-import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.factory.LinkedListTabulatedFunctionFactory;
+import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.factory.LinkedListTabulatedFunctionFactory;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.ArrayTabulatedFunction;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.LinkedListTabulatedFunction;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.TabulatedFunction;

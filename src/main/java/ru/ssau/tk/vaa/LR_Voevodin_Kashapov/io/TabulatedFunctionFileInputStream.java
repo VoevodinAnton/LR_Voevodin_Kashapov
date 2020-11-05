@@ -1,7 +1,7 @@
 package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.io;
 
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.TabulatedFunction;
-import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.factory.ArrayTabulatedFunctionFactory;
+import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.factory.ArrayTabulatedFunctionFactory;
 
 import java.io.*;
 

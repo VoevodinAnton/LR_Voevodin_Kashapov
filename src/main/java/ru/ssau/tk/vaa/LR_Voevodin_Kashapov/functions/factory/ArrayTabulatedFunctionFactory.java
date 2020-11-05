@@ -1,4 +1,4 @@
-package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.factory;
+package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.factory;
 
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.ArrayTabulatedFunction;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.TabulatedFunction;

@@ -2,8 +2,8 @@ package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.operations;
 
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.Point;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.TabulatedFunction;
-import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.factory.ArrayTabulatedFunctionFactory;
-import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.factory.TabulatedFunctionFactory;
+import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.factory.ArrayTabulatedFunctionFactory;
+import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.factory.TabulatedFunctionFactory;
 
 public class TabulatedDifferentialOperator implements DifferentialOperator<TabulatedFunction> {
     TabulatedFunctionFactory factory;
