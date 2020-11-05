@@ -8,6 +8,7 @@ import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.SinFunction;
 import org.testng.annotations.Test;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 import static org.testng.Assert.*;
 
@@ -351,7 +352,7 @@ public class LinkedListTabulatedFunctionTest {
         }
         assertEquals(listOfArray.getCount(), i);
 
-
+        assertThrows(NoSuchElementException.class, iterator::next);
     }
 
     @Test
