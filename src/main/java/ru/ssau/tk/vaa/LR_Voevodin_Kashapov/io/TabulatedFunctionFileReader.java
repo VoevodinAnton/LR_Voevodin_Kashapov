@@ -10,17 +10,14 @@ import java.io.IOException;
 
 public class TabulatedFunctionFileReader {
     public static void main(String[] args) {
-        File in = new File("input/function.txt");
-        try {
-            BufferedReader inArray = new BufferedReader(new FileReader(in));
+        File file = new File("input/function.txt");
+        try (BufferedReader inArray = new BufferedReader(new FileReader(file)); BufferedReader inList = new BufferedReader(new FileReader(file))) {
+
             TabulatedFunction arrayFunction = FunctionsIO.readTabulatedFunction(inArray, new ArrayTabulatedFunctionFactory());
             System.out.println(arrayFunction.toString());
-            inArray.close();
 
-            BufferedReader inList = new BufferedReader(new FileReader(in));
             TabulatedFunction listFunction = FunctionsIO.readTabulatedFunction(inList, new LinkedListTabulatedFunctionFactory());
             System.out.println(listFunction.toString());
-            inList.close();
 
         } catch (IOException e) {
             e.printStackTrace();

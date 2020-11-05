@@ -24,29 +24,29 @@ public class FunctionsIOTest {
     }
 
     @Test
-    public void testReadTabulatedFunction(){
+    public void testReadTabulatedFunction() {
         File fileList = new File("temp/linked list for read.bin");
         TabulatedFunction listTest = new LinkedListTabulatedFunction(xValues, yValues);
-        try(BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(fileList))){
+        try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(fileList))) {
             FunctionsIO.writeTabulatedFunction(out, listTest);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
 
-       try(BufferedInputStream in = new BufferedInputStream(new FileInputStream(fileList))) {
-           ArrayTabulatedFunctionFactory arrayFactory = new ArrayTabulatedFunctionFactory();
-           TabulatedFunction arrayTest = FunctionsIO.readTabulatedFunction(in, arrayFactory);
+        try (BufferedInputStream in = new BufferedInputStream(new FileInputStream(fileList))) {
+            ArrayTabulatedFunctionFactory arrayFactory = new ArrayTabulatedFunctionFactory();
+            TabulatedFunction arrayTest = FunctionsIO.readTabulatedFunction(in, arrayFactory);
 
-           assertEquals(listTest.getCount(), arrayTest.getCount());
+            assertEquals(listTest.getCount(), arrayTest.getCount());
 
-           for(int i = 0; i < listTest.getCount(); i++){
-               assertEquals(listTest.getX(i), arrayTest.getX(i));
-               assertEquals(listTest.getY(i), arrayTest.getY(i));
-           }
-       } catch (IOException e){
-           e.printStackTrace();
-       }
+            for (int i = 0; i < listTest.getCount(); i++) {
+                assertEquals(listTest.getX(i), arrayTest.getX(i));
+                assertEquals(listTest.getY(i), arrayTest.getY(i));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test

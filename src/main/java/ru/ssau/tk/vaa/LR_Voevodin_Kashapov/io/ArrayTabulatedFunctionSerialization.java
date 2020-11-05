@@ -17,14 +17,16 @@ public class ArrayTabulatedFunctionSerialization {
         TabulatedDifferentialOperator differentialOperator = new TabulatedDifferentialOperator(new ArrayTabulatedFunctionFactory());
         TabulatedFunction firstDerivative = differentialOperator.derive(arrayFunction);
         TabulatedFunction SecondDerivative = differentialOperator.derive(firstDerivative);
-        try {
-            BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(fileArray));
+        try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(fileArray))) {
             FunctionsIO.serialize(out, arrayFunction);
             FunctionsIO.serialize(out, firstDerivative);
             FunctionsIO.serialize(out, SecondDerivative);
-            out.close();
 
-            BufferedInputStream in = new BufferedInputStream(new FileInputStream(fileArray));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try (BufferedInputStream in = new BufferedInputStream(new FileInputStream(fileArray))) {
             TabulatedFunction deserializedArray = FunctionsIO.deserialize(in);
             TabulatedFunction deserializedFirstDerivative = FunctionsIO.deserialize(in);
             TabulatedFunction deserializedSecondDerivative = FunctionsIO.deserialize(in);

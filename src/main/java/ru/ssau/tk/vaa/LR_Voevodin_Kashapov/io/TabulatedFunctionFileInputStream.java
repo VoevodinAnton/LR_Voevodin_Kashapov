@@ -9,17 +9,15 @@ import java.io.*;
 
 public class TabulatedFunctionFileInputStream {
     public static void main(String[] args) {
-        try(BufferedInputStream in = new BufferedInputStream(new FileInputStream("input/binary function.bin"))){
+        try (BufferedInputStream in = new BufferedInputStream(new FileInputStream("input/binary function.bin"))) {
             ArrayTabulatedFunctionFactory factory = new ArrayTabulatedFunctionFactory();
             TabulatedFunction functionArray = FunctionsIO.readTabulatedFunction(in, factory);
 
             System.out.println(functionArray.toString());
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
-
-        //почти не работает
 
         try {
             BufferedReader in = new BufferedReader(
@@ -35,7 +33,7 @@ public class TabulatedFunctionFileInputStream {
 
             System.out.println(diffFunctionList.toString());
 
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
 

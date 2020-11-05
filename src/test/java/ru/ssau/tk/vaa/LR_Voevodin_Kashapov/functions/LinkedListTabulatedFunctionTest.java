@@ -37,7 +37,7 @@ public class LinkedListTabulatedFunctionTest {
     }
 
     @Test
-    public void testConstructor(){
+    public void testConstructor() {
         assertThrows(IllegalArgumentException.class, () -> {
             LinkedListTabulatedFunction list = new LinkedListTabulatedFunction(new double[]{1}, new double[]{2});
         });
