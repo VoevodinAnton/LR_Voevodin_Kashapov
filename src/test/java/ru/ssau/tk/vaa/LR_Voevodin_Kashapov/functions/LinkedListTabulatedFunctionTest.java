@@ -304,6 +304,10 @@ public class LinkedListTabulatedFunctionTest {
 
     @Test
     public void testRemove() {
+        LinkedListTabulatedFunction list2points = new LinkedListTabulatedFunction(new double[]{1, 2}, new double[]{3, 4});
+
+        assertThrows(IllegalArgumentException.class, () -> list2points.remove(1));
+
         //out of list on the left
         LinkedListTabulatedFunction listOfArray = getListOfArray();
         //listOfArray = [1, 2, 3, 4, 5]
@@ -346,6 +350,7 @@ public class LinkedListTabulatedFunctionTest {
             assertEquals(listOfArray.getX(i++), point.x, ACCURACY);
         }
         assertEquals(listOfArray.getCount(), i);
+
 
     }
 

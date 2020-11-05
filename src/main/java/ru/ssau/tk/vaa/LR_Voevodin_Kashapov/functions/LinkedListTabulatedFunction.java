@@ -254,6 +254,9 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
 
     @Override
     public void remove(int index) {
+        if (count <= 2){
+            throw new IllegalArgumentException("Length less than or equal to 2 points");
+        }
         Node delete = floorNodeOfX(getX(index));
         Node prevDelete = delete.prev;
         if (index == 0){
@@ -266,9 +269,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
         }else{
             prevDelete.next = delete.next;
         }
-
         count--;
-
     }
 
     private void checkIndex(int index){
