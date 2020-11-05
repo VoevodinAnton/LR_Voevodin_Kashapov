@@ -42,17 +42,13 @@ public class LinkedListTabulatedFunctionTest {
             LinkedListTabulatedFunction list = new LinkedListTabulatedFunction(new double[]{1}, new double[]{2});
         });
 
-        assertThrows(MyAssertions.assertDoesNotThrow(() -> {
-            LinkedListTabulatedFunction list = new LinkedListTabulatedFunction(new double[]{1, 3}, new double[]{2, 4});
-        }));
+        LinkedListTabulatedFunction list1 = new LinkedListTabulatedFunction(new double[]{1, 3}, new double[]{2, 4});
 
         assertThrows(IllegalArgumentException.class, () -> {
             LinkedListTabulatedFunction list = new LinkedListTabulatedFunction(function, 3, 1, 10);
         });
 
-        assertThrows(MyAssertions.assertDoesNotThrow(() -> {
-            LinkedListTabulatedFunction list = new LinkedListTabulatedFunction(function, 1, 3, 10);
-        }));
+        LinkedListTabulatedFunction list2 = new LinkedListTabulatedFunction(function, 1, 3, 10);
 
     }
 

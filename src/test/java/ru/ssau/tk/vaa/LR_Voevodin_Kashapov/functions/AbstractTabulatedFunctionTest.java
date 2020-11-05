@@ -6,7 +6,6 @@ import static org.testng.Assert.*;
 
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.exeptions.ArrayIsNotSortedException;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.exeptions.DifferentLengthOfArraysException;
-import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.exeptions.*;
 
 public class AbstractTabulatedFunctionTest {
     private final static double ACCURACY = 0.00001;
@@ -39,12 +38,10 @@ public class AbstractTabulatedFunctionTest {
             double[] y = new double[]{1, 16, 81, 256, 22};
             AbstractTabulatedFunction.checkLengthIsTheSame(x, y);
         });
-
-        assertThrows(MyAssertions.assertDoesNotThrow(() -> {
             double[] x = new double[]{1, 4, 9, 16, 20};
             double[] y = new double[]{1, 16, 81, 256, 22};
             ArrayTabulatedFunction.checkLengthIsTheSame(x, y);
-        }));
+
 
     }
 
@@ -55,10 +52,9 @@ public class AbstractTabulatedFunctionTest {
             AbstractTabulatedFunction.checkSorted(x);
         });
 
-        assertThrows( MyAssertions.assertDoesNotThrow(() -> {
-            double[] x = new double[]{1, 5, 9, 10, 16};
-            AbstractTabulatedFunction.checkSorted(x);
-        }));
+        double[] x = new double[]{1, 5, 9, 10, 16};
+        AbstractTabulatedFunction.checkSorted(x);
+
     }
 
     @Test
