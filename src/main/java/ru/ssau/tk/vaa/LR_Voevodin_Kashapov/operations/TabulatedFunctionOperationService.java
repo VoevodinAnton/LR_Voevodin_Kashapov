@@ -62,12 +62,11 @@ public class TabulatedFunctionOperationService {
         return factory.create(xValues, yValues);
     }
 
-
-    TabulatedFunction multiply(TabulatedFunction a, TabulatedFunction b) {
+    public TabulatedFunction multiply(TabulatedFunction a, TabulatedFunction b) {
         return doOperation(a, b, (u, v) -> u * v);
     }
 
-    TabulatedFunction divide(TabulatedFunction a, TabulatedFunction b) {
+    public TabulatedFunction divide(TabulatedFunction a, TabulatedFunction b) {
         return doOperation(a, b, (u, v) -> u / v);
     }
 

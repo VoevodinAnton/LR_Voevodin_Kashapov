@@ -39,6 +39,7 @@ public class AbstractTabulatedFunctionTest {
             double[] y = new double[]{1, 16, 81, 256, 22};
             AbstractTabulatedFunction.checkLengthIsTheSame(x, y);
         });
+
     }
 
     @Test
