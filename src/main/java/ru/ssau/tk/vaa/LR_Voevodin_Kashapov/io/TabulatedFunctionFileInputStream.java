@@ -25,7 +25,7 @@ public class TabulatedFunctionFileInputStream {
             BufferedReader in = new BufferedReader(
                     new InputStreamReader(System.in));
 
-            System.out.println("Введите размер и значения функции: \n");
+            System.out.println("Введите размер и значения функции:");
             LinkedListTabulatedFunctionFactory factory = new LinkedListTabulatedFunctionFactory();
 
             TabulatedFunction LinkedList = FunctionsIO.readTabulatedFunction(in, factory);
