@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.*;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 import static org.testng.Assert.*;
 
@@ -361,10 +362,11 @@ public class ArrayTabulatedFunctionTest {
         assertEquals(a.getY(1), 256.0);
         assertEquals(a.getCount(), 2);
         // тест для конца
-        a.remove(1);
+        /*a.remove(1);
         assertEquals(a.getX(0), 4.0);
         assertEquals(a.getY(0), 16.0);
-        assertEquals(a.getCount(), 1);
+        assertEquals(a.getCount(), 1);*/
+        assertThrows(IllegalArgumentException.class, () -> a.remove(0));
     }
 
     @Test
@@ -378,6 +380,7 @@ public class ArrayTabulatedFunctionTest {
             assertEquals(arr.getY(i++), a.y);
         }
         assertEquals(arr.getCount(), i);
+        assertThrows(NoSuchElementException.class, it1::next);
     }
 
     @Test
