@@ -158,6 +158,9 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
     }
 
     public void remove(int index) {
+        if (count <=2) {
+            throw new IllegalArgumentException("Array's length is less than 2");
+        }
         double[] xValues1 = new double[count - 1];
         double[] yValues1 = new double[count - 1];
         System.arraycopy(yValues, 0, yValues1, 0, index);
