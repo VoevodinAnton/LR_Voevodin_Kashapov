@@ -18,7 +18,7 @@ public class LinkedListTabulatedFunctionSerialization {
         LinkedListTabulatedFunction list = new LinkedListTabulatedFunction(xValues, yValues);
         TabulatedDifferentialOperator differentialOperator = new TabulatedDifferentialOperator(new LinkedListTabulatedFunctionFactory());
         TabulatedFunction firstDerivative = differentialOperator.derive(list);
-        TabulatedFunction secondDerivative = differentialOperator.derive(list);
+        TabulatedFunction secondDerivative = differentialOperator.derive(firstDerivative);
 
         try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(fileList))) {
             FunctionsIO.serialize(out, list);
