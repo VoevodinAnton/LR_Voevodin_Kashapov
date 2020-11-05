@@ -47,6 +47,11 @@ public class AbstractTabulatedFunctionTest {
             double[] x = new double[]{1, 4, 33, 9, 16};
             AbstractTabulatedFunction.checkSorted(x);
         });
+
+        assertThrows( MyAssertions.assertDoesNotThrow(() -> {
+            double[] x = new double[]{1, 5, 9, 10, 16};
+            AbstractTabulatedFunction.checkSorted(x);
+        }));
     }
 
     @Test
