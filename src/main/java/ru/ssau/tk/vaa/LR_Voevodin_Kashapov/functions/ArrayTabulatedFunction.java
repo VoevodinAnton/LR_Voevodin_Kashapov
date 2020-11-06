@@ -5,16 +5,22 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.exeptions.InterpolationException;
 
 
 public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements Insertable, Removable, Serializable {
     private static final long serialVersionUID = -6675414219615562609L;
+    @JsonFormat(shape = JsonFormat.Shape.ARRAY)
     private double[] xValues;
+    @JsonFormat(shape = JsonFormat.Shape.ARRAY)
     private double[] yValues;
     private int count;
 
-    public ArrayTabulatedFunction(double[] xValues, double[] yValues) {
+    @JsonCreator
+    public ArrayTabulatedFunction(@JsonProperty(value = "xValues") double[] xValues, @JsonProperty(value = "yValues") double[] yValues) {
         if (xValues.length < 2) {
             throw new IllegalArgumentException("length less than 2 points");
         }
