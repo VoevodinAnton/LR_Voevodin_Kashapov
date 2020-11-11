@@ -1,6 +1,6 @@
 package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions;
 
-public class ConstantFunction {
+public class ConstantFunction implements MathFunction {
     private final double CONSTANT;
 
     public ConstantFunction(double CONSTANT) {
