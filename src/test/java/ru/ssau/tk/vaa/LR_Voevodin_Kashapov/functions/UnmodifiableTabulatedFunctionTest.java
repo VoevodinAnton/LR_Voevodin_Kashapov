@@ -24,23 +24,23 @@ public class UnmodifiableTabulatedFunctionTest {
         UnmodifiableTabulatedFunction arr = new UnmodifiableTabulatedFunction(array());
         assertEquals(arr.getCount(), 4);
 
-        UnmodifiableTabulatedFunction lis = new UnmodifiableTabulatedFunction(list());
-        assertEquals(lis.getCount(), 4);
+        UnmodifiableTabulatedFunction list = new UnmodifiableTabulatedFunction(list());
+        assertEquals(list.getCount(), 4);
     }
 
     @Test
     public void testGetX() {
         UnmodifiableTabulatedFunction arr = new UnmodifiableTabulatedFunction(array());
-        UnmodifiableTabulatedFunction lis = new UnmodifiableTabulatedFunction(list());
+        UnmodifiableTabulatedFunction list = new UnmodifiableTabulatedFunction(list());
 
         assertEquals(arr.getX(0), 1.0);
-        assertEquals(lis.getX(0), 1.0);
+        assertEquals(list.getX(0), 1.0);
         assertEquals(arr.getX(1), 4.0);
-        assertEquals(lis.getX(1), 4.0);
+        assertEquals(list.getX(1), 4.0);
         assertEquals(arr.getX(2), 9.0);
-        assertEquals(lis.getX(2), 9.0);
+        assertEquals(list.getX(2), 9.0);
         assertEquals(arr.getX(3), 16.0);
-        assertEquals(lis.getX(3), 16.0);
+        assertEquals(list.getX(3), 16.0);
     }
 
     @Test
@@ -72,16 +72,16 @@ public class UnmodifiableTabulatedFunctionTest {
     @Test
     public void testIndexOfX() {
         UnmodifiableTabulatedFunction arr = new UnmodifiableTabulatedFunction(array());
-        UnmodifiableTabulatedFunction lis = new UnmodifiableTabulatedFunction(list());
+        UnmodifiableTabulatedFunction list = new UnmodifiableTabulatedFunction(list());
 
         assertEquals(arr.indexOfX(1), 0);
         assertEquals(arr.indexOfX(4), 1);
         assertEquals(arr.indexOfX(9), 2);
         assertEquals(arr.indexOfX(16), 3);
-        assertEquals(lis.indexOfX(1), 0);
-        assertEquals(lis.indexOfX(4), 1);
-        assertEquals(lis.indexOfX(9), 2);
-        assertEquals(lis.indexOfX(16), 3);
+        assertEquals(list.indexOfX(1), 0);
+        assertEquals(list.indexOfX(4), 1);
+        assertEquals(list.indexOfX(9), 2);
+        assertEquals(list.indexOfX(16), 3);
     }
 
     @Test
@@ -102,25 +102,25 @@ public class UnmodifiableTabulatedFunctionTest {
     @Test
     public void testLeftBound() {
         UnmodifiableTabulatedFunction arr = new UnmodifiableTabulatedFunction(array());
-        UnmodifiableTabulatedFunction lis = new UnmodifiableTabulatedFunction(list());
+        UnmodifiableTabulatedFunction list = new UnmodifiableTabulatedFunction(list());
 
         assertEquals(arr.leftBound(), 1.0);
-        assertEquals(lis.leftBound(), 1.0);
+        assertEquals(list.leftBound(), 1.0);
     }
 
     @Test
     public void testRightBound() {
         UnmodifiableTabulatedFunction arr = new UnmodifiableTabulatedFunction(array());
-        UnmodifiableTabulatedFunction lis = new UnmodifiableTabulatedFunction(list());
+        UnmodifiableTabulatedFunction list = new UnmodifiableTabulatedFunction(list());
 
         assertEquals(arr.rightBound(), 16.0);
-        assertEquals(lis.rightBound(), 16.0);
+        assertEquals(list.rightBound(), 16.0);
     }
 
     @Test
     public void testIterator() {
         UnmodifiableTabulatedFunction arr = new UnmodifiableTabulatedFunction(array());
-        UnmodifiableTabulatedFunction lis = new UnmodifiableTabulatedFunction(list());
+        UnmodifiableTabulatedFunction list = new UnmodifiableTabulatedFunction(list());
 
         Iterator<Point> itArr = arr.iterator();
         int i = 0;
@@ -129,24 +129,24 @@ public class UnmodifiableTabulatedFunctionTest {
             assertEquals(arr.getX(i), abc.x);
             assertEquals(arr.getY(i++), abc.y);
         }
-        Iterator<Point> itLis = lis.iterator();
+        Iterator<Point> itLis = list.iterator();
         int j = 0;
-        for (Point abc : lis) {
+        for (Point abc : list) {
             abc = itLis.next();
-            assertEquals(lis.getX(j), abc.x);
-            assertEquals(lis.getY(j++), abc.y);
+            assertEquals(list.getX(j), abc.x);
+            assertEquals(list.getY(j++), abc.y);
         }
     }
 
     @Test
     public void testApply() {
         UnmodifiableTabulatedFunction arr = new UnmodifiableTabulatedFunction(array());
-        UnmodifiableTabulatedFunction lis = new UnmodifiableTabulatedFunction(list());
+        UnmodifiableTabulatedFunction list = new UnmodifiableTabulatedFunction(list());
 
         assertEquals(arr.apply(1), 1.0);
-        assertEquals(lis.apply(2), 6.0);
+        assertEquals(list.apply(2), 6.0);
         assertEquals(arr.apply(3), 11.0);
-        assertEquals(lis.apply(4), 16.0);
+        assertEquals(list.apply(4), 16.0);
 
     }
 }

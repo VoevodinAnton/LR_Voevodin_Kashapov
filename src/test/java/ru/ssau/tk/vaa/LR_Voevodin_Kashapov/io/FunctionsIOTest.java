@@ -1,5 +1,6 @@
 package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.io;
 
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.LinkedListTabulatedFunction;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.TabulatedFunction;
@@ -13,24 +14,12 @@ public class FunctionsIOTest {
     double[] xValues = new double[]{1, 2, 3, 4, 5};
     double[] yValues = new double[]{2, 4, 6, 8, 10};
 
-    LinkedListTabulatedFunction list = new LinkedListTabulatedFunction(xValues, yValues);
-
     @Test
-    public void testWriteTabulatedFunction() {
-    }
-
-    @Test
-    public void testTestWriteTabulatedFunction() {
-    }
-
-    @Test
-    public void testReadTabulatedFunction() {
+    public void testReadWriteTabulatedFunction() throws IOException {
         File fileList = new File("temp/linked list for read.bin");
         TabulatedFunction listTest = new LinkedListTabulatedFunction(xValues, yValues);
         try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(fileList))) {
             FunctionsIO.writeTabulatedFunction(out, listTest);
-        } catch (IOException e) {
-            e.printStackTrace();
         }
 
 
@@ -49,11 +38,11 @@ public class FunctionsIOTest {
         }
     }
 
-    @Test
-    public void testSerialize() {
-    }
-
-    @Test
-    public void testDeserialize() {
+    @AfterClass
+    public void DeleteOnExit() {
+        for (File myFile : new File("temp").listFiles())
+            if (myFile.isFile() && myFile.delete()) {
+                System.out.println(myFile.getName() + " deleted");
+            }
     }
 }
