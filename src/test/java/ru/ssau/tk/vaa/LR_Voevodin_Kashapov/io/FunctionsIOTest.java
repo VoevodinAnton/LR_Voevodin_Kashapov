@@ -13,8 +13,6 @@ public class FunctionsIOTest {
     double[] xValues = new double[]{1, 2, 3, 4, 5};
     double[] yValues = new double[]{2, 4, 6, 8, 10};
 
-    LinkedListTabulatedFunction list = new LinkedListTabulatedFunction(xValues, yValues);
-
     @Test
     public void testWriteTabulatedFunction() {
     }
@@ -32,7 +30,6 @@ public class FunctionsIOTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
 
         try (BufferedInputStream in = new BufferedInputStream(new FileInputStream(fileList))) {
             ArrayTabulatedFunctionFactory arrayFactory = new ArrayTabulatedFunctionFactory();

@@ -39,7 +39,9 @@ public class TabulatedFunctionFactoryTest {
         TabulatedFunction strUnModLis = listFactory.createStrictUnmodifiable(x, y);
         assertTrue(strUnModArr instanceof UnmodifiableTabulatedFunction);
         assertThrows(UnsupportedOperationException.class, () -> strUnModArr.apply(0));
+        assertThrows(UnsupportedOperationException.class, () -> strUnModArr.setY(2, 3 ));
         assertTrue(strUnModLis instanceof UnmodifiableTabulatedFunction);
         assertThrows(UnsupportedOperationException.class, () -> strUnModLis.apply(0));
+        assertThrows(UnsupportedOperationException.class, () -> strUnModLis.setY(1, 2));
     }
 }
