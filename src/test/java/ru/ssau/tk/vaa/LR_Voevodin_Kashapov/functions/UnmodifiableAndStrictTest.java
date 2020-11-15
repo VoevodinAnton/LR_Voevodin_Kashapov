@@ -39,7 +39,7 @@ public class UnmodifiableAndStrictTest {
     }
 
     @Test
-    public void testSetY() {
+    public void testUnModStrict() {
         StrictTabulatedFunction strUnmLis = strictUnModList();
         StrictTabulatedFunction strUnmArr = strictUnModArray();
         UnmodifiableTabulatedFunction unmStrLis = unModStrictList();
@@ -49,18 +49,11 @@ public class UnmodifiableAndStrictTest {
         assertThrows(UnsupportedOperationException.class, () -> strUnmArr.setY(1, 15));
         assertThrows(UnsupportedOperationException.class, () -> unmStrLis.setY(2, 20));
         assertThrows(UnsupportedOperationException.class, () -> unmStrArr.setY(3, 25));
-    }
-
-    @Test
-    public void testApply() {
-        StrictTabulatedFunction strUnmLis = strictUnModList();
-        StrictTabulatedFunction strUnmArr = strictUnModArray();
-        UnmodifiableTabulatedFunction unmStrLis = unModStrictList();
-        UnmodifiableTabulatedFunction unmStrArr = unModStrictArray();
 
         assertThrows(UnsupportedOperationException.class, () -> strUnmLis.apply(0));
         assertThrows(UnsupportedOperationException.class, () -> unmStrLis.apply(0.5));
         assertThrows(UnsupportedOperationException.class, () -> strUnmArr.apply(0.75));
         assertThrows(UnsupportedOperationException.class, () -> unmStrArr.apply(0.25));
     }
+
 }
