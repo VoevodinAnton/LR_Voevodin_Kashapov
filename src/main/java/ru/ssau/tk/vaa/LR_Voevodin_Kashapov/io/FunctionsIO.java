@@ -1,7 +1,7 @@
 package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.io;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.thoughtworks.xstream.XStream;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.ArrayTabulatedFunction;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.Point;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.TabulatedFunction;
@@ -92,5 +92,17 @@ final class FunctionsIO {
     static ArrayTabulatedFunction deserializeJson(BufferedReader reader) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         return mapper.readerFor(ArrayTabulatedFunction.class).readValue(reader);
+    }
+
+    static void serializeXml(BufferedWriter writer, ArrayTabulatedFunction function) throws IOException {
+        XStream xmlWriter = new XStream();
+        String xmlString = xmlWriter.toXML(function);
+        writer.write(xmlString);
+        writer.flush();
+    }
+
+    static ArrayTabulatedFunction deserializeXml(BufferedReader reader) throws IOException {
+        XStream xmlReader = new XStream();
+        return (ArrayTabulatedFunction) xmlReader.fromXML(reader);
     }
 }
