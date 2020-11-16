@@ -13,11 +13,11 @@ import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.exeptions.InterpolationException;
 
 public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements Insertable, Removable, Serializable {
     private static final long serialVersionUID = -6675414219615562609L;
+    private int count;
     @JsonFormat(shape = JsonFormat.Shape.ARRAY)
     private double[] xValues;
     @JsonFormat(shape = JsonFormat.Shape.ARRAY)
     private double[] yValues;
-    private int count;
 
     @JsonCreator
     public ArrayTabulatedFunction(@JsonProperty(value = "xValues") double[] xValues, @JsonProperty(value = "yValues") double[] yValues) {

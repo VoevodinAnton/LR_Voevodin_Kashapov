@@ -20,5 +20,12 @@ public class ArrayTabulatedFunctionSerializationJson {
             e.printStackTrace();
         }
 
+        try(BufferedReader in = new BufferedReader(new FileReader(fileArray))){
+            TabulatedFunction function = FunctionsIO.deserializeJson(in);
+            System.out.println(function.toString());
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+
     }
 }

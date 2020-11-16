@@ -91,7 +91,6 @@ final class FunctionsIO {
 
     static ArrayTabulatedFunction deserializeJson(BufferedReader reader) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        //не нашел метода readFor в ObjectMapper
-        return mapper.readerForUpdating(ArrayTabulatedFunction.class).readValue(reader);
+        return mapper.readerFor(ArrayTabulatedFunction.class).readValue(reader);
     }
 }
