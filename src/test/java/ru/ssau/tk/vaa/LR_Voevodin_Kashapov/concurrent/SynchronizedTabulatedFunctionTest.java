@@ -57,17 +57,23 @@ public class SynchronizedTabulatedFunctionTest {
     public void testIndexOfY() {
         SynchronizedTabulatedFunction synchronizedTabulatedFunction = getSynchronizedList();
 
-
+        assertEquals(synchronizedTabulatedFunction.indexOfY(4), 1);
+        assertEquals(synchronizedTabulatedFunction.indexOfY(6), 2);
+        assertEquals(synchronizedTabulatedFunction.indexOfY(8), 3);
     }
 
     @Test
     public void testLeftBound() {
         SynchronizedTabulatedFunction synchronizedTabulatedFunction = getSynchronizedList();
+
+        assertEquals(synchronizedTabulatedFunction.leftBound(), 1.0);
     }
 
     @Test
     public void testRightBound() {
         SynchronizedTabulatedFunction synchronizedTabulatedFunction = getSynchronizedList();
+
+        assertEquals(synchronizedTabulatedFunction.rightBound(), 5.0);
     }
 
     @Test
@@ -77,5 +83,7 @@ public class SynchronizedTabulatedFunctionTest {
     @Test
     public void testApply() {
         SynchronizedTabulatedFunction synchronizedTabulatedFunction = getSynchronizedList();
+
+        assertEquals(synchronizedTabulatedFunction.apply(5), 10.0, ACCURACY);
     }
 }
