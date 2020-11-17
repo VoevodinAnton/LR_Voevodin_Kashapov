@@ -13,14 +13,13 @@ public class SynchronizedTabulatedFunctionTest {
     private final double[] yValues = new double[]{2, 4, 6, 8, 10};
     private final Object mutex = new Object();
 
-    private SynchronizedTabulatedFunction getSynchronizedList(){
+    private SynchronizedTabulatedFunction getSynchronizedList() {
         return new SynchronizedTabulatedFunction(new LinkedListTabulatedFunction(xValues, yValues), mutex);
     }
 
-    private SynchronizedTabulatedFunction getSynchronizedArray(){
+    private SynchronizedTabulatedFunction getSynchronizedArray() {
         return new SynchronizedTabulatedFunction(new ArrayTabulatedFunction(xValues, yValues), mutex);
     }
-
 
     @Test
     public void testGetCount() {
@@ -52,39 +51,52 @@ public class SynchronizedTabulatedFunctionTest {
     @Test
     public void testSetY() {
         SynchronizedTabulatedFunction synchronizedTabulatedFunction = getSynchronizedList();
-
         synchronizedTabulatedFunction.setY(2, 39);
         assertEquals(synchronizedTabulatedFunction.getY(2), 39, ACCURACY);
+
+        SynchronizedTabulatedFunction synchronizedArr = getSynchronizedArray();
+        synchronizedArr.setY(3, 12);
+        assertEquals(synchronizedArr.getY(3), 12.0);
     }
 
     @Test
     public void testIndexOfX() {
         SynchronizedTabulatedFunction synchronizedTabulatedFunction = getSynchronizedList();
-
         assertEquals(synchronizedTabulatedFunction.indexOfX(4), 3);
+
+        SynchronizedTabulatedFunction synchronizedArr = getSynchronizedArray();
+        assertEquals(synchronizedArr.indexOfX(4), 3);
     }
 
     @Test
     public void testIndexOfY() {
         SynchronizedTabulatedFunction synchronizedTabulatedFunction = getSynchronizedList();
-
         assertEquals(synchronizedTabulatedFunction.indexOfY(4), 1);
         assertEquals(synchronizedTabulatedFunction.indexOfY(6), 2);
         assertEquals(synchronizedTabulatedFunction.indexOfY(8), 3);
+
+        SynchronizedTabulatedFunction synchronizedArr = getSynchronizedArray();
+        assertEquals(synchronizedArr.indexOfY(4), 1);
+        assertEquals(synchronizedArr.indexOfY(6), 2);
+        assertEquals(synchronizedArr.indexOfY(8), 3);
     }
 
     @Test
     public void testLeftBound() {
         SynchronizedTabulatedFunction synchronizedTabulatedFunction = getSynchronizedList();
-
         assertEquals(synchronizedTabulatedFunction.leftBound(), 1.0);
+
+        SynchronizedTabulatedFunction synchronizedArr = getSynchronizedArray();
+        assertEquals(synchronizedArr.leftBound(), 1.0);
     }
 
     @Test
     public void testRightBound() {
         SynchronizedTabulatedFunction synchronizedTabulatedFunction = getSynchronizedList();
-
         assertEquals(synchronizedTabulatedFunction.rightBound(), 5.0);
+
+        SynchronizedTabulatedFunction synchronizedArr = getSynchronizedArray();
+        assertEquals(synchronizedArr.rightBound(), 5.0);
     }
 
     @Test
@@ -94,7 +106,9 @@ public class SynchronizedTabulatedFunctionTest {
     @Test
     public void testApply() {
         SynchronizedTabulatedFunction synchronizedTabulatedFunction = getSynchronizedList();
-
         assertEquals(synchronizedTabulatedFunction.apply(5), 10.0, ACCURACY);
+
+        SynchronizedTabulatedFunction synchronizedArr = getSynchronizedArray();
+        assertEquals(synchronizedArr.apply(6), 12.0);
     }
 }
