@@ -3,6 +3,11 @@ package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.concurrent;
 import org.testng.annotations.Test;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.ArrayTabulatedFunction;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.LinkedListTabulatedFunction;
+import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.Point;
+
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import static org.testng.Assert.*;
 
@@ -100,8 +105,31 @@ public class SynchronizedTabulatedFunctionTest {
     }
 
     @Test
-    public void testIterator() {
+    public void testIteratorWhile() {
+        SynchronizedTabulatedFunction synchronizedTabulatedFunction = getSynchronizedArray();
+        Iterator<Point> it1 = synchronizedTabulatedFunction.iterator();
+        int i = 0;
+        while (it1.hasNext()) {
+            Point a = it1.next();
+            assertEquals(synchronizedTabulatedFunction.getX(i), a.x);
+            assertEquals(synchronizedTabulatedFunction.getY(i++), a.y);
+        }
+        assertEquals(synchronizedTabulatedFunction.getCount(), i);
+        assertThrows(NoSuchElementException.class, it1::next);
+
     }
+
+    @Test
+    public void testIteratorForEach() {
+        SynchronizedTabulatedFunction synchronizedTabulatedFunction = getSynchronizedList();
+        int i = 0;
+        for (Point a : synchronizedTabulatedFunction) {
+            assertEquals(a.x, synchronizedTabulatedFunction.getX(i));
+            assertEquals(a.y, synchronizedTabulatedFunction.getY(i++));
+        }
+        assertEquals(synchronizedTabulatedFunction.getCount(), i);
+    }
+
 
     @Test
     public void testApply() {
