@@ -135,6 +135,7 @@ public class LinkedListTabulatedFunctionTest {
         LinkedListTabulatedFunction listOfMathFunc2 = getListOfMathFunc2();
         LinkedListTabulatedFunction listOfMathFunc3 = getListOfMathFunc3();
 
+        assertEquals(listOfArray.getY(0), 2, ACCURACY);
         assertEquals(listOfMathFunc1.getY(0), 0.841470984807, ACCURACY);
         assertEquals(listOfMathFunc2.getY(0), -0.1411200081, ACCURACY);
         assertEquals(listOfMathFunc3.getY(0), -0.5440211109, ACCURACY);
