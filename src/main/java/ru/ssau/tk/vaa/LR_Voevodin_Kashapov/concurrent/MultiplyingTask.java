@@ -5,6 +5,10 @@ import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.TabulatedFunction;
 public class MultiplyingTask implements Runnable {
     TabulatedFunction function;
 
+    public MultiplyingTask(TabulatedFunction func) {
+        this.function = func;
+    }
+
     @Override
     public void run() {
         double x;
