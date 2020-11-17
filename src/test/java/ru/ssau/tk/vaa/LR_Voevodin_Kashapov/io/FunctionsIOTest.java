@@ -39,7 +39,7 @@ public class FunctionsIOTest {
     }
 
     @AfterClass
-    public void DeleteOnExit() {
+    public void deleteOnExit() {
         for (File myFile : new File("temp").listFiles())
             if (myFile.isFile() && myFile.delete()) {
                 System.out.println(myFile.getName() + " deleted");
