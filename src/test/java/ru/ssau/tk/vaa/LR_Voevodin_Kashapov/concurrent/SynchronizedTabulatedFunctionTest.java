@@ -1,6 +1,7 @@
 package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.concurrent;
 
 import org.testng.annotations.Test;
+import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.ArrayTabulatedFunction;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.LinkedListTabulatedFunction;
 
 import static org.testng.Assert.*;
@@ -14,23 +15,33 @@ public class SynchronizedTabulatedFunctionTest {
         return new SynchronizedTabulatedFunction(new LinkedListTabulatedFunction(xValues, yValues), mutex);
     }
 
+    private SynchronizedTabulatedFunction getSynchronizedArray(){
+        return new SynchronizedTabulatedFunction(new ArrayTabulatedFunction(xValues, yValues), mutex);
+    }
+
 
     @Test
     public void testGetCount() {
         SynchronizedTabulatedFunction synchronizedTabulatedFunction = getSynchronizedList();
+        SynchronizedTabulatedFunction synchronizedArr = getSynchronizedArray();
 
         assertEquals(synchronizedTabulatedFunction.getCount(), 5);
+        assertEquals(synchronizedArr.getCount(), 5);
     }
 
     @Test
     public void testGetX() {
         SynchronizedTabulatedFunction synchronizedTabulatedFunction = getSynchronizedList();
+        SynchronizedTabulatedFunction synchronizedArr = getSynchronizedArray();
 
         assertEquals(synchronizedTabulatedFunction.getX(0), 1.0);
+        assertEquals(synchronizedArr.getX(3), 4.0);
     }
 
     @Test
     public void testGetY() {
+        SynchronizedTabulatedFunction synchronizedArr = getSynchronizedArray();
+        assertEquals(synchronizedArr.getY(3), 8.0);
     }
 
     @Test
