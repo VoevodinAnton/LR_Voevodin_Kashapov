@@ -5,7 +5,6 @@ import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.TabulatedFunction;
 
 import java.io.*;
 
-
 public class ArrayTabulatedFunctionSerializationXML {
     public static void main(String[] args) {
         File fileArray = new File("output/serialized array functions XML.txt");
@@ -15,16 +14,16 @@ public class ArrayTabulatedFunctionSerializationXML {
 
         ArrayTabulatedFunction arrayFunction = new ArrayTabulatedFunction(xValue, yValue);
 
-        try(BufferedWriter out = new BufferedWriter(new FileWriter(fileArray))){
+        try (BufferedWriter out = new BufferedWriter(new FileWriter(fileArray))) {
             FunctionsIO.serializeXml(out, arrayFunction);
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
-        try(BufferedReader in = new BufferedReader(new FileReader(fileArray))){
-            TabulatedFunction func =  FunctionsIO.deserializeXml(in);
+        try (BufferedReader in = new BufferedReader(new FileReader(fileArray))) {
+            TabulatedFunction func = FunctionsIO.deserializeXml(in);
             System.out.println(func.toString());
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
