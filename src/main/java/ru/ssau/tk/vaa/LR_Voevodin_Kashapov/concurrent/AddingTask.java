@@ -3,10 +3,16 @@ package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.concurrent;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.TabulatedFunction;
 
 public class AddingTask implements Runnable {
-    TabulatedFunction function;
+    final TabulatedFunction function;
+    Runnable postRunAction;
 
     public AddingTask(TabulatedFunction func) {
         this.function = func;
+    }
+
+    public AddingTask(TabulatedFunction func, Runnable postRunAction) {
+        this.function = func;
+        this.postRunAction = postRunAction;
     }
 
     @Override
@@ -23,6 +29,7 @@ public class AddingTask implements Runnable {
             }
             System.out.printf("%s, i = %d, x = %f, new y = %f \n", Thread.currentThread().getName(), i, x, y);
         }
+        postRunAction.run();
     }
 
 }
