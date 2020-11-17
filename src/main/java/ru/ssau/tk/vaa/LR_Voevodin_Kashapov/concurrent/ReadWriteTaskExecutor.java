@@ -14,11 +14,11 @@ public class ReadWriteTaskExecutor {
         int countThread = 20;
         CountDownLatch countDownLatch = new CountDownLatch(countThread);
         ReadWriteTask myTask = new ReadWriteTask(function, countDownLatch::countDown);
-        for (int i = 0; i < countThread; i++){
-             list.add(new Thread(myTask));
+        for (int i = 0; i < countThread; i++) {
+            list.add(new Thread(myTask));
         }
 
-        for (Thread thread: list){
+        for (Thread thread : list) {
             thread.start();
         }
         countDownLatch.await();
