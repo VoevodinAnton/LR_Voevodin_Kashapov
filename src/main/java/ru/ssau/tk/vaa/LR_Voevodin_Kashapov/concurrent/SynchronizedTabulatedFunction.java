@@ -23,17 +23,17 @@ public class SynchronizedTabulatedFunction implements TabulatedFunction {
         T apply(SynchronizedTabulatedFunction synchronizedTabulatedFunction);
     }
 
-    <T> T doSynchronously (Operation<? super T> operation) {
-        synchronized (mutex){
+    <T> T doSynchronously (Operation<T> operation) {
+
             return (T) operation.apply(this);
-        }
+
     }
 
     @Override
     public int getCount() {
-        synchronized (mutex) {
+
             return tabulatedFunction.getCount();
-        }
+
     }
 
     @Override
