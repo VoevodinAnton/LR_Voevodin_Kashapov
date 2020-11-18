@@ -1,6 +1,5 @@
 package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.concurrent;
 
-import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.LinkedListTabulatedFunction;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.Point;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.TabulatedFunction;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.operations.TabulatedFunctionOperationService;
@@ -8,7 +7,6 @@ import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.operations.TabulatedFunctionOperation
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Objects;
-import java.util.function.Consumer;
 
 public class SynchronizedTabulatedFunction implements TabulatedFunction {
     TabulatedFunction tabulatedFunction;
@@ -23,8 +21,8 @@ public class SynchronizedTabulatedFunction implements TabulatedFunction {
         T apply(SynchronizedTabulatedFunction synchronizedTabulatedFunction);
     }
 
-    <T> T doSynchronously (Operation<? super T> operation) {
-        synchronized (mutex){
+    public <T> T doSynchronously(Operation<? super T> operation) {
+        synchronized (mutex) {
             return (T) operation.apply(this);
         }
     }

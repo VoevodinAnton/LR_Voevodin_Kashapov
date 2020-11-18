@@ -1,5 +1,6 @@
 package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.operations;
 
+import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.concurrent.SynchronizedTabulatedFunction;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.Point;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.TabulatedFunction;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.factory.ArrayTabulatedFunctionFactory;
@@ -43,4 +44,15 @@ public class TabulatedDifferentialOperator implements DifferentialOperator<Tabul
 
         return factory.create(xValues, yValues);
     }
+
+    public TabulatedFunction deriveSynchronously(TabulatedFunction function) {
+        Object mu = new Object();
+
+        if (function instanceof SynchronizedTabulatedFunction) {
+            return ((SynchronizedTabulatedFunction) function).doSynchronously(this::derive);
+        }
+        SynchronizedTabulatedFunction syncFunc = new SynchronizedTabulatedFunction(function, mu);
+        return syncFunc.doSynchronously(this::derive);
+    }
+
 }
