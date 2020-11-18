@@ -8,6 +8,7 @@ import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.operations.TabulatedFunctionOperation
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Objects;
+import java.util.function.Consumer;
 
 public class SynchronizedTabulatedFunction implements TabulatedFunction {
     TabulatedFunction tabulatedFunction;
@@ -20,6 +21,12 @@ public class SynchronizedTabulatedFunction implements TabulatedFunction {
 
     public interface Operation<T> {
         T apply(SynchronizedTabulatedFunction synchronizedTabulatedFunction);
+    }
+
+    <T> T doSynchronously (Operation<? super T> operation) {
+        synchronized (mutex){
+            return (T) operation.apply(this);
+        }
     }
 
     @Override
