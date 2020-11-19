@@ -3,8 +3,8 @@ package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.concurrent;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.TabulatedFunction;
 
 public class ReadWriteTask implements Runnable {
-    final TabulatedFunction function;
-    Runnable postRunAction;
+    private final TabulatedFunction function;
+    private Runnable postRunAction;
 
     public ReadWriteTask(TabulatedFunction function) {
         this.function = function;

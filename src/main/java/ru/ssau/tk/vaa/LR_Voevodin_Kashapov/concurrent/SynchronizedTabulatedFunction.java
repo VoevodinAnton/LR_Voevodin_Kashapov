@@ -11,8 +11,8 @@ import java.util.Objects;
 import java.util.function.Consumer;
 
 public class SynchronizedTabulatedFunction implements TabulatedFunction {
-    TabulatedFunction tabulatedFunction;
-    final Object mutex;
+    private TabulatedFunction tabulatedFunction;
+    private final Object mutex;
 
     public SynchronizedTabulatedFunction(TabulatedFunction tabulatedFunction, Object mutex) {
         this.tabulatedFunction = tabulatedFunction;
