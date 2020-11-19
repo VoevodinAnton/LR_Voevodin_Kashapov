@@ -4,13 +4,14 @@ import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.*;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 
 public class ReadWriteTaskExecutor {
     public static void main(String[] args) throws InterruptedException {
         TabulatedFunction function = new LinkedListTabulatedFunction(new ZeroFunction(), 1, 10, 10);
-        ArrayList<Thread> list = new ArrayList<>();
+        List<Thread> list = new ArrayList<>();
         int countThread = 20;
         CountDownLatch countDownLatch = new CountDownLatch(countThread);
         ReadWriteTask myTask = new ReadWriteTask(function, countDownLatch::countDown);

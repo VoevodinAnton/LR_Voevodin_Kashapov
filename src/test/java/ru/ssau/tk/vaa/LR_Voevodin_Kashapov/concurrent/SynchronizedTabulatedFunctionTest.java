@@ -145,5 +145,6 @@ public class SynchronizedTabulatedFunctionTest {
         SynchronizedTabulatedFunction synchronizedTabulatedFunction = getSynchronizedList();
         assertEquals((int) synchronizedTabulatedFunction.doSynchronously(SynchronizedTabulatedFunction::getCount), 5);
         assertEquals(synchronizedTabulatedFunction.doSynchronously(SynchronizedTabulatedFunction::leftBound), 1.0);
+
     }
 }
