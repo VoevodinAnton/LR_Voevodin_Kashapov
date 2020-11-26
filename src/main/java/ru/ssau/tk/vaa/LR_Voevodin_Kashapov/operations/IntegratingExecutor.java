@@ -31,7 +31,5 @@ public class IntegratingExecutor {
         }
 
         System.out.println(result);
-
-
     }
 }
