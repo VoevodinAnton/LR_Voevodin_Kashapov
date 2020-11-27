@@ -7,29 +7,32 @@ import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.TabulatedFunction;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.*;
 
 public class IntegratingExecutor {
-    public static void main(String[] args) throws InterruptedException {
-        int countThread = 2;
-        double[] results = new double[countThread];
+    public static void main(String[] args) {
+        int countFuture = 10;
         double result = 0;
+        CountDownLatch countDownLatch = new CountDownLatch(countFuture);
+        ExecutorService executor = Executors.newFixedThreadPool(countFuture);
+        List<Future<Double>> list = new ArrayList<>();
         TabulatedFunction function = new LinkedListTabulatedFunction(new SinFunction(), 0, 2 * Math.PI, 10000);
-        List<Thread> list = new ArrayList<>();
-        for (int i = 0; i < countThread; i++) {
-            IntegratingTask myTask = new IntegratingTask(function, 0, 2 * Math.PI, countThread, i, results);
-            list.add(new Thread(myTask));
+        for (int i = 0; i < countFuture; i++) {
+            Callable<Double> myTask = new IntegratingTask(function, countFuture, i, countDownLatch::countDown);
+
+            Future<Double> future = executor.submit(myTask);
+            list.add(future);
         }
 
-        for (Thread thread : list) {
-            thread.start();
-        }
-        //ToDo: переделать через CountDownLatch
-        Thread.sleep(2000);
+        for (Future<Double> future : list) {
+            try {
+                result += future.get();
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
 
-        for (int i = 0; i < countThread; i++) {
-            result += results[i];
         }
-
         System.out.println(result);
+        executor.shutdown();
     }
 }

@@ -2,32 +2,30 @@ package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.operations;
 
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.TabulatedFunction;
 
+import java.util.concurrent.Callable;
 
-public class IntegratingTask implements Runnable {
+
+public class IntegratingTask implements Callable<Double> {
     TabulatedFunction function;
-    double xFrom;
-    double xTo;
     double step;
     int index;
-    double[] results;
-    double result;
+    private Runnable postRunAction;
 
-    public IntegratingTask(TabulatedFunction function, double xFrom, double xTo, int step, int index, double[] results) {
+    public IntegratingTask(TabulatedFunction function, int step, int index, Runnable postRunAction) {
         this.function = function;
         this.step = step;
-        this.xFrom = xFrom;
-        this.xTo = xTo;
         this.index = index;
-        this.results = results;
+        this.postRunAction = postRunAction;
     }
 
 
     @Override
-    public void run() {
-        double deltaX = (xTo - xFrom) / step;
-        double start = xFrom + index * deltaX;
+    public Double call() throws RuntimeException {
+        double deltaX = (function.rightBound() - function.leftBound()) / step;
+        double start = function.leftBound() + index * deltaX;
         double finish = start + deltaX;
         SimpsonIntegratingMethod integral = new SimpsonIntegratingMethod();
-        results[index] = integral.integrate(function, start, finish);
+        postRunAction.run();
+        return integral.integrate(function, start, finish);
     }
 }
