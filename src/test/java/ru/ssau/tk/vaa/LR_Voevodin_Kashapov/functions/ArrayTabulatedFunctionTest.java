@@ -1,9 +1,7 @@
 package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions;
 
-import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.*;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.exeptions.InterpolationException;
 import org.testng.annotations.Test;
-import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.*;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -15,8 +13,6 @@ public class ArrayTabulatedFunctionTest {
     public static final double ACCURACY = 0.000000001;
 
     private final MathFunction source = new TenthPowFunction();
-    private final double xFrom = 1;
-    private final double xTo = 10;
     private final int count = 256;
 
     private final double[] x = new double[]{1, 4, 9, 16};
@@ -29,6 +25,8 @@ public class ArrayTabulatedFunctionTest {
     private final double[] y2 = new double[]{1, 2, 1};
 
     private ArrayTabulatedFunction arr1() {
+        double xFrom = 1;
+        double xTo = 10;
         return new ArrayTabulatedFunction(source, xFrom, xTo, count);
     }
 

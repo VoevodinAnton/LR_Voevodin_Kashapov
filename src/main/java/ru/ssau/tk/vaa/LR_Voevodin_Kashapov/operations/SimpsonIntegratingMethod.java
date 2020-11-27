@@ -3,10 +3,10 @@ package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.operations;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.TabulatedFunction;
 
 public class SimpsonIntegratingMethod implements IntegratingOperator<TabulatedFunction> {
-    private final double ACCURACY = 0.0000001;
 
     @Override
     public double integrate(TabulatedFunction function, double xFrom, double xTo) {
+        double ACCURACY = 0.0000001;
         if (xFrom < function.leftBound() - ACCURACY) {
             throw new IllegalArgumentException("Incorrect low bound of integrating");
         }
@@ -17,7 +17,7 @@ public class SimpsonIntegratingMethod implements IntegratingOperator<TabulatedFu
             throw new IllegalArgumentException("Incorrect bounds: xFrom >= xTo");
         }
 
-        double n = 8196;
+        double n = 16384;
         double h = (xTo - xFrom) / (n - 1);
         double xEven;
         double xOdd;
