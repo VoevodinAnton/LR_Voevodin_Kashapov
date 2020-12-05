@@ -17,12 +17,7 @@ public class CountWindow extends JFrame {
         cp.add(new JLabel("Введите количество точек"));
         countGet = new JTextField(10);
         cp.add(countGet);
-        countGet.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                count = Integer.parseInt(countGet.getText());
-            }
-        });
+        countGet.addActionListener(evt -> count = Integer.parseInt(countGet.getText()));
 
 
         JButton pointsCreate = new JButton("next");
