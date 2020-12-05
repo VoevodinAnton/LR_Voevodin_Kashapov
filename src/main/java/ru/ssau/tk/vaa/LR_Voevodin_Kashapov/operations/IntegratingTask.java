@@ -3,29 +3,42 @@ package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.operations;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.TabulatedFunction;
 
 import java.util.concurrent.Callable;
+import java.util.concurrent.RecursiveTask;
 
 
-public class IntegratingTask implements Callable<Double> {
+public class IntegratingTask extends RecursiveTask<Double> {
+    private static final long serialVersionUID = -3422831134405022851L;
     TabulatedFunction function;
-    double step;
-    int index;
-    private Runnable postRunAction;
+    double xFrom;
+    double xTo;
+    public static final long threshold = 1;
 
-    public IntegratingTask(TabulatedFunction function, int step, int index, Runnable postRunAction) {
+    public IntegratingTask(TabulatedFunction function, double xFrom, double xTo) {
         this.function = function;
-        this.step = step;
-        this.index = index;
-        this.postRunAction = postRunAction;
+        this.xFrom = xFrom;
+        this.xTo = xTo;
     }
 
-
     @Override
-    public Double call() throws RuntimeException {
-        double deltaX = (function.rightBound() - function.leftBound()) / step;
-        double start = function.leftBound() + index * deltaX;
-        double finish = start + deltaX;
+    protected Double compute() {
+        double length = xTo - xFrom;
+        if (length <= threshold){
+            return add();
+        }
+        IntegratingTask firstTask = new IntegratingTask(function, xFrom, xFrom + length/2);
+        firstTask.fork();
+
+        IntegratingTask secondTask = new IntegratingTask(function, xFrom + length/2, xTo);
+        System.out.println(xFrom);
+        System.out.println(xTo);
+
+        Double secondTaskResult = secondTask.compute();
+        Double firstTaskResult = firstTask.join();
+        return firstTaskResult + secondTaskResult;
+    }
+
+    private Double add(){
         SimpsonIntegratingMethod integral = new SimpsonIntegratingMethod();
-        postRunAction.run();
-        return integral.integrate(function, start, finish);
+        return integral.integrate(function, this.xFrom, this.xTo);
     }
 }
