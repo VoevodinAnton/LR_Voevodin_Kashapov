@@ -2,12 +2,9 @@ package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.concurrent;
 
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.*;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
-import java.util.stream.IntStream;
-
 
 public class ReadWriteTaskExecutor {
     public static void main(String[] args) throws InterruptedException {
