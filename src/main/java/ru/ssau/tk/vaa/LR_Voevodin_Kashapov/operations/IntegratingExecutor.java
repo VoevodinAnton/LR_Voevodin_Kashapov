@@ -1,6 +1,5 @@
 package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.operations;
 
-import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.ConstantFunction;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.LinkedListTabulatedFunction;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.SinFunction;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.TabulatedFunction;
