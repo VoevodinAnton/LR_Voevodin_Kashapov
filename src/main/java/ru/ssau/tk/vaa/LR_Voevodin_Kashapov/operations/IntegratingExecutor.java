@@ -11,28 +11,10 @@ import java.util.concurrent.*;
 
 public class IntegratingExecutor {
     public static void main(String[] args) {
-        int countFuture = 10;
-        double result = 0;
-        CountDownLatch countDownLatch = new CountDownLatch(countFuture);
-        ExecutorService executor = Executors.newFixedThreadPool(countFuture);
-        List<Future<Double>> list = new ArrayList<>();
-        TabulatedFunction function = new LinkedListTabulatedFunction(new SinFunction(), 0, 2 * Math.PI, 10000);
-        for (int i = 0; i < countFuture; i++) {
-            Callable<Double> myTask = new IntegratingTask(function, countFuture, i, countDownLatch::countDown);
+        ForkJoinPool pool = new ForkJoinPool();
+        TabulatedFunction function = new LinkedListTabulatedFunction(new ConstantFunction(2), 0, 3, 10000);
 
-            Future<Double> future = executor.submit(myTask);
-            list.add(future);
-        }
-
-        for (Future<Double> future : list) {
-            try {
-                result += future.get();
-            } catch (InterruptedException | ExecutionException e) {
-                e.printStackTrace();
-            }
-
-        }
-        System.out.println(result);
-        executor.shutdown();
+        ForkJoinTask<Double> task = new IntegratingTask(function, 0, 3);
+        System.out.println(pool.invoke(task));
     }
 }
