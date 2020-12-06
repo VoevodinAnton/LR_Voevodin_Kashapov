@@ -5,38 +5,37 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class CountWindow extends JFrame {
-    private final JTextField countGet;
-    private int count;
+    JLabel countLabel = new JLabel("Введите количество точек");
+    JTextField countGet = new JTextField(10);
+    JButton pointsCreate = new JButton("Создать таблицу");
+
 
     private double[] xValues;
     private double[] yValues;
 
     public CountWindow() {
+        super("First operation");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(400, 150);
         Container cp = getContentPane();
-        cp.setLayout(new GridLayout(3,1,2,2));
-        cp.add(new JLabel("Введите количество точек"));
-        countGet = new JTextField(10);
+
+        cp.setLayout(new FlowLayout());
+        setLocationRelativeTo(null);
+
+        cp.add(countLabel);
         cp.add(countGet);
-        countGet.addActionListener(evt -> count = Integer.parseInt(countGet.getText()));
-
-
-        JButton pointsCreate = new JButton("next");
-        pointsCreate.addActionListener(new ButtonEventListener());
         cp.add(pointsCreate);
 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setTitle("First operation");
-        setSize(500, 200);
+        addButtonListeners();
         setVisible(true);
     }
 
-    private class ButtonEventListener implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
+    private void addButtonListeners() {
+        pointsCreate.addActionListener(evt -> {
+            int count = Integer.parseInt(countGet.getText());
+            this.dispose();
             new PointsWindow(count);
-        }
+        });
     }
 
-    public int getCount() {
-        return count;
-    }
 }
