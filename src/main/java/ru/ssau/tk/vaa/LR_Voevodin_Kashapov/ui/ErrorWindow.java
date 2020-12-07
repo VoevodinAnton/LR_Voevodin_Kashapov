@@ -1,5 +1,6 @@
 package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.ui;
 
+import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.exeptions.ArrayIsNotSortedException;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.exeptions.WrongNumberOfElementsException;
 
 import javax.swing.*;
@@ -18,10 +19,13 @@ public class ErrorWindow {
 
     private String MessageForException(Exception e) {
         if (e instanceof NumberFormatException) {
-            return "Неверный формат данных";
+            return "Неверный формат данных!";
         }
         if (e instanceof WrongNumberOfElementsException) {
-            return "Вы ввели неверное значение";
+            return "Вы ввели неверное значение!";
+        }
+        if (e instanceof ArrayIsNotSortedException) {
+            return "Элементы X должны быть упорядочены!";
         }
         if (e instanceof NullPointerException) {
             return "Что-то пошло не так...";
