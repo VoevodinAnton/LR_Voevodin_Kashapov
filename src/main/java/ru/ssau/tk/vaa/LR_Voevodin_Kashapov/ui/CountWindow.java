@@ -32,9 +32,15 @@ public class CountWindow extends JFrame {
 
     private void addButtonListeners() {
         pointsCreate.addActionListener(evt -> {
-            int count = Integer.parseInt(countGet.getText());
-            this.dispose();
-            new PointsWindow(count);
+            try {
+                int count = Integer.parseInt(countGet.getText());
+                this.dispose();
+                new PointsWindow(count);
+            } catch(Exception exception) {
+                ErrorWindow errorWindow = new ErrorWindow(this, exception);
+                errorWindow.getErrorWindow(this, exception);
+            }
         });
+
     }
 }
