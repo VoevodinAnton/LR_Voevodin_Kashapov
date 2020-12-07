@@ -57,8 +57,7 @@ public class PointsWindow extends JFrame {
                 System.out.println(function.toString());
 
             } catch (Exception exception) {
-                ErrorWindow errorWindow = new ErrorWindow(this, exception);
-                errorWindow.getErrorWindow(this, exception);
+                new ErrorWindow(this, exception);
             }
         });
     }

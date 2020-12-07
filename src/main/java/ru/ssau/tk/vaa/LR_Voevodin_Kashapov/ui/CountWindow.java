@@ -41,8 +41,7 @@ public class CountWindow extends JFrame {
                 this.dispose();
                 new PointsWindow(count);
             } catch(Exception exception) {
-                ErrorWindow errorWindow = new ErrorWindow(this, exception);
-                errorWindow.getErrorWindow(this, exception);
+                new ErrorWindow(this, exception);
             }
         });
     }
