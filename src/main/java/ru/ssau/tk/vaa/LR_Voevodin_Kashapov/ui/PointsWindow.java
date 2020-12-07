@@ -17,7 +17,7 @@ public class PointsWindow extends JFrame {
     private final AbstractTableModel myTableModel = new MyTableModel(xValues, yValues);
     private final JTable table = new JTable(myTableModel);
     private final JButton buttonCreateFunction = new JButton("Создать функцию");
-    TabulatedFunction function;
+    protected TabulatedFunction function;
 
     public PointsWindow(int count) {
         super("coordinates");
@@ -60,6 +60,28 @@ public class PointsWindow extends JFrame {
                 new ErrorWindow(this, exception);
             }
         });
+
+        table.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode() == KeyEvent.VK_ENTER ){
+                    try {
+                        if (table.isEditing())
+                            table.getCellEditor().stopCellEditing();
+                        double[] x = toArray(xValues);
+                        double[] y = toArray(yValues);
+                        function = new ArrayTabulatedFunctionFactory().create(x, y);
+                        System.out.println(function.toString());
+
+                    } catch (Exception exception) {
+                        ErrorWindow errorWindow = new ErrorWindow(PointsWindow.this, exception);
+                        errorWindow.getErrorWindow(PointsWindow.this, exception);
+                    }
+
+                }
+
+            }
+        });
     }
 
     private void compose() {
@@ -78,6 +100,8 @@ public class PointsWindow extends JFrame {
                 .addComponent(tableScrollPane)
                 .addComponent(buttonCreateFunction)
         );
+
+
 
     }
 
