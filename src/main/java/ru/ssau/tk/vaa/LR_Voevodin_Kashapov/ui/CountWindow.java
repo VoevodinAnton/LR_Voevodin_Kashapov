@@ -1,5 +1,7 @@
 package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.ui;
 
+import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.exeptions.WrongNumberOfElementsException;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -34,7 +36,7 @@ public class CountWindow extends JFrame {
             try {
                 int count = Integer.parseInt(countGet.getText());
                 if (count < 2) {
-                    throw new NumberFormatException();
+                    throw new WrongNumberOfElementsException();
                 }
                 this.dispose();
                 new PointsWindow(count);
