@@ -5,9 +5,7 @@ import java.awt.*;
 
 public class ErrorWindow {
 
-    ErrorWindow(Component parent, Exception e) {
-        getErrorWindow(parent, e);
-    }
+    ErrorWindow(Component parent, Exception e) {}
 
     public void getErrorWindow(Component parent, Exception e) {
         String message = MessageForException(e);
