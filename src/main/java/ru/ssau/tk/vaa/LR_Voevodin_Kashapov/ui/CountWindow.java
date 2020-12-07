@@ -1,6 +1,7 @@
 package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.ui;
 
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.exeptions.WrongNumberOfElementsException;
+import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.factory.ArrayTabulatedFunctionFactory;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -44,5 +45,6 @@ public class CountWindow extends JFrame {
                 new ErrorWindow(this, exception);
             }
         });
+
     }
 }
