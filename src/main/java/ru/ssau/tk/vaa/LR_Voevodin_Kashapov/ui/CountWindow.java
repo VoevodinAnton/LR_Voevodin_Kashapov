@@ -37,5 +37,4 @@ public class CountWindow extends JFrame {
             new PointsWindow(count);
         });
     }
-
 }

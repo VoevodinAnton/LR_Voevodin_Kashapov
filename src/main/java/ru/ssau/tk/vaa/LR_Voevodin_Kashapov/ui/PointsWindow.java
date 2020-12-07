@@ -1,6 +1,7 @@
 package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.ui;
 
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.TabulatedFunction;
+import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.factory.ArrayTabulatedFunctionFactory;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -16,6 +17,7 @@ public class PointsWindow extends JFrame {
     private final AbstractTableModel myTableModel = new MyTableModel(xValues, yValues);
     private final JTable table = new JTable(myTableModel);
     private final JButton buttonCreateFunction = new JButton("Создать функцию");
+    TabulatedFunction function;
 
     public PointsWindow(int count) {
         super("coordinates");
@@ -43,8 +45,16 @@ public class PointsWindow extends JFrame {
             myTableModel.fireTableDataChanged();
         }
     }
-
     private void addButtonListeners() {
+        buttonCreateFunction.addActionListener(evt ->{
+            if (table.isEditing())
+                table.getCellEditor().stopCellEditing();
+            double[] x = toArray(xValues);
+            double[] y = toArray(yValues);
+
+            function =  new ArrayTabulatedFunctionFactory().create(x,y);
+            System.out.println(function.toString());
+        });
 
     }
 
@@ -66,6 +76,16 @@ public class PointsWindow extends JFrame {
         );
 
     }
+
+    private double[] toArray(List<String> list) {
+        double[] array = new double[list.size()];
+        int i = 0;
+        for(String element: list){
+            array[i++] = Double.parseDouble(element);
+        }
+        return array;
+    }
+
 
 
 }
