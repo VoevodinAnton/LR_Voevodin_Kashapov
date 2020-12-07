@@ -14,10 +14,11 @@ public class ErrorWindow {
 
     private String MessageForException(Exception e) {
         if (e instanceof NumberFormatException) {
-            return "Неверный формат введенных данных";
+            return "вы ввели неверное значение";
         }
-        return "Неверные данные.";
+        if (e instanceof NullPointerException) {
+            return "Что-то пошло не так...";
+        }
+        return "Неверные данные!";
     }
 }
-
-

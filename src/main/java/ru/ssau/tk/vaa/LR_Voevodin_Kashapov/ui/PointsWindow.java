@@ -45,17 +45,22 @@ public class PointsWindow extends JFrame {
             myTableModel.fireTableDataChanged();
         }
     }
+
     private void addButtonListeners() {
-        buttonCreateFunction.addActionListener(evt ->{
-            if (table.isEditing())
-                table.getCellEditor().stopCellEditing();
-            double[] x = toArray(xValues);
-            double[] y = toArray(yValues);
+        buttonCreateFunction.addActionListener(evt -> {
+            try {
+                if (table.isEditing())
+                    table.getCellEditor().stopCellEditing();
+                double[] x = toArray(xValues);
+                double[] y = toArray(yValues);
+                function = new ArrayTabulatedFunctionFactory().create(x, y);
+                System.out.println(function.toString());
 
-            function =  new ArrayTabulatedFunctionFactory().create(x,y);
-            System.out.println(function.toString());
+            } catch (Exception exception) {
+                ErrorWindow errorWindow = new ErrorWindow(this, exception);
+                errorWindow.getErrorWindow(this, exception);
+            }
         });
-
     }
 
     private void compose() {
@@ -80,12 +85,9 @@ public class PointsWindow extends JFrame {
     private double[] toArray(List<String> list) {
         double[] array = new double[list.size()];
         int i = 0;
-        for(String element: list){
+        for (String element : list) {
             array[i++] = Double.parseDouble(element);
         }
         return array;
     }
-
-
-
 }

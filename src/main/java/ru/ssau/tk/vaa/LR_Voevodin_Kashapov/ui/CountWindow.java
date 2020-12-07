@@ -9,7 +9,6 @@ public class CountWindow extends JFrame {
     JTextField countGet = new JTextField(10);
     JButton pointsCreate = new JButton("Создать таблицу");
 
-
     private double[] xValues;
     private double[] yValues;
 
@@ -34,6 +33,9 @@ public class CountWindow extends JFrame {
         pointsCreate.addActionListener(evt -> {
             try {
                 int count = Integer.parseInt(countGet.getText());
+                if (count < 2) {
+                    throw new NumberFormatException();
+                }
                 this.dispose();
                 new PointsWindow(count);
             } catch(Exception exception) {
@@ -41,6 +43,5 @@ public class CountWindow extends JFrame {
                 errorWindow.getErrorWindow(this, exception);
             }
         });
-
     }
 }
