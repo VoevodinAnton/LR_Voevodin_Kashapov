@@ -1,17 +1,15 @@
 package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.ui;
 
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.exeptions.WrongNumberOfElementsException;
-import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.factory.ArrayTabulatedFunctionFactory;
 
 import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
 
 public class CountWindow extends JFrame {
     JLabel countLabel = new JLabel("Введите количество точек");
     JTextField countGet = new JTextField(10);
     JButton pointsCreate = new JButton("Создать таблицу");
-
+    JButton functionCreate = new JButton("Плавная функция");
     private double[] xValues;
     private double[] yValues;
 
@@ -27,10 +25,12 @@ public class CountWindow extends JFrame {
         cp.add(countLabel);
         cp.add(countGet);
         cp.add(pointsCreate);
+        cp.add(functionCreate);
 
         addButtonListeners();
         setVisible(true);
     }
+
 
     private void addButtonListeners() {
         pointsCreate.addActionListener(evt -> {
@@ -46,5 +46,9 @@ public class CountWindow extends JFrame {
             }
         });
 
+        functionCreate.addActionListener(evt -> {
+                this.dispose();
+                new MathFuncWindow();
+        });
     }
 }
