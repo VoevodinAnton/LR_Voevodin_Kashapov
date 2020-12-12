@@ -2,6 +2,8 @@ package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.operations;
 
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.TabulatedFunction;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.RecursiveAction;
 
@@ -12,9 +14,9 @@ public class IntegratingTask extends RecursiveAction {
     private double xFrom;
     private double xTo;
     private static final double threshold = 1;
-    private CopyOnWriteArrayList<Double> result;
+    private List<Double> result;
 
-    public IntegratingTask(TabulatedFunction function, double xFrom, double xTo, CopyOnWriteArrayList<Double> result) {
+    public IntegratingTask(TabulatedFunction function, double xFrom, double xTo, List<Double> result) {
         this.function = function;
         this.xFrom = xFrom;
         this.xTo = xTo;
