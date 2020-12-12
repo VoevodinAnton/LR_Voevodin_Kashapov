@@ -10,8 +10,8 @@ import java.awt.*;
 public class SettingsWindow extends JDialog {
 
     JLabel label = new JLabel("Выберите реализацию функции");
-    JButton listButton = new JButton("Связный список");
-    JButton arrayButton = new JButton("Массив");
+    JRadioButton listButton = new JRadioButton("Связный список");
+    JRadioButton arrayButton = new JRadioButton("Массив");
 
 
     public SettingsWindow() {
@@ -19,14 +19,18 @@ public class SettingsWindow extends JDialog {
         setTitle("Настройки");
         Container container = getContentPane();
 
-        container.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        container.setLayout(new FlowLayout());
         setLocationRelativeTo(null);
+
+        ButtonGroup group = new ButtonGroup();
+        group.add(listButton);
+        group.add(arrayButton);
 
         container.add(label);
         container.add(listButton);
         container.add(arrayButton);
 
-        arrayButton.setEnabled(false);
+        arrayButton.doClick();
 
         addButtonListeners();
         compose();
