@@ -2,6 +2,7 @@ package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.ui;
 
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.TabulatedFunction;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.factory.ArrayTabulatedFunctionFactory;
+import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.factory.TabulatedFunctionFactory;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -10,7 +11,8 @@ import java.util.List;
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 
-public class PointsWindow extends JFrame {
+public class PointsWindow extends JDialog {
+    public static TabulatedFunctionFactory factory;
     private final int count;
     private final List<String> xValues = new ArrayList<>();
     private final List<String> yValues = new ArrayList<>();
@@ -20,11 +22,10 @@ public class PointsWindow extends JFrame {
     protected TabulatedFunction function;
 
     public PointsWindow(int count) {
-        super("coordinates");
         this.count = count;
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(500, 200);
         Container cp = getContentPane();
+        setTitle("coordinates");
         //cp.setLayout(new GridLayout(count, 2, 2, 2));
         cp.add(buttonCreateFunction);
 
@@ -36,6 +37,10 @@ public class PointsWindow extends JFrame {
 
         setLocationRelativeTo(null);
         setVisible(true);
+    }
+
+    public static void set(TabulatedFunctionFactory factory){
+        PointsWindow.factory = factory;
     }
 
     private void createTable() {
@@ -53,7 +58,7 @@ public class PointsWindow extends JFrame {
                     table.getCellEditor().stopCellEditing();
                 double[] x = toArray(xValues);
                 double[] y = toArray(yValues);
-                function = new ArrayTabulatedFunctionFactory().create(x, y);
+                function = PointsWindow.factory.create(x, y);
                 System.out.println(function.toString());
 
             } catch (Exception exception) {
@@ -70,7 +75,7 @@ public class PointsWindow extends JFrame {
                             table.getCellEditor().stopCellEditing();
                         double[] x = toArray(xValues);
                         double[] y = toArray(yValues);
-                        function = new ArrayTabulatedFunctionFactory().create(x, y);
+                        function = PointsWindow.factory.create(x, y);
                         System.out.println(function.toString());
 
                     } catch (Exception exception) {

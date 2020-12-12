@@ -5,17 +5,16 @@ import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.exeptions.WrongNumberOfElementsExcept
 import java.awt.*;
 import javax.swing.*;
 
-public class CountWindow extends JFrame {
+public class CountWindow extends JDialog{
     JLabel countLabel = new JLabel("Введите количество точек");
     JTextField countGet = new JTextField(10);
-    JButton pointsCreate = new JButton("Создать таблицу");
-    JButton functionCreate = new JButton("Плавная функция");
+    JButton pointsCreate = new JButton("Табличная функция");
+    JButton mathCreate = new JButton("Плавная функция");
     private double[] xValues;
     private double[] yValues;
 
     public CountWindow() {
-        super("First operation");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //super("First operation");
         setSize(400, 150);
         Container cp = getContentPane();
 
@@ -25,9 +24,10 @@ public class CountWindow extends JFrame {
         cp.add(countLabel);
         cp.add(countGet);
         cp.add(pointsCreate);
-        cp.add(functionCreate);
+        cp.add(mathCreate);
 
         addButtonListeners();
+        setModal(true);
         setVisible(true);
     }
 
@@ -46,7 +46,7 @@ public class CountWindow extends JFrame {
             }
         });
 
-        functionCreate.addActionListener(evt -> {
+        mathCreate.addActionListener(evt -> {
                 this.dispose();
                 new MathFuncWindow();
         });

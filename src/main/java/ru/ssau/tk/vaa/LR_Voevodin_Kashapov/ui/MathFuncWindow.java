@@ -8,7 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 
-public class MathFuncWindow extends JFrame {
+public class MathFuncWindow extends JDialog {
     private JComboBox<String> funcBox = new JComboBox<>();
     private final JButton buttonCreateFunction = new JButton("Создать функцию");
     private JLabel xFrom = new JLabel("Начальная точка");
@@ -22,10 +22,9 @@ public class MathFuncWindow extends JFrame {
 
 
     public MathFuncWindow() {
-        super("Function");
         setSize(500, 150);
+        setTitle("Function");
         Container cp = getContentPane();
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //cp.setLayout(new GridLayout(count, 2, 2, 2));
         fillMap();
         compose();
@@ -94,7 +93,7 @@ public class MathFuncWindow extends JFrame {
                 double xFrom = Double.parseDouble(xFromField.getText());
                 double xTo = Double.parseDouble(xToField.getText());
                 int count = Integer.parseInt(xCountField.getText());
-                function = new ArrayTabulatedFunctionFactory().create(selectedFunction, xFrom, xTo, count);
+                function = new  ArrayTabulatedFunctionFactory().create(selectedFunction, xFrom, xTo, count);
                 System.out.println(function.toString());
             } catch (Exception e) {
                 new ErrorWindow(this, e);
