@@ -3,8 +3,6 @@ package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.ui;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class GraphicInterface extends JFrame {
 
@@ -18,7 +16,7 @@ public class GraphicInterface extends JFrame {
     public GraphicInterface() {
         super("Main window");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(400, 150);
+        setSize(370, 80);
         Container container = getContentPane();
 
         // не добавляется картинка на кнопку
@@ -40,13 +38,9 @@ public class GraphicInterface extends JFrame {
 
 
     private void addButtonListeners() {
-        functionCreate.addActionListener(evt -> {
-            new CountWindow();
-        });
+        functionCreate.addActionListener(evt -> new CountWindow());
 
-        settingsButton.addActionListener(evt -> {
-            new SettingsWindow();
-        });
+        settingsButton.addActionListener(evt -> new SettingsWindow());
     }
 
     public static void main(String[] args) {
