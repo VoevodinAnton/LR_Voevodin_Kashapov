@@ -26,7 +26,6 @@ public class PointsWindow extends JDialog {
         setSize(500, 200);
         Container cp = getContentPane();
         setTitle("coordinates");
-        //cp.setLayout(new GridLayout(count, 2, 2, 2));
         cp.add(buttonCreateFunction);
 
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

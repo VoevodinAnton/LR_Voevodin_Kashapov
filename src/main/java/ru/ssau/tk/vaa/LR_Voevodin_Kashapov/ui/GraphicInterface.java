@@ -1,22 +1,22 @@
 package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.ui;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 
 public class GraphicInterface extends JFrame {
 
     JButton functionCreate = new JButton("Создать функцию");
-
+    JButton simpleOperationsButton = new JButton("Выполнить операцию");
     ImageIcon imageIcon = new ImageIcon("settingsButton.png");
     JButton settingsButton = new JButton("Настройки");
+
 
     //String iconFilePath = this.getClass().getClassLoader().getResource("settingsButton.png").getFile();
 
     public GraphicInterface() {
         super("Main window");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(370, 80);
+        setSize(450, 80);
         Container container = getContentPane();
 
         // не добавляется картинка на кнопку
@@ -31,6 +31,7 @@ public class GraphicInterface extends JFrame {
 
         container.add(functionCreate);
         container.add(settingsButton);
+        container.add(simpleOperationsButton);
 
         addButtonListeners();
         setVisible(true);
@@ -41,6 +42,8 @@ public class GraphicInterface extends JFrame {
         functionCreate.addActionListener(evt -> new CountWindow());
 
         settingsButton.addActionListener(evt -> new SettingsWindow());
+
+        simpleOperationsButton.addActionListener(evt -> new SimpleOperationsWindow());
     }
 
     public static void main(String[] args) {
