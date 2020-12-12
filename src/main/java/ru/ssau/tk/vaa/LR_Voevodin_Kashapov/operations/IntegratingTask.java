@@ -2,43 +2,39 @@ package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.operations;
 
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.TabulatedFunction;
 
-import java.util.concurrent.Callable;
-import java.util.concurrent.RecursiveTask;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.RecursiveAction;
 
 
-public class IntegratingTask extends RecursiveTask<Double> {
+public class IntegratingTask extends RecursiveAction {
     private static final long serialVersionUID = -3422831134405022851L;
     TabulatedFunction function;
     double xFrom;
     double xTo;
-    public static final long threshold = 1;
+    public static final double threshold = 1;
+    CopyOnWriteArrayList<Double> result;
 
-    public IntegratingTask(TabulatedFunction function, double xFrom, double xTo) {
+    public IntegratingTask(TabulatedFunction function, double xFrom, double xTo, CopyOnWriteArrayList<Double> result) {
         this.function = function;
         this.xFrom = xFrom;
         this.xTo = xTo;
+        this.result = result;
     }
 
     @Override
-    protected Double compute() {
+    protected void compute() {
         double length = xTo - xFrom;
         if (length <= threshold){
-            return add();
+             result.add(computeDirectly());
+             return;
         }
-        IntegratingTask firstTask = new IntegratingTask(function, xFrom, xFrom + length/2);
-        firstTask.fork();
+        double split = length / 2;
+        invokeAll(new IntegratingTask(function, xFrom, xFrom + split, result), new IntegratingTask(function, xFrom + split, xTo, result));
 
-        IntegratingTask secondTask = new IntegratingTask(function, xFrom + length/2, xTo);
-        System.out.println(xFrom);
-        System.out.println(xTo);
-
-        Double secondTaskResult = secondTask.compute();
-        Double firstTaskResult = firstTask.join();
-        return firstTaskResult + secondTaskResult;
     }
 
-    private Double add(){
+    private Double computeDirectly(){
         SimpsonIntegratingMethod integral = new SimpsonIntegratingMethod();
-        return integral.integrate(function, this.xFrom, this.xTo);
+        return integral.integrate(function, xFrom, xTo);
     }
 }

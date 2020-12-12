@@ -32,7 +32,7 @@ public class SettingsWindow extends JDialog {
         container.add(arrayButton);
         container.add(button);
 
-        listButton.isSelected();
+        arrayButton.setSelected(true);
 
         addButtonListeners();
         compose();
