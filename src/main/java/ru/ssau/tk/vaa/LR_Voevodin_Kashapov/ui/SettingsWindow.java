@@ -66,6 +66,7 @@ public class SettingsWindow extends JDialog {
     private void addButtonListeners() {
         listButton.addActionListener(evt -> {
             PointsWindow.set(new LinkedListTabulatedFunctionFactory());
+            MathFuncWindow.set(new LinkedListTabulatedFunctionFactory());
             listButton.setEnabled(false);
             arrayButton.setEnabled(true);
 
@@ -73,6 +74,7 @@ public class SettingsWindow extends JDialog {
 
         arrayButton.addActionListener(evt -> {
             PointsWindow.set(new ArrayTabulatedFunctionFactory());
+            MathFuncWindow.set(new ArrayTabulatedFunctionFactory());
             listButton.setEnabled(true);
             arrayButton.setEnabled(false);
         });

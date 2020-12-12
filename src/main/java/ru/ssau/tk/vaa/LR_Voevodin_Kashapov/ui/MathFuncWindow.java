@@ -9,6 +9,7 @@ import java.awt.*;
 import java.util.*;
 
 public class MathFuncWindow extends JDialog {
+    public static TabulatedFunctionFactory factory;
     private JComboBox<String> funcBox = new JComboBox<>();
     private final JButton buttonCreateFunction = new JButton("Создать функцию");
     private JLabel xFrom = new JLabel("Начальная точка");
@@ -37,6 +38,10 @@ public class MathFuncWindow extends JDialog {
         setVisible(true);
 
         }
+
+    public static void set(TabulatedFunctionFactory factory){
+        MathFuncWindow.factory = factory;
+    }
 
     public void fillMap() {
         selectFunc.put("Квадратичная функция", new SqrFunction());
@@ -89,7 +94,7 @@ public class MathFuncWindow extends JDialog {
                 MathFunction selectedFunction = selectFunc.get(func);
                 double xFrom = Double.parseDouble(xFromField.getText());
                 double xTo = Double.parseDouble(xToField.getText());
-                function = new  ArrayTabulatedFunctionFactory().create(selectedFunction, xFrom, xTo, count);
+                function = MathFuncWindow.factory.create(selectedFunction, xFrom, xTo, count);
                 System.out.println(function.toString());
             } catch (Exception e) {
                 new ErrorWindow(this, e);
