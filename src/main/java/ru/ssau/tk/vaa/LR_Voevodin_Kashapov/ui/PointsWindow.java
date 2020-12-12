@@ -12,7 +12,7 @@ import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 
 public class PointsWindow extends JDialog {
-    public static TabulatedFunctionFactory factory;
+    public static TabulatedFunctionFactory factory = new ArrayTabulatedFunctionFactory();
     private final int count;
     private final List<String> xValues = new ArrayList<>();
     private final List<String> yValues = new ArrayList<>();

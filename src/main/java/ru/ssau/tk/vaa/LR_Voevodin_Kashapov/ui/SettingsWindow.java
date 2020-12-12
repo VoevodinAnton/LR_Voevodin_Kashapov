@@ -10,6 +10,7 @@ import java.awt.*;
 public class SettingsWindow extends JDialog {
 
     JLabel label = new JLabel("Выберите реализацию функции");
+    JButton button = new JButton("ОК");
     JRadioButton listButton = new JRadioButton("Связный список");
     JRadioButton arrayButton = new JRadioButton("Массив");
 
@@ -29,8 +30,9 @@ public class SettingsWindow extends JDialog {
         container.add(label);
         container.add(listButton);
         container.add(arrayButton);
+        container.add(button);
 
-        arrayButton.doClick();
+        listButton.isSelected();
 
         addButtonListeners();
         compose();
@@ -49,8 +51,8 @@ public class SettingsWindow extends JDialog {
                 .addComponent(label)
                 .addGroup(layout.createSequentialGroup()
                         .addComponent(listButton)
-                        .addComponent(arrayButton)
-                )
+                        .addComponent(arrayButton))
+                .addComponent(button)
         );
 
         layout.setVerticalGroup(layout.createSequentialGroup()
@@ -58,25 +60,26 @@ public class SettingsWindow extends JDialog {
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addComponent(listButton)
                         .addComponent(arrayButton))
+                .addComponent(button)
         );
 
 
     }
 
     private void addButtonListeners() {
-        listButton.addActionListener(evt -> {
-            PointsWindow.set(new LinkedListTabulatedFunctionFactory());
-            MathFuncWindow.set(new LinkedListTabulatedFunctionFactory());
-            listButton.setEnabled(false);
-            arrayButton.setEnabled(true);
+        button.addActionListener(evt -> {
+            if(evt.getSource() == button){
+                if (listButton.isSelected()) {
+                    PointsWindow.set(new LinkedListTabulatedFunctionFactory());
+                    MathFuncWindow.set(new LinkedListTabulatedFunctionFactory());
+                }
+                if ( arrayButton.isSelected()){
+                    PointsWindow.set(new ArrayTabulatedFunctionFactory());
+                    MathFuncWindow.set(new ArrayTabulatedFunctionFactory());
+                }
+                this.dispose();
+            }
 
-        });
-
-        arrayButton.addActionListener(evt -> {
-            PointsWindow.set(new ArrayTabulatedFunctionFactory());
-            MathFuncWindow.set(new ArrayTabulatedFunctionFactory());
-            listButton.setEnabled(true);
-            arrayButton.setEnabled(false);
         });
     }
 
