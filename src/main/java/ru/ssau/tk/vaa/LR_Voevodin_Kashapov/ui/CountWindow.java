@@ -5,7 +5,7 @@ import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.exeptions.WrongNumberOfElementsExcept
 import java.awt.*;
 import javax.swing.*;
 
-public class CountWindow extends JDialog{
+public class CountWindow extends JDialog {
     JLabel countLabel = new JLabel("Введите количество точек");
     JTextField countGet = new JTextField(10);
     JButton pointsCreate = new JButton("Табличная функция");
@@ -38,7 +38,7 @@ public class CountWindow extends JDialog{
                 }
                 this.dispose();
                 new PointsWindow(count);
-            } catch(Exception exception) {
+            } catch (Exception exception) {
                 new ErrorWindow(this, exception);
             }
         });
@@ -51,7 +51,7 @@ public class CountWindow extends JDialog{
                 }
                 this.dispose();
                 new MathFuncWindow(count);
-            } catch(Exception exception) {
+            } catch (Exception exception) {
                 new ErrorWindow(this, exception);
             }
         });

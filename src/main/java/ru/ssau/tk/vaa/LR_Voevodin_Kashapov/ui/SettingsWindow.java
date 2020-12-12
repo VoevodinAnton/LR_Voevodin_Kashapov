@@ -68,12 +68,12 @@ public class SettingsWindow extends JDialog {
 
     private void addButtonListeners() {
         button.addActionListener(evt -> {
-            if(evt.getSource() == button){
+            if (evt.getSource() == button) {
                 if (listButton.isSelected()) {
                     PointsWindow.set(new LinkedListTabulatedFunctionFactory());
                     MathFuncWindow.set(new LinkedListTabulatedFunctionFactory());
                 }
-                if ( arrayButton.isSelected()){
+                if (arrayButton.isSelected()) {
                     PointsWindow.set(new ArrayTabulatedFunctionFactory());
                     MathFuncWindow.set(new ArrayTabulatedFunctionFactory());
                 }

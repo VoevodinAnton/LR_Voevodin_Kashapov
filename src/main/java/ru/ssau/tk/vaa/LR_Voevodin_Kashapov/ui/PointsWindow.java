@@ -38,7 +38,7 @@ public class PointsWindow extends JDialog {
         setVisible(true);
     }
 
-    public static void set(TabulatedFunctionFactory factory){
+    public static void set(TabulatedFunctionFactory factory) {
         PointsWindow.factory = factory;
     }
 
@@ -68,7 +68,7 @@ public class PointsWindow extends JDialog {
         table.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                if(e.getKeyCode() == KeyEvent.VK_ENTER ){
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     try {
                         if (table.isEditing())
                             table.getCellEditor().stopCellEditing();
@@ -104,7 +104,6 @@ public class PointsWindow extends JDialog {
                 .addComponent(tableScrollPane)
                 .addComponent(buttonCreateFunction)
         );
-
 
 
     }

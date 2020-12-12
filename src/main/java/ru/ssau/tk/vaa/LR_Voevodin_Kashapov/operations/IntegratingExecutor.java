@@ -4,6 +4,7 @@ import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.ConstantFunction;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.LinkedListTabulatedFunction;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.SqrFunction;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.TabulatedFunction;
+
 import java.util.concurrent.*;
 
 public class IntegratingExecutor {
@@ -27,7 +28,7 @@ public class IntegratingExecutor {
         System.out.println("The integral was calculated in " + (endTime - startTime) +
                 " milliseconds.");
 
-        for(double s: result){
+        for (double s : result) {
             integral = integral + s;
         }
 

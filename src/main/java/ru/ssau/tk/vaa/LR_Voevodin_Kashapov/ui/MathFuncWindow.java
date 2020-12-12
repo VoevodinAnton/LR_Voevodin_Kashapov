@@ -37,9 +37,9 @@ public class MathFuncWindow extends JDialog {
         setLocationRelativeTo(null);
         setVisible(true);
 
-        }
+    }
 
-    public static void set(TabulatedFunctionFactory factory){
+    public static void set(TabulatedFunctionFactory factory) {
         MathFuncWindow.factory = factory;
     }
 
