@@ -19,9 +19,10 @@ public class MathFuncWindow extends JDialog {
     private JTextField xCountField = new JTextField();
     private Map<String, MathFunction> selectFunc = new HashMap<>();
     protected TabulatedFunction function;
+    private int count;
 
 
-    public MathFuncWindow() {
+    public MathFuncWindow(int count) {
         setSize(500, 150);
         setTitle("Function");
         Container cp = getContentPane();
@@ -29,7 +30,7 @@ public class MathFuncWindow extends JDialog {
         fillMap();
         compose();
         cp.add(buttonCreateFunction);
-
+        this.count = count;
         addButtonListeners();
 
         setLocationRelativeTo(null);
@@ -66,9 +67,7 @@ public class MathFuncWindow extends JDialog {
                         .addComponent(xFrom)
                         .addComponent(xFromField)
                         .addComponent(xTo)
-                        .addComponent(xToField)
-                        .addComponent(xCount)
-                        .addComponent(xCountField))
+                        .addComponent(xToField))
                 .addComponent(funcBox)
                 .addComponent(buttonCreateFunction)
         );
@@ -77,9 +76,7 @@ public class MathFuncWindow extends JDialog {
                         .addComponent(xFrom)
                         .addComponent(xFromField)
                         .addComponent(xTo)
-                        .addComponent(xToField)
-                        .addComponent(xCount)
-                        .addComponent(xCountField))
+                        .addComponent(xToField))
                 .addComponent(funcBox)
                 .addComponent(buttonCreateFunction)
         );
@@ -92,7 +89,6 @@ public class MathFuncWindow extends JDialog {
                 MathFunction selectedFunction = selectFunc.get(func);
                 double xFrom = Double.parseDouble(xFromField.getText());
                 double xTo = Double.parseDouble(xToField.getText());
-                int count = Integer.parseInt(xCountField.getText());
                 function = new  ArrayTabulatedFunctionFactory().create(selectedFunction, xFrom, xTo, count);
                 System.out.println(function.toString());
             } catch (Exception e) {

@@ -10,11 +10,8 @@ public class CountWindow extends JDialog{
     JTextField countGet = new JTextField(10);
     JButton pointsCreate = new JButton("Табличная функция");
     JButton mathCreate = new JButton("Плавная функция");
-    private double[] xValues;
-    private double[] yValues;
 
     public CountWindow() {
-        //super("First operation");
         setSize(400, 150);
         Container cp = getContentPane();
 
@@ -47,8 +44,16 @@ public class CountWindow extends JDialog{
         });
 
         mathCreate.addActionListener(evt -> {
+            try {
+                int count = Integer.parseInt(countGet.getText());
+                if (count < 2) {
+                    throw new WrongNumberOfElementsException();
+                }
                 this.dispose();
-                new MathFuncWindow();
+                new MathFuncWindow(count);
+            } catch(Exception exception) {
+                new ErrorWindow(this, exception);
+            }
         });
     }
 }
