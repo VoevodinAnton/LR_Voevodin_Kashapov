@@ -125,6 +125,7 @@ public class SimpleOperationsWindow extends JDialog {
                 createTable();
                 operateButton.setEnabled(true);
                 saveButton.setEnabled(true);
+                funcCreate.setEnabled(false);
             } catch (Exception exception) {
                 new ErrorWindow(this, exception);
             }
@@ -145,6 +146,7 @@ public class SimpleOperationsWindow extends JDialog {
                 function2 = SimpleOperationsWindow.factory.create(x2, y2);
                 System.out.println(function1.toString());
                 System.out.println(function2.toString());
+                funcCreate.setEnabled(true);
 
             } catch (Exception exception) {
                 new ErrorWindow(this, exception);
