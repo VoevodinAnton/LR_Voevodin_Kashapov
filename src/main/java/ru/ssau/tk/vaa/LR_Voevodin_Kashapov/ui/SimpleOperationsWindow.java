@@ -5,6 +5,7 @@ import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.factory.ArrayTabulatedFunct
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.factory.TabulatedFunctionFactory;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.AbstractTableModel;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -22,6 +23,7 @@ public class SimpleOperationsWindow extends JDialog {
     private final AbstractTableModel myTableModel = new TableModelSimpleOperations(xValues, y1Values, y2Values, result);
     private final JTable table = new JTable(myTableModel);
     private final JButton operateButton = new JButton("Выполнить");
+    private final JButton saveButton = new JButton("Сохранить");
     protected TabulatedFunction function;
 
     public SimpleOperationsWindow() {
@@ -29,10 +31,13 @@ public class SimpleOperationsWindow extends JDialog {
         setSize(500, 200);
         Container cp = getContentPane();
         setTitle("Operations");
+
         cp.add(operateButton);
+        cp.add(saveButton);
 
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         createTable();
+        addButtonListeners();
         compose();
         setLocationRelativeTo(null);
         setVisible(true);
@@ -58,15 +63,30 @@ public class SimpleOperationsWindow extends JDialog {
         layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER)
                 .addComponent(tableScrollPane)
                 .addComponent(operateButton)
+                .addComponent(saveButton)
         );
 
         layout.setVerticalGroup(layout.createSequentialGroup()
                 .addComponent(tableScrollPane)
                 .addComponent(operateButton)
+                .addComponent(saveButton)
         );
 
 
     }
 
+    private void addButtonListeners() {
+        saveButton.addActionListener(evt ->{
+            JFileChooser chooser = new JFileChooser();
+            FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                    "txt", "bin");
+            chooser.setFileFilter(filter);
+            int returnVal = chooser.showOpenDialog(this);
+            if(returnVal == JFileChooser.APPROVE_OPTION) {
+                System.out.println("You chose to open this file: " +
+                        chooser.getSelectedFile().getName());
+            }
+        });
+    }
 }
 
