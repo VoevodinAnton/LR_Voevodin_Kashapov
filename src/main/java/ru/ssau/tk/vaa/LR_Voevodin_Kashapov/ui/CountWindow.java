@@ -6,10 +6,10 @@ import java.awt.*;
 import javax.swing.*;
 
 public class CountWindow extends JDialog {
-    JLabel countLabel = new JLabel("Введите количество точек");
-    JTextField countGet = new JTextField(10);
-    JButton pointsCreate = new JButton("Табличная функция");
-    JButton mathCreate = new JButton("Плавная функция");
+    private final JLabel countLabel = new JLabel("Введите количество точек");
+    private final JTextField countGet = new JTextField(10);
+    private final JButton pointsCreate = new JButton("Табличная функция");
+    private final JButton mathCreate = new JButton("Плавная функция");
 
     public CountWindow() {
         setSize(400, 150);
