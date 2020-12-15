@@ -8,34 +8,35 @@ import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.AbstractTableModel;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SimpleOperationsWindow extends JDialog {
     public static TabulatedFunctionFactory factory = new ArrayTabulatedFunctionFactory();
-    //private final int count;
     private final List<String> xValues = new ArrayList<>();
     private final List<String> y1Values = new ArrayList<>();
     private final List<String> y2Values = new ArrayList<>();
     private final List<String> result = new ArrayList<>();
-    private final AbstractTableModel myTableModel = new TableModelSimpleOperations(xValues, y1Values, y2Values, result);
-    private final JTable table = new JTable(myTableModel);
+    private final AbstractTableModel myTableModel1 = new MyTableModel(xValues, y1Values);
+    private final AbstractTableModel myTableModel2 = new MyTableModel(xValues, y2Values);
+    private final AbstractTableModel myTableModel3= new MyTableModel(xValues, result);
+    private final JTable table1 = new JTable(myTableModel1);
+    private final JTable table2 = new JTable(myTableModel2);
+    private final JTable table3 = new JTable(myTableModel3);
     private final JButton operateButton = new JButton("Выполнить");
     private final JButton saveButton = new JButton("Сохранить");
     protected TabulatedFunction function;
 
     public SimpleOperationsWindow() {
-        //this.count = count;
-        setSize(500, 200);
+        setSize(500, 300);
         Container cp = getContentPane();
         setTitle("Operations");
 
         cp.add(operateButton);
         cp.add(saveButton);
-
-        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        table1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        table2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        table3.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         createTable();
         addButtonListeners();
         compose();
@@ -49,7 +50,9 @@ public class SimpleOperationsWindow extends JDialog {
             y1Values.add(i, "");
             y2Values.add(i, "");
             result.add(i, "");
-            myTableModel.fireTableDataChanged();
+            myTableModel1.fireTableDataChanged();
+            myTableModel2.fireTableDataChanged();
+            myTableModel3.fireTableDataChanged();
         }
     }
 
@@ -58,16 +61,24 @@ public class SimpleOperationsWindow extends JDialog {
         getContentPane().setLayout(layout);
         layout.setAutoCreateGaps(true);
         layout.setAutoCreateContainerGaps(true);
-        JScrollPane tableScrollPane = new JScrollPane(table);
+        JScrollPane tableScrollPane1 = new JScrollPane(table1);
+        JScrollPane tableScrollPane2 = new JScrollPane(table2);
+        JScrollPane tableScrollPane3 = new JScrollPane(table3);
 
         layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER)
-                .addComponent(tableScrollPane)
+                .addGroup(layout.createSequentialGroup()
+                        .addComponent(tableScrollPane1)
+                        .addComponent(tableScrollPane2)
+                        .addComponent(tableScrollPane3))
                 .addComponent(operateButton)
                 .addComponent(saveButton)
         );
 
         layout.setVerticalGroup(layout.createSequentialGroup()
-                .addComponent(tableScrollPane)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addComponent(tableScrollPane1)
+                        .addComponent(tableScrollPane2)
+                        .addComponent(tableScrollPane3))
                 .addComponent(operateButton)
                 .addComponent(saveButton)
         );
