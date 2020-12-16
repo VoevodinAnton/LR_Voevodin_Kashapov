@@ -10,7 +10,6 @@ public class GraphicInterface extends JFrame {
     ImageIcon imageIcon = new ImageIcon("settingsButton.png");
     JButton settingsButton = new JButton("Настройки");
 
-
     //String iconFilePath = this.getClass().getClassLoader().getResource("settingsButton.png").getFile();
 
     public GraphicInterface() {
