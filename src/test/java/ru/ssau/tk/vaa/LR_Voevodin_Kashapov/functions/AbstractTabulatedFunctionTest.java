@@ -31,6 +31,7 @@ public class AbstractTabulatedFunctionTest {
     }
 
 
+
     @Test
     public void testCheckLengthIsTheSame() {
         assertThrows(DifferentLengthOfArraysException.class, () -> {

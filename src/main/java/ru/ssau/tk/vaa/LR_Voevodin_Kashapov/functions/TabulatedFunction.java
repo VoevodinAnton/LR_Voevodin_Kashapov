@@ -16,4 +16,18 @@ public interface TabulatedFunction extends MathFunction, Iterable<Point> {
     double leftBound();
 
     double rightBound();
+
+    default boolean similar(TabulatedFunction function) {
+        if (function.getCount() != this.getCount()) {
+            return false;
+        } else if (function.getCount() == this.getCount()) {
+            for (int i = 0; i < function.getCount(); i++) {
+                if (this.getX(i) != function.getX(i)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
 }

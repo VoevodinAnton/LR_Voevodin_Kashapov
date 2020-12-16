@@ -73,6 +73,12 @@ public class LinkedListTabulatedFunctionTest {
     }
 
     @Test
+    public void similarTest(){
+        LinkedListTabulatedFunction listOfArray = getListOfArray();
+        assertTrue(listOfArray.similar(listOfArray));
+    }
+
+    @Test
     public void testLeftBound() {
         LinkedListTabulatedFunction listOfArray = getListOfArray();
         LinkedListTabulatedFunction listOfMathFunc1 = getListOfMathFunc1();

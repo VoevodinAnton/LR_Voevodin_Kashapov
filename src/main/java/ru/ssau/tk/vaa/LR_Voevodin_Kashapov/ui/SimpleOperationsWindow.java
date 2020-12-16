@@ -18,8 +18,6 @@ public class SimpleOperationsWindow extends JDialog {
     public static TabulatedFunctionFactory factory = new ArrayTabulatedFunctionFactory();
     private final JLabel countLabel = new JLabel("Введите количество точек");
     private final JTextField countGet = new JTextField(10);
-    private final JButton funcCreate = new JButton("Создать таблицу");
-    private final JButton funcSave = new JButton("Сохранить функции");
     private int count;
     private final List<String> xValues = new ArrayList<>();
     private final List<String> xResValues = new ArrayList<>();
@@ -33,6 +31,8 @@ public class SimpleOperationsWindow extends JDialog {
     JFileChooser chooser = new JFileChooser();
 
     //Buttons
+    private final JButton funcCreate = new JButton("Создать таблицу");
+    private final JButton funcSave = new JButton("Записать функции");
     private final JButton operateButton = new JButton("Выполнить");
     private final JButton saveButton1 = new JButton("Сохранить");
     private final JButton saveButton2 = new JButton("Сохранить");
@@ -81,7 +81,7 @@ public class SimpleOperationsWindow extends JDialog {
 
     private void createTable2() {
         for (int i = 0; i < count; i++) {
-            double x = function1.getX(i);
+            double x = function3.getX(i);
             double y = function3.getY(i);
             xResValues.add(i, String.valueOf(x));
             result.add(i, String.valueOf(y));
@@ -190,7 +190,8 @@ public class SimpleOperationsWindow extends JDialog {
         });
 
         saveButton1.addActionListener(evt -> {
-
+            chooser.setDialogTitle("Сохранение файла");
+            chooser.setCurrentDirectory(new File("output"));
             int returnVal = chooser.showSaveDialog(this);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File file = new File(chooser.getSelectedFile() + ".bin");
@@ -202,7 +203,87 @@ public class SimpleOperationsWindow extends JDialog {
                 }
                 JOptionPane.showMessageDialog(this,
                         "Файл '" + chooser.getSelectedFile() +
-                                "' сохранен");
+                                ".bin' сохранен");
+            }
+        });
+        downloadButton1.addActionListener(evt -> {
+            chooser.setDialogTitle("Загрузка функции");
+            chooser.setCurrentDirectory(new File("output"));
+            int returnVal = chooser.showOpenDialog(this);
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                File file = chooser.getSelectedFile();
+                try (BufferedInputStream in = new BufferedInputStream(new FileInputStream(file))) {
+                    function1 = FunctionsIO.deserialize(in);
+                    count = function1.getCount();
+                    for (int i = 0; i < count; i++) {
+                        xValues.add(i, String.valueOf(function1.getX(i)));
+                        y1Values.add(i, String.valueOf(function1.getY(i)));
+                        y2Values.add(i, "");
+                        myTableXYYModel.fireTableDataChanged();
+                    }
+
+                } catch (IOException | ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        saveButton2.addActionListener(evt -> {
+            chooser.setDialogTitle("Сохранение файла");
+            chooser.setCurrentDirectory(new File("output"));
+            int returnVal = chooser.showSaveDialog(this);
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                File file = new File(chooser.getSelectedFile() + ".bin");
+                chooser.setCurrentDirectory(new File("output"));
+                try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(file))) {
+                    FunctionsIO.serialize(out, function1);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                JOptionPane.showMessageDialog(this,
+                        "Файл '" + chooser.getSelectedFile() +
+                                ".bin' сохранен");
+            }
+        });
+
+        downloadButton2.addActionListener(evt -> {
+            chooser.setDialogTitle("Загрузка функции");
+            chooser.setCurrentDirectory(new File("output"));
+            int returnVal = chooser.showOpenDialog(this);
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                File file = chooser.getSelectedFile();
+                try (BufferedInputStream in = new BufferedInputStream(new FileInputStream(file))) {
+                    function2 = FunctionsIO.deserialize(in);
+                    if(function1.similar(function2)){
+                        for (int i = 0; i < count; i++) {
+                            xValues.add(i, String.valueOf(function1.getX(i)));
+                            y1Values.add(i, String.valueOf(function2.getX(i)));
+                            y2Values.add(i, String.valueOf(function2.getY(i)));
+
+                            myTableXYYModel.fireTableDataChanged();
+                        }
+                    }
+                } catch (IOException | ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        saveButton3.addActionListener(evt -> {
+            chooser.setDialogTitle("Сохранение файла");
+            chooser.setCurrentDirectory(new File("output"));
+            int returnVal = chooser.showSaveDialog(this);
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                File file = new File(chooser.getSelectedFile() + ".bin");
+                chooser.setCurrentDirectory(new File("output"));
+                try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(file))) {
+                    FunctionsIO.serialize(out, function1);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                JOptionPane.showMessageDialog(this,
+                        "Файл '" + chooser.getSelectedFile() +
+                                ".bin' сохранен");
             }
         });
     }

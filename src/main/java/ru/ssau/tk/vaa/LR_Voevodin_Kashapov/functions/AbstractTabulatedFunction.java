@@ -2,6 +2,7 @@ package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions;
 
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.exeptions.ArrayIsNotSortedException;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.exeptions.DifferentLengthOfArraysException;
+import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.operations.TabulatedFunctionOperationService;
 
 public abstract class AbstractTabulatedFunction implements TabulatedFunction {
     abstract protected int floorIndexOfX(double x);
@@ -58,5 +59,6 @@ public abstract class AbstractTabulatedFunction implements TabulatedFunction {
         str.deleteCharAt(str.length() - 1);
         return str.toString();
     }
+
 }
 

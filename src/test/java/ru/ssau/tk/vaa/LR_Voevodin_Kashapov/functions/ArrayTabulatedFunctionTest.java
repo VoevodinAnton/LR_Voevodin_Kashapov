@@ -135,6 +135,12 @@ public class ArrayTabulatedFunctionTest {
     }
 
     @Test
+    public void similarTest(){
+        ArrayTabulatedFunction arr = arr1();
+        assertTrue(arr.similar(arr));
+    }
+
+    @Test
     public void testLeftBound() {
         ArrayTabulatedFunction t21 = arr1();
         ArrayTabulatedFunction t11 = arr2();
