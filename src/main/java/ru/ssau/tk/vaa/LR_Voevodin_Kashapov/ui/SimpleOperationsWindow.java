@@ -4,11 +4,13 @@ import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.exeptions.WrongNumberOfElementsExcept
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.*;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.factory.ArrayTabulatedFunctionFactory;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.factory.TabulatedFunctionFactory;
+import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.io.FunctionsIO;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.operations.TabulatedFunctionOperationService;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.AbstractTableModel;
+import java.io.*;
 import java.util.*;
 import java.util.List;
 
@@ -28,8 +30,18 @@ public class SimpleOperationsWindow extends JDialog {
     private final AbstractTableModel myTableResModel = new MyTableModel(xResValues, result);
     private final JTable table0 = new JTable(myTableXYYModel);
     private final JTable table1 = new JTable(myTableResModel);
+    JFileChooser chooser = new JFileChooser();
+
+    //Buttons
     private final JButton operateButton = new JButton("Выполнить");
-    private final JButton saveButton = new JButton("Сохранить");
+    private final JButton saveButton1 = new JButton("Сохранить");
+    private final JButton saveButton2 = new JButton("Сохранить");
+    private final JButton saveButton3 = new JButton("Сохранить");
+    private final JButton downloadButton1 = new JButton("Загрузить");
+    private final JButton downloadButton2 = new JButton("Загрузить");
+    private final JButton downloadButton3 = new JButton("Загрузить");
+
+
     private final Map<String, TabulatedFunction> selectOperation = new HashMap<>();
     private final JComboBox<String> operationsBox = new JComboBox<>();
     protected TabulatedFunction function1;
@@ -37,10 +49,10 @@ public class SimpleOperationsWindow extends JDialog {
     protected TabulatedFunction function3;
 
     public SimpleOperationsWindow() {
-        setSize(600, 300);
+        setSize(1200, 600);
         setTitle("Операции");
         operateButton.setEnabled(false);
-        saveButton.setEnabled(false);
+        saveButton3.setEnabled(false);
         operationsBox.setEnabled(false);
         funcSave.setEnabled(false);
         table0.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -94,9 +106,16 @@ public class SimpleOperationsWindow extends JDialog {
                 .addGroup(layout.createSequentialGroup()
                         .addComponent(tableScrollPane1)
                         .addComponent(tableScrollPane2))
+                .addGroup(layout.createSequentialGroup()
+                        .addComponent(downloadButton1)
+                        .addComponent(saveButton1)
+                        .addComponent(downloadButton2)
+                        .addComponent(saveButton2)
+                        .addComponent(downloadButton3)
+                        .addComponent(saveButton3)
+                )
                 .addComponent(operationsBox)
                 .addComponent(operateButton)
-                .addComponent(saveButton)
         );
 
         layout.setVerticalGroup(layout.createSequentialGroup()
@@ -108,9 +127,16 @@ public class SimpleOperationsWindow extends JDialog {
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addComponent(tableScrollPane1)
                         .addComponent(tableScrollPane2))
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addComponent(downloadButton1)
+                        .addComponent(saveButton1)
+                        .addComponent(downloadButton2)
+                        .addComponent(saveButton2)
+                        .addComponent(downloadButton3)
+                        .addComponent(saveButton3)
+                )
                 .addComponent(operationsBox)
                 .addComponent(operateButton)
-                .addComponent(saveButton)
         );
     }
 
@@ -156,21 +182,27 @@ public class SimpleOperationsWindow extends JDialog {
                 function3 = selectOperation.get(func);
                 System.out.println(function3.toString());
                 createTable2();
-                saveButton.setEnabled(true);
+                saveButton3.setEnabled(true);
 
             } catch (Exception exception) {
                 new ErrorWindow(this, exception);
             }
         });
-        saveButton.addActionListener(evt -> {
-            JFileChooser chooser = new JFileChooser();
-            FileNameExtensionFilter filter = new FileNameExtensionFilter(
-                    "txt", "bin");
-            chooser.setFileFilter(filter);
-            int returnVal = chooser.showOpenDialog(this);
+
+        saveButton1.addActionListener(evt -> {
+
+            int returnVal = chooser.showSaveDialog(this);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
-                System.out.println("You chose to open this file: " +
-                        chooser.getSelectedFile().getName());
+                File file = new File(chooser.getSelectedFile() + ".bin");
+                chooser.setCurrentDirectory(new File("output"));
+                try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(file))) {
+                    FunctionsIO.serialize(out, function1);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                JOptionPane.showMessageDialog(this,
+                        "Файл '" + chooser.getSelectedFile() +
+                                "' сохранен");
             }
         });
     }

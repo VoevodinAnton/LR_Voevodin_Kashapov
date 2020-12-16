@@ -1,7 +1,6 @@
 package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.ui;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.Objects;
 
 public class GraphicInterface extends JFrame {

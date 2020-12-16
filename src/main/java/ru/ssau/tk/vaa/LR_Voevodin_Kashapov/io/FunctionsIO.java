@@ -12,7 +12,7 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Locale;
 
-final class FunctionsIO {
+public class FunctionsIO {
     private FunctionsIO() {
         throw new UnsupportedOperationException("Unavailable operation");
     }
