@@ -46,6 +46,8 @@ public class DifferentiatingWindow extends JDialog {
         setTitle("Дифференцирование функции");
         operateButton.setEnabled(false);
         funcSave.setEnabled(false);
+        saveButton0.setEnabled(false);
+        saveButton1.setEnabled(false);
         table0.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         table1.setCellSelectionEnabled(false);
@@ -67,6 +69,7 @@ public class DifferentiatingWindow extends JDialog {
             xValues.add(i, "");
             yValues.add(i, "");
             myTable0Model.fireTableDataChanged();
+            saveButton0.setEnabled(true);
         }
     }
 
@@ -77,6 +80,7 @@ public class DifferentiatingWindow extends JDialog {
             xResValues.add(i, String.valueOf(x));
             result.add(i, String.valueOf(y));
             myTable1Model.fireTableDataChanged();
+            saveButton1.setEnabled(true);
         }
     }
 

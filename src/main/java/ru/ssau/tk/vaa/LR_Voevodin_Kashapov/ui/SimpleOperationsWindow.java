@@ -60,6 +60,9 @@ public class SimpleOperationsWindow extends JDialog {
         operateButton.setEnabled(false);
         operationsBox.setEnabled(false);
         funcSave.setEnabled(false);
+        saveButton1.setEnabled(false);
+        saveButton2.setEnabled(false);
+        saveButton3.setEnabled(false);
         table0.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         table1.setCellSelectionEnabled(false);
@@ -82,6 +85,8 @@ public class SimpleOperationsWindow extends JDialog {
             y2Values.add(i, "");
             myTableXYYModel.fireTableDataChanged();
         }
+        saveButton1.setEnabled(true);
+        saveButton2.setEnabled(true);
     }
 
     private void createTable2() {
@@ -92,6 +97,7 @@ public class SimpleOperationsWindow extends JDialog {
             result.add(i, String.valueOf(y));
             myTableResModel.fireTableDataChanged();
         }
+        saveButton3.setEnabled(true);
     }
 
     private void compose() {
@@ -180,11 +186,10 @@ public class SimpleOperationsWindow extends JDialog {
                 operateButton.setEnabled(true);
                 table0.setEnabled(false);
                 operationsBox.setEnabled(true);
-
+                fillMap();
             } catch (Exception exception) {
                 new ErrorWindow(this, exception);
             }
-            fillMap();
         });
         operateButton.addActionListener(evt -> {
             try {
@@ -231,7 +236,10 @@ public class SimpleOperationsWindow extends JDialog {
                         y2Values.add(i, "");
                         myTableXYYModel.fireTableDataChanged();
                     }
-
+                    funcSave.setEnabled(true);
+                    countGet.setEnabled(false);
+                    countLabel.setEnabled(false);
+                    funcCreate.setEnabled(false);
                 } catch (IOException | ClassNotFoundException e) {
                     e.printStackTrace();
                 }
@@ -272,16 +280,16 @@ public class SimpleOperationsWindow extends JDialog {
                     if (function1.similar(function2)) {
                         for (int i = 0; i < count; i++) {
                             y2Values.add(i, String.valueOf(function2.getY(i)));
-
                             myTableXYYModel.fireTableDataChanged();
                         }
                     } else {
                         throw new FunctionAreNotSimilarException();
                     }
+                    function1 = function3;
+                    function2 = function3;
                 } catch (Exception e) {
                     new ErrorWindow(this, e);
                 }
-
             }
         });
 
