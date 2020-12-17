@@ -8,27 +8,28 @@ import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.io.FunctionsIO;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.operations.TabulatedFunctionOperationService;
 
 import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.AbstractTableModel;
 import java.io.*;
 import java.util.*;
 import java.util.List;
 
 public class SimpleOperationsWindow extends JDialog {
-    public static TabulatedFunctionFactory factory = new ArrayTabulatedFunctionFactory();
-    private final JLabel countLabel = new JLabel("Введите количество точек");
-    private final JTextField countGet = new JTextField(10);
-    private int count;
+    //Lists
     private final List<String> xValues = new ArrayList<>();
     private final List<String> xResValues = new ArrayList<>();
     private final List<String> y1Values = new ArrayList<>();
     private final List<String> y2Values = new ArrayList<>();
     private final List<String> result = new ArrayList<>();
+
+    //Tables
     private final AbstractTableModel myTableXYYModel = new XYYTableModel(xValues, y1Values, y2Values);
     private final AbstractTableModel myTableResModel = new MyTableModel(xResValues, result);
     private final JTable table0 = new JTable(myTableXYYModel);
     private final JTable table1 = new JTable(myTableResModel);
-    JFileChooser chooser = new JFileChooser();
+
+    //Labels&TextFields
+    private final JTextField countGet = new JTextField(10);
+    private final JLabel countLabel = new JLabel("Введите количество точек");
 
     //Buttons
     private final JButton funcCreate = new JButton("Создать таблицу");
@@ -39,11 +40,15 @@ public class SimpleOperationsWindow extends JDialog {
     private final JButton saveButton3 = new JButton("Сохранить");
     private final JButton downloadButton1 = new JButton("Загрузить");
     private final JButton downloadButton2 = new JButton("Загрузить");
-    private final JButton downloadButton3 = new JButton("Загрузить");
 
+    //Choosers
+    JFileChooser chooser = new JFileChooser();
 
+    //Other
     private final Map<String, TabulatedFunction> selectOperation = new HashMap<>();
     private final JComboBox<String> operationsBox = new JComboBox<>();
+    public static TabulatedFunctionFactory factory = new ArrayTabulatedFunctionFactory();
+    private int count;
     protected TabulatedFunction function1;
     protected TabulatedFunction function2;
     protected TabulatedFunction function3;
@@ -115,7 +120,6 @@ public class SimpleOperationsWindow extends JDialog {
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED,
                                 GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup()
-                                .addComponent(downloadButton3, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(saveButton3, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(operationsBox)
                 .addComponent(operateButton)
@@ -138,7 +142,6 @@ public class SimpleOperationsWindow extends JDialog {
                                 .addComponent(downloadButton2)
                                 .addComponent(saveButton2))
                         .addGroup(layout.createSequentialGroup()
-                                .addComponent(downloadButton3)
                                 .addComponent(saveButton3))
                 )
                 .addComponent(operationsBox)
@@ -320,4 +323,3 @@ public class SimpleOperationsWindow extends JDialog {
         return array;
     }
 }
-

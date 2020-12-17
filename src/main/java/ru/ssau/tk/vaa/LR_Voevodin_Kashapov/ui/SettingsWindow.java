@@ -18,7 +18,7 @@ public class SettingsWindow extends JDialog {
 
 
     public SettingsWindow() {
-        setSize(300, 150);
+        setSize(230, 150);
         setTitle("Настройки");
         Container container = getContentPane();
 
