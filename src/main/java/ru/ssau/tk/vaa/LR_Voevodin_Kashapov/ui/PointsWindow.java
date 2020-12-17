@@ -3,9 +3,14 @@ package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.ui;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.TabulatedFunction;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.factory.ArrayTabulatedFunctionFactory;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.factory.TabulatedFunctionFactory;
+import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.io.FunctionsIO;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
@@ -18,18 +23,23 @@ public class PointsWindow extends JDialog {
     private final List<String> yValues = new ArrayList<>();
     private final AbstractTableModel myTableModel = new MyTableModel(xValues, yValues);
     private final JTable table = new JTable(myTableModel);
-    private final JButton buttonCreateFunction = new JButton("Создать функцию");
     protected TabulatedFunction function;
+
+    JFileChooser saveChooser = new JFileChooser();
+
+    //Buttons
+    private final JButton buttonCreateFunction = new JButton("Создать функцию");
+    private final JButton saveButton = new JButton("Сохранить");
 
     public PointsWindow(int count) {
         this.count = count;
         setSize(500, 200);
-        Container cp = getContentPane();
         setTitle("coordinates");
-        cp.add(buttonCreateFunction);
 
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         createTable();
+
+        saveButton.setEnabled(false);
 
         addButtonListeners();
         compose();
@@ -59,6 +69,7 @@ public class PointsWindow extends JDialog {
                 double[] y = toArray(yValues);
                 function = PointsWindow.factory.create(x, y);
                 System.out.println(function.toString());
+                saveButton.setEnabled(true);
 
             } catch (Exception exception) {
                 new ErrorWindow(this, exception);
@@ -76,7 +87,7 @@ public class PointsWindow extends JDialog {
                         double[] y = toArray(yValues);
                         function = PointsWindow.factory.create(x, y);
                         System.out.println(function.toString());
-
+                        saveButton.setEnabled(true);
                     } catch (Exception exception) {
                         ErrorWindow errorWindow = new ErrorWindow(PointsWindow.this, exception);
                         errorWindow.getErrorWindow(PointsWindow.this, exception);
@@ -84,6 +95,25 @@ public class PointsWindow extends JDialog {
 
                 }
 
+            }
+        });
+
+        saveButton.addActionListener(evt ->{
+            saveChooser.setDialogTitle("Сохранение файла");
+            saveChooser.setCurrentDirectory(new File("output"));
+            int returnVal = saveChooser.showSaveDialog(this);
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                File file = new File(saveChooser.getSelectedFile() + ".bin");
+                try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(file))) {
+                    if (table.isEditing())
+                        table.getCellEditor().stopCellEditing();
+                    FunctionsIO.serialize(out, function);
+                } catch (Exception e) {
+                    new ErrorWindow(this, e);
+                }
+                JOptionPane.showMessageDialog(this,
+                        "Файл '" + saveChooser.getSelectedFile() +
+                                ".bin' сохранен");
             }
         });
     }
@@ -97,12 +127,16 @@ public class PointsWindow extends JDialog {
 
         layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER)
                 .addComponent(tableScrollPane)
-                .addComponent(buttonCreateFunction)
+                .addGroup(layout.createSequentialGroup()
+                        .addComponent(buttonCreateFunction)
+                        .addComponent(saveButton))
         );
 
         layout.setVerticalGroup(layout.createSequentialGroup()
                 .addComponent(tableScrollPane)
-                .addComponent(buttonCreateFunction)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addComponent(buttonCreateFunction)
+                        .addComponent(saveButton))
         );
 
 

@@ -43,7 +43,9 @@ public class SimpleOperationsWindow extends JDialog {
     private final JButton downloadButton2 = new JButton("Загрузить");
 
     //Choosers
-    JFileChooser chooser = new JFileChooser();
+    JFileChooser downloadChooser = new JFileChooser();
+    JFileChooser saveChooser = new JFileChooser();
+
 
     //Other
     private final Map<String, TabulatedFunction> selectOperation = new HashMap<>();
@@ -64,6 +66,11 @@ public class SimpleOperationsWindow extends JDialog {
         saveButton2.setEnabled(false);
         saveButton3.setEnabled(false);
         table0.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        downloadChooser.setDialogTitle("Загрузка функции");
+        downloadChooser.setCurrentDirectory(new File("output"));
+        saveChooser.setDialogTitle("Сохранение файла");
+        saveChooser.setCurrentDirectory(new File("output"));
 
         table1.setCellSelectionEnabled(false);
         table1.setEnabled(false);
@@ -205,28 +212,23 @@ public class SimpleOperationsWindow extends JDialog {
         });
 
         saveButton1.addActionListener(evt -> {
-            chooser.setDialogTitle("Сохранение файла");
-            chooser.setCurrentDirectory(new File("output"));
-            int returnVal = chooser.showSaveDialog(this);
+            int returnVal = saveChooser.showSaveDialog(this);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
-                File file = new File(chooser.getSelectedFile() + ".bin");
-                chooser.setCurrentDirectory(new File("output"));
+                File file = new File(saveChooser.getSelectedFile() + ".bin");
                 try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(file))) {
                     FunctionsIO.serialize(out, function1);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    new ErrorWindow(this, e);
                 }
                 JOptionPane.showMessageDialog(this,
-                        "Файл '" + chooser.getSelectedFile() +
+                        "Файл '" + saveChooser.getSelectedFile() +
                                 ".bin' сохранен");
             }
         });
         downloadButton1.addActionListener(evt -> {
-            chooser.setDialogTitle("Загрузка функции");
-            chooser.setCurrentDirectory(new File("output"));
-            int returnVal = chooser.showOpenDialog(this);
+            int returnVal = downloadChooser.showOpenDialog(this);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
-                File file = chooser.getSelectedFile();
+                File file = downloadChooser.getSelectedFile();
                 try (BufferedInputStream in = new BufferedInputStream(new FileInputStream(file))) {
                     function1 = FunctionsIO.deserialize(in);
                     count = function1.getCount();
@@ -236,10 +238,12 @@ public class SimpleOperationsWindow extends JDialog {
                         y2Values.add(i, "");
                         myTableXYYModel.fireTableDataChanged();
                     }
-                    funcSave.setEnabled(true);
+                    funcCreate.setEnabled(false);
+                    funcSave.setEnabled(false);
                     countGet.setEnabled(false);
                     countLabel.setEnabled(false);
                     funcCreate.setEnabled(false);
+                    saveButton1.setEnabled(true);
                 } catch (IOException | ClassNotFoundException e) {
                     e.printStackTrace();
                 }
@@ -247,46 +251,44 @@ public class SimpleOperationsWindow extends JDialog {
         });
 
         saveButton2.addActionListener(evt -> {
-            chooser.setDialogTitle("Сохранение файла");
-            chooser.setCurrentDirectory(new File("output"));
-            int returnVal = chooser.showSaveDialog(this);
+            int returnVal = saveChooser.showSaveDialog(this);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
-                File file = new File(chooser.getSelectedFile() + ".bin");
-                chooser.setCurrentDirectory(new File("output"));
+                File file = new File(saveChooser.getSelectedFile() + ".bin");
                 try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(file))) {
                     FunctionsIO.serialize(out, function1);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
                 JOptionPane.showMessageDialog(this,
-                        "Файл '" + chooser.getSelectedFile() +
+                        "Файл '" + saveChooser.getSelectedFile() +
                                 ".bin' сохранен");
             }
         });
 
         downloadButton2.addActionListener(evt -> {
-            chooser.setDialogTitle("Загрузка функции");
-            chooser.setCurrentDirectory(new File("output"));
-            int returnVal = chooser.showOpenDialog(this);
+            int returnVal = downloadChooser.showOpenDialog(this);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
-                File file = chooser.getSelectedFile();
+                File file = downloadChooser.getSelectedFile();
                 try (BufferedInputStream in = new BufferedInputStream(new FileInputStream(file))) {
                     function2 = FunctionsIO.deserialize(in);
                 } catch (IOException | ClassNotFoundException e) {
                     new ErrorWindow(this, e);
                 }
-
                 try {
                     if (function1.similar(function2)) {
                         for (int i = 0; i < count; i++) {
                             y2Values.add(i, String.valueOf(function2.getY(i)));
                             myTableXYYModel.fireTableDataChanged();
                         }
+                        fillMap();
+                        funcCreate.setEnabled(false);
+                        operateButton.setEnabled(true);
+                        table0.setEnabled(false);
+                        operationsBox.setEnabled(true);
+                        saveButton2.setEnabled(true);
                     } else {
                         throw new FunctionAreNotSimilarException();
                     }
-                    function1 = function3;
-                    function2 = function3;
                 } catch (Exception e) {
                     new ErrorWindow(this, e);
                 }
@@ -294,19 +296,16 @@ public class SimpleOperationsWindow extends JDialog {
         });
 
         saveButton3.addActionListener(evt -> {
-            chooser.setDialogTitle("Сохранение файла");
-            chooser.setCurrentDirectory(new File("output"));
-            int returnVal = chooser.showSaveDialog(this);
+            int returnVal = saveChooser.showSaveDialog(this);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
-                File file = new File(chooser.getSelectedFile() + ".bin");
-                chooser.setCurrentDirectory(new File("output"));
+                File file = new File(saveChooser.getSelectedFile() + ".bin");
                 try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(file))) {
                     FunctionsIO.serialize(out, function1);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
                 JOptionPane.showMessageDialog(this,
-                        "Файл '" + chooser.getSelectedFile() +
+                        "Файл '" + saveChooser.getSelectedFile() +
                                 ".bin' сохранен");
             }
         });
@@ -315,7 +314,7 @@ public class SimpleOperationsWindow extends JDialog {
     public void fillMap() {
         selectOperation.put("Сложение функций", new TabulatedFunctionOperationService().add(function1, function2));
         selectOperation.put("Вычитание функций", new TabulatedFunctionOperationService().subtract(function1, function2));
-        selectOperation.put("Произвдение фунций", new TabulatedFunctionOperationService().multiply(function1, function2));
+        selectOperation.put("Произведение функций", new TabulatedFunctionOperationService().multiply(function1, function2));
         selectOperation.put("Деление функций", new TabulatedFunctionOperationService().divide(function1, function2));
 
         String[] functions = new String[4];
