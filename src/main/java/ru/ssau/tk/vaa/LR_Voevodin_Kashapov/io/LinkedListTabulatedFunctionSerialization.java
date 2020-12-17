@@ -12,7 +12,7 @@ public class LinkedListTabulatedFunctionSerialization {
     public static void main(String[] args) {
         File fileList = new File("output/serialized linked list functions.bin");
 
-        double[] xValues = new double[]{1, 2, 3, 4, 5};
+        double[] xValues = new double[]{0, 2, 3, 4, 5};
         double[] yValues = new double[]{2, 4, 6, 8, 10};
 
         LinkedListTabulatedFunction list = new LinkedListTabulatedFunction(xValues, yValues);

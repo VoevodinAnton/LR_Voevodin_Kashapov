@@ -1,10 +1,12 @@
 package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.ui;
 
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.exeptions.ArrayIsNotSortedException;
+import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.exeptions.FunctionAreNotSimilarException;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.exeptions.WrongNumberOfElementsException;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 public class ErrorWindow {
 
@@ -30,6 +32,10 @@ public class ErrorWindow {
         if (e instanceof NullPointerException) {
             return "Что-то пошло не так...";
         }
+        if (e instanceof IOException)
+            return "Неудалось прочитать файл";
+        if (e instanceof FunctionAreNotSimilarException)
+            return "Абсциссы функций не совпадают";
         return "Неверные данные!";
     }
 }

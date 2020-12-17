@@ -1,5 +1,6 @@
 package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.ui;
 
+import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.exeptions.FunctionAreNotSimilarException;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.exeptions.WrongNumberOfElementsException;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.*;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.factory.ArrayTabulatedFunctionFactory;
@@ -263,18 +264,24 @@ public class SimpleOperationsWindow extends JDialog {
                 File file = chooser.getSelectedFile();
                 try (BufferedInputStream in = new BufferedInputStream(new FileInputStream(file))) {
                     function2 = FunctionsIO.deserialize(in);
+                } catch (IOException | ClassNotFoundException e) {
+                    new ErrorWindow(this, e);
+                }
+
+                try {
                     if (function1.similar(function2)) {
                         for (int i = 0; i < count; i++) {
-                            xValues.add(i, String.valueOf(function1.getX(i)));
-                            y1Values.add(i, String.valueOf(function2.getX(i)));
                             y2Values.add(i, String.valueOf(function2.getY(i)));
 
                             myTableXYYModel.fireTableDataChanged();
                         }
+                    } else {
+                        throw new FunctionAreNotSimilarException();
                     }
-                } catch (IOException | ClassNotFoundException e) {
-                    e.printStackTrace();
+                } catch (Exception e) {
+                    new ErrorWindow(this, e);
                 }
+
             }
         });
 
