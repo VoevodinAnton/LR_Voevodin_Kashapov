@@ -17,7 +17,7 @@ public class GraphicInterface extends JFrame {
     //String iconFilePath = this.getClass().getClassLoader().getResource("settingsButton.png").getFile();
 
     public GraphicInterface() {
-        super("Main window");
+        super("Главное окно");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(550, 320);
         compose();

@@ -43,8 +43,8 @@ public class DifferentiatingWindow extends JDialog {
     protected TabulatedFunction functionD;
 
     public DifferentiatingWindow() {
-        setSize(1200, 600);
-        setTitle("Операции");
+        setSize(600, 400);
+        setTitle("Дифференцирование функции");
         operateButton.setEnabled(false);
         funcSave.setEnabled(false);
         table0.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
