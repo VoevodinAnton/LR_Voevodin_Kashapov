@@ -52,7 +52,6 @@ public class SimpleOperationsWindow extends JDialog {
         setSize(1200, 600);
         setTitle("Операции");
         operateButton.setEnabled(false);
-        saveButton3.setEnabled(false);
         operationsBox.setEnabled(false);
         funcSave.setEnabled(false);
         table0.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -107,13 +106,15 @@ public class SimpleOperationsWindow extends JDialog {
                         .addComponent(tableScrollPane1)
                         .addComponent(tableScrollPane2))
                 .addGroup(layout.createSequentialGroup()
-                        .addComponent(downloadButton1)
-                        .addComponent(saveButton1)
-                        .addComponent(downloadButton2)
-                        .addComponent(saveButton2)
-                        .addComponent(downloadButton3)
-                        .addComponent(saveButton3)
-                )
+                        .addGroup(layout.createParallelGroup()
+                                .addComponent(downloadButton1)
+                                .addComponent(saveButton1))
+                        .addGroup(layout.createParallelGroup()
+                                .addComponent(downloadButton2)
+                                .addComponent(saveButton2))
+                        .addGroup(layout.createParallelGroup()
+                                .addComponent(downloadButton3)
+                                .addComponent(saveButton3)))
                 .addComponent(operationsBox)
                 .addComponent(operateButton)
         );
@@ -127,13 +128,16 @@ public class SimpleOperationsWindow extends JDialog {
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addComponent(tableScrollPane1)
                         .addComponent(tableScrollPane2))
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addComponent(downloadButton1)
-                        .addComponent(saveButton1)
-                        .addComponent(downloadButton2)
-                        .addComponent(saveButton2)
-                        .addComponent(downloadButton3)
-                        .addComponent(saveButton3)
+                .addGroup(layout.createParallelGroup()
+                        .addGroup(layout.createSequentialGroup()
+                                .addComponent(downloadButton1)
+                                .addComponent(saveButton1))
+                        .addGroup(layout.createSequentialGroup()
+                                .addComponent(downloadButton2)
+                                .addComponent(saveButton2))
+                        .addGroup(layout.createSequentialGroup()
+                                .addComponent(downloadButton3)
+                                .addComponent(saveButton3))
                 )
                 .addComponent(operationsBox)
                 .addComponent(operateButton)
@@ -254,7 +258,7 @@ public class SimpleOperationsWindow extends JDialog {
                 File file = chooser.getSelectedFile();
                 try (BufferedInputStream in = new BufferedInputStream(new FileInputStream(file))) {
                     function2 = FunctionsIO.deserialize(in);
-                    if(function1.similar(function2)){
+                    if (function1.similar(function2)) {
                         for (int i = 0; i < count; i++) {
                             xValues.add(i, String.valueOf(function1.getX(i)));
                             y1Values.add(i, String.valueOf(function2.getX(i)));

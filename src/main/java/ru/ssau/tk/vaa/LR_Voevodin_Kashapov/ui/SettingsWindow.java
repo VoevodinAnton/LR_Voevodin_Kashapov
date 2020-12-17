@@ -73,11 +73,13 @@ public class SettingsWindow extends JDialog {
                     PointsWindow.set(new LinkedListTabulatedFunctionFactory());
                     MathFuncWindow.set(new LinkedListTabulatedFunctionFactory());
                     SimpleOperationsWindow.set(new LinkedListTabulatedFunctionFactory());
+                    DifferentiatingWindow.set(new LinkedListTabulatedFunctionFactory());
                 }
                 if (arrayButton.isSelected()) {
                     PointsWindow.set(new ArrayTabulatedFunctionFactory());
                     MathFuncWindow.set(new ArrayTabulatedFunctionFactory());
                     SimpleOperationsWindow.set(new ArrayTabulatedFunctionFactory());
+                    DifferentiatingWindow.set(new ArrayTabulatedFunctionFactory());
                 }
                 this.dispose();
             }
