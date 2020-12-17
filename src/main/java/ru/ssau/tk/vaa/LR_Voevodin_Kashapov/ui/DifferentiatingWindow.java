@@ -31,19 +31,19 @@ public class DifferentiatingWindow extends JDialog {
 
     //Buttons
     private final JButton funcCreate = new JButton("Создать таблицу");
-    private final JButton funcSave = new JButton("Записать функции");
+    private final JButton funcSave = new JButton("Записать функцию");
     private final JButton operateButton = new JButton("Продифференцировать");
     private final JButton saveButton0 = new JButton("Сохранить");
     private final JButton saveButton1 = new JButton("Сохранить");
     private final JButton downloadButton0 = new JButton("Загрузить");
     private final JButton downloadButton1 = new JButton("Загрузить");
 
-    public final TabulatedDifferentialOperator differentialOperator = new TabulatedDifferentialOperator(factory);
+    private static final TabulatedDifferentialOperator differentialOperator = new TabulatedDifferentialOperator();
     protected TabulatedFunction function0;
     protected TabulatedFunction functionD;
 
     public DifferentiatingWindow() {
-        setSize(600, 400);
+        setSize(550, 400);
         setTitle("Дифференцирование функции");
         operateButton.setEnabled(false);
         funcSave.setEnabled(false);
@@ -59,7 +59,8 @@ public class DifferentiatingWindow extends JDialog {
     }
 
     public static void set(TabulatedFunctionFactory factory) {
-        PointsWindow.factory = factory;
+        DifferentiatingWindow.factory = factory;
+        differentialOperator.setFactory(factory);
     }
 
     private void createTable1() {
@@ -99,12 +100,12 @@ public class DifferentiatingWindow extends JDialog {
                         .addComponent(tableScrollPane2))
                 .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup()
-                                .addComponent(downloadButton0)
-                                .addComponent(saveButton0))
+                                .addComponent(downloadButton0, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(saveButton0, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED,
                                 GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup()
-                                .addComponent(saveButton1)))
+                                .addComponent(saveButton1, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(operateButton)
         );
 

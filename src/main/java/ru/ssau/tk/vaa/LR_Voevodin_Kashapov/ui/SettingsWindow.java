@@ -9,6 +9,8 @@ import java.awt.*;
 
 public class SettingsWindow extends JDialog {
 
+    public static TabulatedFunctionFactory factory = new ArrayTabulatedFunctionFactory();
+    private static int indicator = 1;
     JLabel label = new JLabel("Выберите реализацию функции");
     JButton button = new JButton("ОК");
     JRadioButton listButton = new JRadioButton("Связный список");
@@ -32,7 +34,9 @@ public class SettingsWindow extends JDialog {
         container.add(arrayButton);
         container.add(button);
 
-        arrayButton.setSelected(true);
+        if (indicator == 1)
+            arrayButton.setSelected(true);
+        else listButton.setSelected(true);
 
         addButtonListeners();
         compose();
@@ -41,6 +45,10 @@ public class SettingsWindow extends JDialog {
         setVisible(true);
     }
 
+    public static void set(TabulatedFunctionFactory factory, int idicator) {
+        SettingsWindow.factory = factory;
+        indicator = idicator;
+    }
 
     public void compose() {
         GroupLayout layout = new GroupLayout(getContentPane());
@@ -70,12 +78,14 @@ public class SettingsWindow extends JDialog {
         button.addActionListener(evt -> {
             if (evt.getSource() == button) {
                 if (listButton.isSelected()) {
+                    SettingsWindow.set(new LinkedListTabulatedFunctionFactory(), 2);
                     PointsWindow.set(new LinkedListTabulatedFunctionFactory());
                     MathFuncWindow.set(new LinkedListTabulatedFunctionFactory());
                     SimpleOperationsWindow.set(new LinkedListTabulatedFunctionFactory());
                     DifferentiatingWindow.set(new LinkedListTabulatedFunctionFactory());
                 }
                 if (arrayButton.isSelected()) {
+                    SettingsWindow.set(new ArrayTabulatedFunctionFactory(), 1);
                     PointsWindow.set(new ArrayTabulatedFunctionFactory());
                     MathFuncWindow.set(new ArrayTabulatedFunctionFactory());
                     SimpleOperationsWindow.set(new ArrayTabulatedFunctionFactory());

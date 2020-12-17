@@ -49,7 +49,7 @@ public class SimpleOperationsWindow extends JDialog {
     protected TabulatedFunction function3;
 
     public SimpleOperationsWindow() {
-        setSize(1200, 600);
+        setSize(1100, 600);
         setTitle("Операции");
         operateButton.setEnabled(false);
         operationsBox.setEnabled(false);
@@ -66,7 +66,7 @@ public class SimpleOperationsWindow extends JDialog {
     }
 
     public static void set(TabulatedFunctionFactory factory) {
-        PointsWindow.factory = factory;
+        SimpleOperationsWindow.factory = factory;
     }
 
     private void createTable1() {
@@ -107,14 +107,16 @@ public class SimpleOperationsWindow extends JDialog {
                         .addComponent(tableScrollPane2))
                 .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup()
-                                .addComponent(downloadButton1)
-                                .addComponent(saveButton1))
+                                .addComponent(downloadButton1, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(saveButton1, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(layout.createParallelGroup()
-                                .addComponent(downloadButton2)
-                                .addComponent(saveButton2))
+                                .addComponent(downloadButton2, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(saveButton2, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED,
+                                GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup()
-                                .addComponent(downloadButton3)
-                                .addComponent(saveButton3)))
+                                .addComponent(downloadButton3, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(saveButton3, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(operationsBox)
                 .addComponent(operateButton)
         );
