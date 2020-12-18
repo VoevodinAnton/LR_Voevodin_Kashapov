@@ -1,5 +1,6 @@
 package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.ui;
 
+import javax.swing.event.TableModelEvent;
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
@@ -9,7 +10,7 @@ public class MyTableModel extends AbstractTableModel {
     private static final long serialVersionUID = -443916866115057318L;
     private final List<String> xValues;
     private final List<String> yValues;
-
+    private boolean flag = true;
 
     public MyTableModel(List<String> xValues, List<String> yValues) {
         this.xValues = xValues;
@@ -49,7 +50,17 @@ public class MyTableModel extends AbstractTableModel {
 
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return true;
+        if (getValueAt(rowIndex, columnIndex) == "") {
+            return true;
+        } else {
+            return flag;
+        }
+    }
+
+    @Override
+    public void fireTableDataChanged() {
+        fireTableChanged(new TableModelEvent(this));
+        flag = false;
     }
 
     @Override

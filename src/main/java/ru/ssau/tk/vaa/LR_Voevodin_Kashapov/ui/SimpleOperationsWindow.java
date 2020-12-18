@@ -34,7 +34,7 @@ public class SimpleOperationsWindow extends JDialog {
 
     //Buttons
     private final JButton funcCreate = new JButton("Создать таблицу");
-    private final JButton funcSave = new JButton("Записать функции");
+    private final JButton funcRealise = new JButton("Записать функции");
     private final JButton operateButton = new JButton("Выполнить");
     private final JButton saveButton1 = new JButton("Сохранить");
     private final JButton saveButton2 = new JButton("Сохранить");
@@ -49,7 +49,7 @@ public class SimpleOperationsWindow extends JDialog {
 
 
     //Other
-    private final Map<String, TabulatedFunction> selectOperation = new HashMap<>();
+    private Map<String, TabulatedFunction> selectOperation = new HashMap<>();
     private final JComboBox<String> operationsBox = new JComboBox<>();
     public static TabulatedFunctionFactory factory = new ArrayTabulatedFunctionFactory();
     private int count;
@@ -62,21 +62,15 @@ public class SimpleOperationsWindow extends JDialog {
         setTitle("Операции");
         operateButton.setEnabled(false);
         operationsBox.setEnabled(false);
-        funcSave.setEnabled(false);
+        funcRealise.setEnabled(false);
         saveButton1.setEnabled(false);
         saveButton2.setEnabled(false);
         saveButton3.setEnabled(false);
         downloadButton2.setEnabled(false);
-        table0.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
         downloadChooser.setDialogTitle("Загрузка функции");
         downloadChooser.setCurrentDirectory(new File("output"));
         saveChooser.setDialogTitle("Сохранение файла");
         saveChooser.setCurrentDirectory(new File("output"));
-
-        table1.setCellSelectionEnabled(false);
-        table1.setEnabled(false);
-        table1.setDragEnabled(false);
         addButtonListeners();
         compose();
         setLocationRelativeTo(null);
@@ -122,7 +116,7 @@ public class SimpleOperationsWindow extends JDialog {
                         .addComponent(countLabel)
                         .addComponent(countGet)
                         .addComponent(funcCreate)
-                        .addComponent(funcSave))
+                        .addComponent(funcRealise))
                 .addGroup(layout.createSequentialGroup()
                         .addComponent(tableScrollPane1)
                         .addComponent(tableScrollPane2))
@@ -148,7 +142,7 @@ public class SimpleOperationsWindow extends JDialog {
                         .addComponent(countLabel)
                         .addComponent(countGet)
                         .addComponent(funcCreate)
-                        .addComponent(funcSave))
+                        .addComponent(funcRealise))
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addComponent(tableScrollPane1)
                         .addComponent(tableScrollPane2))
@@ -177,13 +171,13 @@ public class SimpleOperationsWindow extends JDialog {
                     throw new WrongNumberOfElementsException();
                 }
                 createTable1();
-                funcSave.setEnabled(true);
+                funcRealise.setEnabled(true);
                 funcCreate.setEnabled(false);
             } catch (Exception exception) {
                 new ErrorWindow(this, exception);
             }
         });
-        funcSave.addActionListener(evt -> {
+        funcRealise.addActionListener(evt -> {
             try {
                 if (table0.isEditing()) {
                     table0.getCellEditor().stopCellEditing();
@@ -193,9 +187,8 @@ public class SimpleOperationsWindow extends JDialog {
                 double[] y2 = toArray(y2Values);
                 function1 = SimpleOperationsWindow.factory.create(x, y1);
                 function2 = SimpleOperationsWindow.factory.create(x, y2);
-                funcSave.setEnabled(false);
+                funcRealise.setEnabled(false);
                 operateButton.setEnabled(true);
-                table0.setEnabled(false);
                 operationsBox.setEnabled(true);
                 fillMap();
             } catch (Exception exception) {
@@ -204,6 +197,7 @@ public class SimpleOperationsWindow extends JDialog {
         });
         operateButton.addActionListener(evt -> {
             try {
+                clearTable2();
                 String func = (String) operationsBox.getSelectedItem();
                 function3 = selectOperation.get(func);
                 createTable2();
@@ -229,7 +223,7 @@ public class SimpleOperationsWindow extends JDialog {
             }
         });
         downloadButton1.addActionListener(evt -> {
-            clearTable();
+            clearTable12();
             int returnVal = downloadChooser.showOpenDialog(this);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File file = downloadChooser.getSelectedFile();
@@ -243,7 +237,7 @@ public class SimpleOperationsWindow extends JDialog {
                         myTableXYYModel.fireTableDataChanged();
                     }
                     funcCreate.setEnabled(false);
-                    funcSave.setEnabled(false);
+                    funcRealise.setEnabled(false);
                     countGet.setEnabled(false);
                     countLabel.setEnabled(false);
                     funcCreate.setEnabled(false);
@@ -280,6 +274,7 @@ public class SimpleOperationsWindow extends JDialog {
                 } catch (IOException | ClassNotFoundException e) {
                     new ErrorWindow(this, e);
                 }
+
                 try {
                     if (function1.similar(function2)) {
                         for (int i = 0; i < count; i++) {
@@ -289,7 +284,6 @@ public class SimpleOperationsWindow extends JDialog {
                         fillMap();
                         funcCreate.setEnabled(false);
                         operateButton.setEnabled(true);
-                        table0.setEnabled(false);
                         operationsBox.setEnabled(true);
                         saveButton2.setEnabled(true);
                         downloadButton2.setEnabled(false);
@@ -317,10 +311,10 @@ public class SimpleOperationsWindow extends JDialog {
             }
         });
 
-        clearTableButton.addActionListener(evt -> clearTable());
+        clearTableButton.addActionListener(evt -> clearTable12());
     }
 
-    public void clearTable() {
+    public void clearTable12() {
         xValues = new ArrayList<>();
         xResValues = new ArrayList<>();
         y1Values = new ArrayList<>();
@@ -332,10 +326,27 @@ public class SimpleOperationsWindow extends JDialog {
         myTableResModel.fireTableDataChanged();
         table0 = new JTable(myTableXYYModel);
         table1 = new JTable(myTableResModel);
+        selectOperation = new HashMap<>();
+        downloadButton1.setEnabled(true);
+        operateButton.setEnabled(false);
+        operationsBox.setEnabled(false);
+        funcRealise.setEnabled(false);
+        saveButton1.setEnabled(false);
+        saveButton2.setEnabled(false);
+        saveButton3.setEnabled(false);
+        downloadButton2.setEnabled(false);
+        countGet.setEnabled(true);
+        countLabel.setEnabled(true);
+        funcCreate.setEnabled(true);
         compose();
     }
 
+    public void clearTable2() {
+        table1 = new JTable(myTableResModel);
+    }
+
     public void fillMap() {
+        selectOperation.clear();
         selectOperation.put("Сложение функций", new TabulatedFunctionOperationService().add(function1, function2));
         selectOperation.put("Вычитание функций", new TabulatedFunctionOperationService().subtract(function1, function2));
         selectOperation.put("Произведение функций", new TabulatedFunctionOperationService().multiply(function1, function2));

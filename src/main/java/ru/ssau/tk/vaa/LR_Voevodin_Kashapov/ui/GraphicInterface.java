@@ -1,7 +1,6 @@
 package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.ui;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.Objects;
 
 public class GraphicInterface extends JFrame {
@@ -57,7 +56,6 @@ public class GraphicInterface extends JFrame {
                                 .addComponent(functionCreate, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(simpleOperationsButton, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(differentiatingButton, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-
         );
 
         layout.setVerticalGroup(layout.createSequentialGroup()

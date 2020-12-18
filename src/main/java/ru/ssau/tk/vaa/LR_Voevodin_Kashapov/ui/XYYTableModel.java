@@ -1,5 +1,6 @@
 package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.ui;
 
+import javax.swing.event.TableModelEvent;
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
@@ -11,7 +12,7 @@ public class XYYTableModel extends AbstractTableModel {
     private final List<String> xValues;
     private final List<String> y1Values;
     private final List<String> y2Values;
-
+    private boolean flag = true;
 
     public XYYTableModel(List<String> xValues, List<String> y1Values, List<String> y2Values) {
         this.xValues = xValues;
@@ -40,8 +41,8 @@ public class XYYTableModel extends AbstractTableModel {
 
             case Y2_COLUMN:
                 return y2Values.get(rowIndex);
-
         }
+
         throw new UnsupportedOperationException();
     }
 
@@ -56,7 +57,19 @@ public class XYYTableModel extends AbstractTableModel {
 
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return true;
+        if (getValueAt(rowIndex, columnIndex) == "") {
+            return true;
+        } else if (columnIndex != X_COLUMN) {
+            return true;
+        } else {
+            return flag;
+        }
+    }
+
+    @Override
+    public void fireTableDataChanged() {
+        fireTableChanged(new TableModelEvent(this));
+        flag = false;
     }
 
     @Override
