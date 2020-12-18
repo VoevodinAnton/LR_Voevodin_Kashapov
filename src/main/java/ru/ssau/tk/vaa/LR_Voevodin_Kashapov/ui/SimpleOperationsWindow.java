@@ -9,22 +9,21 @@ import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.io.FunctionsIO;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.operations.TabulatedFunctionOperationService;
 
 import javax.swing.*;
-import javax.swing.table.AbstractTableModel;
 import java.io.*;
 import java.util.*;
 import java.util.List;
 
 public class SimpleOperationsWindow extends JDialog {
     //Lists
-    private List<String> xValues = new ArrayList<>();
-    private List<String> xResValues = new ArrayList<>();
-    private List<String> y1Values = new ArrayList<>();
-    private List<String> y2Values = new ArrayList<>();
-    private List<String> result = new ArrayList<>();
+    private final List<String> xValues = new ArrayList<>();
+    private final List<String> xResValues = new ArrayList<>();
+    private final List<String> y1Values = new ArrayList<>();
+    private final List<String> y2Values = new ArrayList<>();
+    private final List<String> result = new ArrayList<>();
 
     //Tables
-    private AbstractTableModel myTableXYYModel = new XYYTableModel(xValues, y1Values, y2Values);
-    private AbstractTableModel myTableResModel = new MyTableModel(xResValues, result);
+    private XYYTableModel myTableXYYModel = new XYYTableModel(xValues, y1Values, y2Values);
+    private final MyTableModel myTableResModel = new MyTableModel(xResValues, result);
     private JTable table0 = new JTable(myTableXYYModel);
     private JTable table1 = new JTable(myTableResModel);
 
@@ -47,9 +46,8 @@ public class SimpleOperationsWindow extends JDialog {
     JFileChooser downloadChooser = new JFileChooser();
     JFileChooser saveChooser = new JFileChooser();
 
-
     //Other
-    private Map<String, TabulatedFunction> selectOperation = new HashMap<>();
+    private final Map<String, TabulatedFunction> selectOperation = new HashMap<>();
     private final JComboBox<String> operationsBox = new JComboBox<>();
     public static TabulatedFunctionFactory factory = new ArrayTabulatedFunctionFactory();
     private int count;
@@ -177,6 +175,7 @@ public class SimpleOperationsWindow extends JDialog {
                 new ErrorWindow(this, exception);
             }
         });
+
         funcRealise.addActionListener(evt -> {
             try {
                 if (table0.isEditing()) {
@@ -190,11 +189,14 @@ public class SimpleOperationsWindow extends JDialog {
                 funcRealise.setEnabled(false);
                 operateButton.setEnabled(true);
                 operationsBox.setEnabled(true);
-                fillMap();
+                if (selectOperation.isEmpty()) {
+                    fillMap();
+                }
             } catch (Exception exception) {
                 new ErrorWindow(this, exception);
             }
         });
+
         operateButton.addActionListener(evt -> {
             try {
                 clearTable2();
@@ -222,8 +224,9 @@ public class SimpleOperationsWindow extends JDialog {
                                 ".bin' сохранен");
             }
         });
+
         downloadButton1.addActionListener(evt -> {
-            clearTable12();
+            clearTable1();
             int returnVal = downloadChooser.showOpenDialog(this);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File file = downloadChooser.getSelectedFile();
@@ -281,7 +284,9 @@ public class SimpleOperationsWindow extends JDialog {
                             y2Values.add(i, String.valueOf(function2.getY(i)));
                             myTableXYYModel.fireTableDataChanged();
                         }
-                        fillMap();
+                        if (selectOperation.isEmpty()) {
+                            fillMap();
+                        }
                         funcCreate.setEnabled(false);
                         operateButton.setEnabled(true);
                         operationsBox.setEnabled(true);
@@ -311,22 +316,17 @@ public class SimpleOperationsWindow extends JDialog {
             }
         });
 
-        clearTableButton.addActionListener(evt -> clearTable12());
+        clearTableButton.addActionListener(evt -> clearTable1());
     }
 
-    public void clearTable12() {
-        xValues = new ArrayList<>();
-        xResValues = new ArrayList<>();
-        y1Values = new ArrayList<>();
-        y2Values = new ArrayList<>();
-        result = new ArrayList<>();
-        myTableXYYModel = new XYYTableModel(xValues, y1Values, y2Values);
-        myTableResModel = new MyTableModel(xResValues, result);
+    public void clearTable1() {
+        myTableXYYModel.removeAll();
         myTableXYYModel.fireTableDataChanged();
-        myTableResModel.fireTableDataChanged();
+        myTableXYYModel = new XYYTableModel(xValues, y1Values, y2Values);
         table0 = new JTable(myTableXYYModel);
-        table1 = new JTable(myTableResModel);
-        selectOperation = new HashMap<>();
+        compose();
+        //table0 = new JTable(myTableResModel);
+
         downloadButton1.setEnabled(true);
         operateButton.setEnabled(false);
         operationsBox.setEnabled(false);
@@ -338,7 +338,6 @@ public class SimpleOperationsWindow extends JDialog {
         countGet.setEnabled(true);
         countLabel.setEnabled(true);
         funcCreate.setEnabled(true);
-        compose();
     }
 
     public void clearTable2() {

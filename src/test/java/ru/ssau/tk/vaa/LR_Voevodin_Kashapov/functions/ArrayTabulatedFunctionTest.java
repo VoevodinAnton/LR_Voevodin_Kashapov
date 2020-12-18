@@ -366,7 +366,7 @@ public class ArrayTabulatedFunctionTest {
         assertEquals(a.getY(1), 256.0);
         assertEquals(a.getCount(), 2);
         // тест для конца
-        /*a.remove(1);
+        /*a.removeAll(1);
         assertEquals(a.getX(0), 4.0);
         assertEquals(a.getY(0), 16.0);
         assertEquals(a.getCount(), 1);*/

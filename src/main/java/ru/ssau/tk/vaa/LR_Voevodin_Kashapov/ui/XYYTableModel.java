@@ -2,6 +2,7 @@ package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.ui;
 
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.AbstractTableModel;
+import java.util.ArrayList;
 import java.util.List;
 
 public class XYYTableModel extends AbstractTableModel {
@@ -9,9 +10,9 @@ public class XYYTableModel extends AbstractTableModel {
     private static final int Y1_COLUMN = 1;
     private static final int Y2_COLUMN = 2;
     private static final long serialVersionUID = -443916866115057318L;
-    private final List<String> xValues;
-    private final List<String> y1Values;
-    private final List<String> y2Values;
+    private List<String> xValues;
+    private List<String> y1Values;
+    private List<String> y2Values;
     private boolean flag = true;
 
     public XYYTableModel(List<String> xValues, List<String> y1Values, List<String> y2Values) {
@@ -80,6 +81,12 @@ public class XYYTableModel extends AbstractTableModel {
             case Y2_COLUMN -> "Y2";
             default -> super.getColumnName(column);
         };
+    }
+
+    public void removeAll() {
+        xValues = new ArrayList<>();
+        y2Values = new ArrayList<>();
+        y1Values = new ArrayList<>();
     }
 
 }
