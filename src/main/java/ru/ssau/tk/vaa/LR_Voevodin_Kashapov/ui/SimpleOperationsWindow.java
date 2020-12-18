@@ -16,17 +16,17 @@ import java.util.List;
 
 public class SimpleOperationsWindow extends JDialog {
     //Lists
-    private final List<String> xValues = new ArrayList<>();
-    private final List<String> xResValues = new ArrayList<>();
-    private final List<String> y1Values = new ArrayList<>();
-    private final List<String> y2Values = new ArrayList<>();
-    private final List<String> result = new ArrayList<>();
+    private List<String> xValues = new ArrayList<>();
+    private List<String> xResValues = new ArrayList<>();
+    private List<String> y1Values = new ArrayList<>();
+    private List<String> y2Values = new ArrayList<>();
+    private List<String> result = new ArrayList<>();
 
     //Tables
-    private final AbstractTableModel myTableXYYModel = new XYYTableModel(xValues, y1Values, y2Values);
-    private final AbstractTableModel myTableResModel = new MyTableModel(xResValues, result);
-    private final JTable table0 = new JTable(myTableXYYModel);
-    private final JTable table1 = new JTable(myTableResModel);
+    private AbstractTableModel myTableXYYModel = new XYYTableModel(xValues, y1Values, y2Values);
+    private AbstractTableModel myTableResModel = new MyTableModel(xResValues, result);
+    private JTable table0 = new JTable(myTableXYYModel);
+    private JTable table1 = new JTable(myTableResModel);
 
     //Labels&TextFields
     private final JTextField countGet = new JTextField(10);
@@ -41,6 +41,7 @@ public class SimpleOperationsWindow extends JDialog {
     private final JButton saveButton3 = new JButton("Сохранить");
     private final JButton downloadButton1 = new JButton("Загрузить");
     private final JButton downloadButton2 = new JButton("Загрузить");
+    private final JButton clearTableButton = new JButton("Очистить таблицы");
 
     //Choosers
     JFileChooser downloadChooser = new JFileChooser();
@@ -65,6 +66,7 @@ public class SimpleOperationsWindow extends JDialog {
         saveButton1.setEnabled(false);
         saveButton2.setEnabled(false);
         saveButton3.setEnabled(false);
+        downloadButton2.setEnabled(false);
         table0.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         downloadChooser.setDialogTitle("Загрузка функции");
@@ -136,7 +138,9 @@ public class SimpleOperationsWindow extends JDialog {
                         .addGroup(layout.createParallelGroup()
                                 .addComponent(saveButton3, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(operationsBox)
-                .addComponent(operateButton)
+                .addGroup(layout.createSequentialGroup()
+                        .addComponent(operateButton, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(clearTableButton, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         layout.setVerticalGroup(layout.createSequentialGroup()
@@ -159,7 +163,9 @@ public class SimpleOperationsWindow extends JDialog {
                                 .addComponent(saveButton3))
                 )
                 .addComponent(operationsBox)
-                .addComponent(operateButton)
+                .addGroup(layout.createParallelGroup()
+                        .addComponent(operateButton)
+                        .addComponent(clearTableButton))
         );
     }
 
@@ -187,8 +193,6 @@ public class SimpleOperationsWindow extends JDialog {
                 double[] y2 = toArray(y2Values);
                 function1 = SimpleOperationsWindow.factory.create(x, y1);
                 function2 = SimpleOperationsWindow.factory.create(x, y2);
-                System.out.println(function1.toString());
-                System.out.println(function2.toString());
                 funcSave.setEnabled(false);
                 operateButton.setEnabled(true);
                 table0.setEnabled(false);
@@ -202,10 +206,9 @@ public class SimpleOperationsWindow extends JDialog {
             try {
                 String func = (String) operationsBox.getSelectedItem();
                 function3 = selectOperation.get(func);
-                System.out.println(function3.toString());
                 createTable2();
                 saveButton3.setEnabled(true);
-
+                downloadButton1.setEnabled(true);
             } catch (Exception exception) {
                 new ErrorWindow(this, exception);
             }
@@ -226,6 +229,7 @@ public class SimpleOperationsWindow extends JDialog {
             }
         });
         downloadButton1.addActionListener(evt -> {
+            clearTable();
             int returnVal = downloadChooser.showOpenDialog(this);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File file = downloadChooser.getSelectedFile();
@@ -244,6 +248,8 @@ public class SimpleOperationsWindow extends JDialog {
                     countLabel.setEnabled(false);
                     funcCreate.setEnabled(false);
                     saveButton1.setEnabled(true);
+                    downloadButton1.setEnabled(false);
+                    downloadButton2.setEnabled(true);
                 } catch (IOException | ClassNotFoundException e) {
                     e.printStackTrace();
                 }
@@ -286,6 +292,7 @@ public class SimpleOperationsWindow extends JDialog {
                         table0.setEnabled(false);
                         operationsBox.setEnabled(true);
                         saveButton2.setEnabled(true);
+                        downloadButton2.setEnabled(false);
                     } else {
                         throw new FunctionAreNotSimilarException();
                     }
@@ -309,6 +316,23 @@ public class SimpleOperationsWindow extends JDialog {
                                 ".bin' сохранен");
             }
         });
+
+        clearTableButton.addActionListener(evt -> clearTable());
+    }
+
+    public void clearTable() {
+        xValues = new ArrayList<>();
+        xResValues = new ArrayList<>();
+        y1Values = new ArrayList<>();
+        y2Values = new ArrayList<>();
+        result = new ArrayList<>();
+        myTableXYYModel = new XYYTableModel(xValues, y1Values, y2Values);
+        myTableResModel = new MyTableModel(xResValues, result);
+        myTableXYYModel.fireTableDataChanged();
+        myTableResModel.fireTableDataChanged();
+        table0 = new JTable(myTableXYYModel);
+        table1 = new JTable(myTableResModel);
+        compose();
     }
 
     public void fillMap() {
