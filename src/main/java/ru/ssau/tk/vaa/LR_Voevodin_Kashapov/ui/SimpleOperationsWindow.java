@@ -42,8 +42,9 @@ public class SimpleOperationsWindow extends JDialog {
     private final JButton saveButton1 = new JButton("Сохранить");
     private final JButton saveButton2 = new JButton("Сохранить");
     private final JButton saveButton3 = new JButton("Сохранить");
-    private final JButton downloadButton1 = new JButton("Загрузить");
-    private final JButton downloadButton2 = new JButton("Загрузить");
+    private final JButton downloadButton1 = new JButton("Загрузить(1)");
+    private final JButton downloadButton2 = new JButton("Загрузить(2)");
+    private final JButton swapButton = new JButton("<->");
     private final JButton clearTableButton = new JButton("Очистить таблицы");
     // % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
     JRadioButton listButton = new JRadioButton("Л");
@@ -69,6 +70,7 @@ public class SimpleOperationsWindow extends JDialog {
         operateButton.setEnabled(false);
         operationsBox.setEnabled(false);
         funcRealise.setEnabled(false);
+        swapButton.setEnabled(false);
         saveButton1.setEnabled(false);
         saveButton2.setEnabled(false);
         saveButton3.setEnabled(false);
@@ -150,6 +152,7 @@ public class SimpleOperationsWindow extends JDialog {
                         .addGroup(layout.createParallelGroup()
                                 .addComponent(downloadButton1, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(saveButton1, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(swapButton)
                         .addGroup(layout.createParallelGroup()
                                 .addComponent(downloadButton2, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(saveButton2, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -179,6 +182,7 @@ public class SimpleOperationsWindow extends JDialog {
                         .addGroup(layout.createSequentialGroup()
                                 .addComponent(downloadButton1)
                                 .addComponent(saveButton1))
+                        .addComponent(swapButton, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createSequentialGroup()
                                 .addComponent(downloadButton2)
                                 .addComponent(saveButton2))
@@ -204,6 +208,8 @@ public class SimpleOperationsWindow extends JDialog {
                 createTable1();
                 funcRealise.setEnabled(true);
                 funcCreate.setEnabled(false);
+                saveButton1.setEnabled(false);
+                saveButton2.setEnabled(false);
             } catch (Exception exception) {
                 new ErrorWindow(this, exception);
             }
@@ -223,6 +229,9 @@ public class SimpleOperationsWindow extends JDialog {
                 operateButton.setEnabled(true);
                 operationsBox.setEnabled(true);
                 fillMap();
+                saveButton1.setEnabled(true);
+                saveButton2.setEnabled(true);
+                swapButton.setEnabled(true);
             } catch (Exception exception) {
                 new ErrorWindow(this, exception);
             }
@@ -339,6 +348,7 @@ public class SimpleOperationsWindow extends JDialog {
                         operationsBox.setEnabled(true);
                         saveButton2.setEnabled(true);
                         downloadButton2.setEnabled(false);
+                        swapButton.setEnabled(true);
                     } else {
                         throw new FunctionAreNotSimilarException();
                     }
@@ -346,6 +356,20 @@ public class SimpleOperationsWindow extends JDialog {
                     new ErrorWindow(this, e);
                 }
             }
+        });
+
+        swapButton.addActionListener(evt -> {
+            y1Values.clear();
+            y2Values.clear();
+            for (int i = 0; i < xValues.size(); i++) {
+                y1Values.add(i, String.valueOf(function2.getY(i)));
+                y2Values.add(i, String.valueOf(function1.getY(i)));
+                myTableXYYModel.fireTableDataChanged();
+            }
+            TabulatedFunction f2 = function2;
+            function2 = function1;
+            function1 = f2;
+            fillMap();
         });
 
         saveButton3.addActionListener(evt ->
@@ -383,6 +407,7 @@ public class SimpleOperationsWindow extends JDialog {
             downloadButton2.setEnabled(false);
             countGet.setEnabled(true);
             funcCreate.setEnabled(true);
+            swapButton.setEnabled(false);
         });
     }
 
