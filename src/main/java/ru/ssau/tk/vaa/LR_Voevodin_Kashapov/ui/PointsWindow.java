@@ -5,7 +5,6 @@ import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.factory.ArrayTabulatedFunct
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.factory.TabulatedFunctionFactory;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.io.FunctionsIO;
 
-import java.awt.*;
 import java.awt.event.*;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -14,6 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.AbstractTableModel;
 
 public class PointsWindow extends JDialog {
@@ -38,6 +38,11 @@ public class PointsWindow extends JDialog {
 
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         createTable();
+
+        saveChooser.setDialogTitle("Сохранение файла");
+        saveChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        saveChooser.addChoosableFileFilter(new FileNameExtensionFilter("Bin files", "bin"));
+        saveChooser.setCurrentDirectory(new File("output"));
 
         saveButton.setEnabled(false);
 
@@ -98,22 +103,41 @@ public class PointsWindow extends JDialog {
             }
         });
 
-        saveButton.addActionListener(evt ->{
-            saveChooser.setDialogTitle("Сохранение файла");
-            saveChooser.setCurrentDirectory(new File("output"));
+        saveButton.addActionListener(evt -> {
             int returnVal = saveChooser.showSaveDialog(this);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
-                File file = new File(saveChooser.getSelectedFile() + ".bin");
-                try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(file))) {
-                    if (table.isEditing())
-                        table.getCellEditor().stopCellEditing();
-                    FunctionsIO.serialize(out, function);
-                } catch (Exception e) {
-                    new ErrorWindow(this, e);
+                String fileName = saveChooser.getSelectedFile() + ".bin";
+                int flag = 0;
+                File file = new File(fileName);
+                if (file.exists()) {
+                    int ind = JOptionPane.showConfirmDialog(this, "Файл с таким названием уже существует в данном расположении. Вы хотите сохранить файл с названием " +
+                            HelperMethods.getFinalNewDestinationFile(new File("output"), file).getName() + "?" +
+                            "\n Нажмите \"Нет\", чтобы заменить файл");
+                    switch (ind) {
+                        case (0):
+                            file = HelperMethods.getFinalNewDestinationFile(new File("output"), file);
+                            break;
+                        case (2):
+                            flag = -1;
+                        default:
+                            break;
+                    }
                 }
-                JOptionPane.showMessageDialog(this,
-                        "Файл '" + saveChooser.getSelectedFile() +
-                                ".bin' сохранен");
+                if (flag != -1) {
+                    try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(file))) {
+                        if (function != null) {
+                            FunctionsIO.serialize(out, function);
+                            JOptionPane.showMessageDialog(this,
+                                    "Файл '" + file.getName() +
+                                            " сохранен");
+                        } else {
+                            throw new IOException();
+                        }
+                    } catch (Exception e) {
+                        new ErrorWindow(this, e);
+                    }
+                }
+
             }
         });
     }

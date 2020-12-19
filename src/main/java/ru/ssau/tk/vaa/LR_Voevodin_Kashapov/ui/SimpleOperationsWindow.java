@@ -9,6 +9,7 @@ import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.io.FunctionsIO;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.operations.TabulatedFunctionOperationService;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.*;
 import java.util.*;
 import java.util.List;
@@ -67,10 +68,17 @@ public class SimpleOperationsWindow extends JDialog {
         saveButton2.setEnabled(false);
         saveButton3.setEnabled(false);
         downloadButton2.setEnabled(false);
+
         downloadChooser.setDialogTitle("Загрузка функции");
+        downloadChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        downloadChooser.addChoosableFileFilter(new FileNameExtensionFilter("Bin files", "bin"));
         downloadChooser.setCurrentDirectory(new File("output"));
+
         saveChooser.setDialogTitle("Сохранение файла");
+        saveChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        saveChooser.addChoosableFileFilter(new FileNameExtensionFilter("Bin files", "bin"));
         saveChooser.setCurrentDirectory(new File("output"));
+
         addButtonListeners();
         compose();
         setLocationRelativeTo(null);
@@ -222,16 +230,20 @@ public class SimpleOperationsWindow extends JDialog {
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File file = new File(saveChooser.getSelectedFile() + ".bin");
                 try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(file))) {
-                    FunctionsIO.serialize(out, function1);
+                    if (function1 != null) {
+                        FunctionsIO.serialize(out, function1);
+                        JOptionPane.showMessageDialog(this,
+                                "Файл '" + saveChooser.getSelectedFile() +
+                                        ".bin' сохранен");
+                    } else {
+                        throw new IOException();
+                    }
                 } catch (IOException e) {
                     new ErrorWindow(this, e);
                 }
-                JOptionPane.showMessageDialog(this,
-                        "Файл '" + saveChooser.getSelectedFile() +
-                                ".bin' сохранен");
+
             }
         });
-
         downloadButton1.addActionListener(evt -> {
             int returnVal = downloadChooser.showOpenDialog(this);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
@@ -260,7 +272,7 @@ public class SimpleOperationsWindow extends JDialog {
                     downloadButton1.setEnabled(false);
                     downloadButton2.setEnabled(true);
                 } catch (IOException | ClassNotFoundException e) {
-                    e.printStackTrace();
+                    new ErrorWindow(this, e);
                 }
             }
         });
@@ -270,13 +282,17 @@ public class SimpleOperationsWindow extends JDialog {
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File file = new File(saveChooser.getSelectedFile() + ".bin");
                 try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(file))) {
-                    FunctionsIO.serialize(out, function1);
+                    if (function2 != null) {
+                        FunctionsIO.serialize(out, function2);
+                        JOptionPane.showMessageDialog(this,
+                                "Файл '" + saveChooser.getSelectedFile() +
+                                        ".bin' сохранен");
+                    } else {
+                        throw new IOException();
+                    }
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    new ErrorWindow(this, e);
                 }
-                JOptionPane.showMessageDialog(this,
-                        "Файл '" + saveChooser.getSelectedFile() +
-                                ".bin' сохранен");
             }
         });
 
@@ -317,13 +333,17 @@ public class SimpleOperationsWindow extends JDialog {
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File file = new File(saveChooser.getSelectedFile() + ".bin");
                 try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(file))) {
-                    FunctionsIO.serialize(out, function1);
+                    if (function3 != null) {
+                        FunctionsIO.serialize(out, function3);
+                        JOptionPane.showMessageDialog(this,
+                                "Файл '" + saveChooser.getSelectedFile() +
+                                        ".bin' сохранен");
+                    } else {
+                        throw new IOException();
+                    }
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    new ErrorWindow(this, e);
                 }
-                JOptionPane.showMessageDialog(this,
-                        "Файл '" + saveChooser.getSelectedFile() +
-                                ".bin' сохранен");
             }
         });
 

@@ -6,7 +6,7 @@ import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.factory.TabulatedFunctionFa
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.io.FunctionsIO;
 
 import javax.swing.*;
-import java.awt.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -40,6 +40,9 @@ public class MathFuncWindow extends JDialog {
         this.count = count;
 
         saveChooser.setCurrentDirectory(new File("output"));
+        saveChooser.setDialogTitle("Сохранение файла");
+        saveChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        saveChooser.addChoosableFileFilter(new FileNameExtensionFilter("Bin files", "bin"));
         saveButton.setEnabled(false);
 
         addButtonListeners();
@@ -123,12 +126,12 @@ public class MathFuncWindow extends JDialog {
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File file = new File(saveChooser.getSelectedFile() + ".bin");
                 try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(file))) {
-                    if (function != null){
+                    if (function != null) {
                         FunctionsIO.serialize(out, function);
                         JOptionPane.showMessageDialog(this,
                                 "Файл '" + saveChooser.getSelectedFile() +
                                         ".bin' сохранен");
-                    }else {
+                    } else {
                         throw new IOException();
                     }
                 } catch (IOException e) {
