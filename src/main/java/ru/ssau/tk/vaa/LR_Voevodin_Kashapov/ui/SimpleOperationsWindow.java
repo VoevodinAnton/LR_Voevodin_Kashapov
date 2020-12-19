@@ -93,15 +93,19 @@ public class SimpleOperationsWindow extends JDialog {
     }
 
     private void createTable2() {
-        //System.out.println(xResValues.size());
-        for (int i = 0; i < count; i++) {
-            xResValues.add(i, String.valueOf(function3.getX(i)));
-            result.add(i, String.valueOf(function3.getY(i)));
-            myTableResModel.fireTableDataChanged();
+        if (xResValues.isEmpty()) {
+            for (int i = 0; i < count; i++) {
+                xResValues.add(i, String.valueOf(function3.getX(i)));
+                result.add(i, String.valueOf(function3.getY(i)));
+                myTableResModel.fireTableDataChanged();
+            }
+        } else {
+            for (int i = 0; i < count; i++) {
+                xResValues.set(i, String.valueOf(function3.getX(i)));
+                result.set(i, String.valueOf(function3.getY(i)));
+                myTableResModel.fireTableDataChanged();
+            }
         }
-        //System.out.println(String.valueOf(result));
-        xResValues = new ArrayList<>();
-        result = new ArrayList<>();
         myTableResModel.fireTableDataChanged();
         saveButton3.setEnabled(true);
     }
