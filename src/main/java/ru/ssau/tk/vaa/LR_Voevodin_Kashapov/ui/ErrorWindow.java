@@ -33,7 +33,7 @@ public class ErrorWindow {
             return "Что-то пошло не так...";
         }
         if (e instanceof IOException)
-            return "Неудалось прочитать файл";
+            return "Неудалось прочитать/записать файл";
         if (e instanceof FunctionAreNotSimilarException)
             return "Абсциссы функций не совпадают";
         return "Неверные данные!";
