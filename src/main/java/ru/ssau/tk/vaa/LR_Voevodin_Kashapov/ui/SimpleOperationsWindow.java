@@ -16,22 +16,22 @@ import java.util.List;
 
 public class SimpleOperationsWindow extends JDialog {
     //Lists
-    private List<String> xValues = new ArrayList<>();
-    private List<String> xResValues = new ArrayList<>();
-    private List<String> y1Values = new ArrayList<>();
-    private List<String> y2Values = new ArrayList<>();
-    private List<String> result = new ArrayList<>();
+    private final List<String> xValues = new ArrayList<>();
+    private final List<String> xResValues = new ArrayList<>();
+    private final List<String> y1Values = new ArrayList<>();
+    private final List<String> y2Values = new ArrayList<>();
+    private final List<String> result = new ArrayList<>();
 
     //Tables
-    private XYYTableModel myTableXYYModel = new XYYTableModel(xValues, y1Values, y2Values);
-    private MyTableModel myTableResModel = new MyTableModel(xResValues, result);
-    private JTable table0 = new JTable(myTableXYYModel);
-    private JTable table1 = new JTable(myTableResModel);
-    private JScrollPane tableScrollPane1 = new JScrollPane(table0);
-    private JScrollPane tableScrollPane2 = new JScrollPane(table1);
+    private final XYYTableModel myTableXYYModel = new XYYTableModel(xValues, y1Values, y2Values);
+    private final MyTableModel myTableResModel = new MyTableModel(xResValues, result);
+    private final JTable table0 = new JTable(myTableXYYModel);
+    private final JTable table1 = new JTable(myTableResModel);
+    private final JScrollPane tableScrollPane1 = new JScrollPane(table0);
+    private final JScrollPane tableScrollPane2 = new JScrollPane(table1);
 
     //Labels&TextFields
-    private JTextField countGet = new JTextField(10);
+    private final JTextField countGet = new JTextField(10);
     private final JLabel countLabel = new JLabel("Введите количество точек");
 
     //Buttons
@@ -206,9 +206,8 @@ public class SimpleOperationsWindow extends JDialog {
                 funcRealise.setEnabled(false);
                 operateButton.setEnabled(true);
                 operationsBox.setEnabled(true);
-                if (selectOperation.isEmpty()) {
-                    fillMap();
-                }
+                selectOperation.clear();
+                fillMap();
             } catch (Exception exception) {
                 new ErrorWindow(this, exception);
             }
@@ -262,7 +261,7 @@ public class SimpleOperationsWindow extends JDialog {
                         myTableXYYModel.fireTableDataChanged();
                     }
                     funcCreate.setEnabled(false);
-                    funcRealise.setEnabled(true);
+                    funcRealise.setEnabled(false);
                     countGet.setEnabled(false);
                     countLabel.setEnabled(false);
                     funcCreate.setEnabled(false);
@@ -313,9 +312,8 @@ public class SimpleOperationsWindow extends JDialog {
                             y2Values.add(i, String.valueOf(function2.getY(i)));
                             myTableXYYModel.fireTableDataChanged();
                         }
-                        if (selectOperation.isEmpty()) {
-                            fillMap();
-                        }
+                        selectOperation.clear();
+                        fillMap();
                         funcCreate.setEnabled(false);
                         operateButton.setEnabled(true);
                         operationsBox.setEnabled(true);
@@ -379,7 +377,6 @@ public class SimpleOperationsWindow extends JDialog {
     }
 
     public void fillMap() {
-        selectOperation.clear();
         selectOperation.put("Сложение функций", new TabulatedFunctionOperationService().add(function1, function2));
         selectOperation.put("Вычитание функций", new TabulatedFunctionOperationService().subtract(function1, function2));
         selectOperation.put("Произведение функций", new TabulatedFunctionOperationService().multiply(function1, function2));
