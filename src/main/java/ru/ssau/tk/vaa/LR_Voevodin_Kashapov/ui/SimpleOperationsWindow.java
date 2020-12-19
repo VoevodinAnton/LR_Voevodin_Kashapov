@@ -4,6 +4,7 @@ import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.exeptions.FunctionAreNotSimilarExcept
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.exeptions.WrongNumberOfElementsException;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.*;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.factory.ArrayTabulatedFunctionFactory;
+import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.factory.LinkedListTabulatedFunctionFactory;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.factory.TabulatedFunctionFactory;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.io.FunctionsIO;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.operations.TabulatedFunctionOperationService;
@@ -44,6 +45,9 @@ public class SimpleOperationsWindow extends JDialog {
     private final JButton downloadButton1 = new JButton("Загрузить");
     private final JButton downloadButton2 = new JButton("Загрузить");
     private final JButton clearTableButton = new JButton("Очистить таблицы");
+    // % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+    JRadioButton listButton = new JRadioButton("Л");
+    JRadioButton arrayButton = new JRadioButton("М");
 
     //Choosers
     JFileChooser downloadChooser = new JFileChooser();
@@ -53,13 +57,14 @@ public class SimpleOperationsWindow extends JDialog {
     private final Map<String, TabulatedFunction> selectOperation = new HashMap<>();
     private final JComboBox<String> operationsBox = new JComboBox<>();
     public static TabulatedFunctionFactory factory = new ArrayTabulatedFunctionFactory();
+    private TabulatedFunctionFactory resFactory = new ArrayTabulatedFunctionFactory();
     private int count;
     protected TabulatedFunction function1;
     protected TabulatedFunction function2;
     protected TabulatedFunction function3;
 
     public SimpleOperationsWindow() {
-        setSize(1100, 600);
+        setSize(1100, 500);
         setTitle("Операции");
         operateButton.setEnabled(false);
         operationsBox.setEnabled(false);
@@ -78,6 +83,11 @@ public class SimpleOperationsWindow extends JDialog {
         saveChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         saveChooser.addChoosableFileFilter(new FileNameExtensionFilter("Bin files", "bin"));
         saveChooser.setCurrentDirectory(new File("output"));
+
+        ButtonGroup group = new ButtonGroup();
+        group.add(listButton);
+        group.add(arrayButton);
+        arrayButton.setSelected(true);
 
         addButtonListeners();
         compose();
@@ -132,7 +142,10 @@ public class SimpleOperationsWindow extends JDialog {
                         .addComponent(funcRealise))
                 .addGroup(layout.createSequentialGroup()
                         .addComponent(tableScrollPane1)
-                        .addComponent(tableScrollPane2))
+                        .addComponent(tableScrollPane2)
+                        .addGroup(layout.createParallelGroup()
+                                .addComponent(arrayButton)
+                                .addComponent(listButton)))
                 .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup()
                                 .addComponent(downloadButton1, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -158,7 +171,10 @@ public class SimpleOperationsWindow extends JDialog {
                         .addComponent(funcRealise))
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addComponent(tableScrollPane1)
-                        .addComponent(tableScrollPane2))
+                        .addComponent(tableScrollPane2)
+                        .addGroup(layout.createSequentialGroup()
+                                .addComponent(arrayButton)
+                                .addComponent(listButton)))
                 .addGroup(layout.createParallelGroup()
                         .addGroup(layout.createSequentialGroup()
                                 .addComponent(downloadButton1)
@@ -206,7 +222,6 @@ public class SimpleOperationsWindow extends JDialog {
                 funcRealise.setEnabled(false);
                 operateButton.setEnabled(true);
                 operationsBox.setEnabled(true);
-                selectOperation.clear();
                 fillMap();
             } catch (Exception exception) {
                 new ErrorWindow(this, exception);
@@ -215,6 +230,12 @@ public class SimpleOperationsWindow extends JDialog {
 
         operateButton.addActionListener(evt -> {
             try {
+                if (listButton.isSelected()) {
+                    resFactory = new LinkedListTabulatedFunctionFactory();
+                } else if (arrayButton.isSelected()) {
+                    resFactory = new ArrayTabulatedFunctionFactory();
+                }
+
                 String func = (String) operationsBox.getSelectedItem();
                 function3 = selectOperation.get(func);
                 createTable2();
@@ -312,7 +333,6 @@ public class SimpleOperationsWindow extends JDialog {
                             y2Values.add(i, String.valueOf(function2.getY(i)));
                             myTableXYYModel.fireTableDataChanged();
                         }
-                        selectOperation.clear();
                         fillMap();
                         funcCreate.setEnabled(false);
                         operateButton.setEnabled(true);
@@ -377,6 +397,8 @@ public class SimpleOperationsWindow extends JDialog {
     }
 
     public void fillMap() {
+        selectOperation.clear();
+        operationsBox.removeAllItems();
         selectOperation.put("Сложение функций", new TabulatedFunctionOperationService().add(function1, function2));
         selectOperation.put("Вычитание функций", new TabulatedFunctionOperationService().subtract(function1, function2));
         selectOperation.put("Произведение функций", new TabulatedFunctionOperationService().multiply(function1, function2));

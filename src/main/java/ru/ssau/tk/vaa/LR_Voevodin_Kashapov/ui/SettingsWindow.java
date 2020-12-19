@@ -16,7 +16,6 @@ public class SettingsWindow extends JDialog {
     JRadioButton listButton = new JRadioButton("Связный список");
     JRadioButton arrayButton = new JRadioButton("Массив");
 
-
     public SettingsWindow() {
         setSize(230, 150);
         setTitle("Настройки");
