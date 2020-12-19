@@ -2,14 +2,15 @@ package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.ui;
 
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.AbstractTableModel;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MyTableModel extends AbstractTableModel {
     private static final int X_COLUMN = 0;
     private static final int Y_COLUMN = 1;
     private static final long serialVersionUID = -443916866115057318L;
-    private final List<String> xValues;
-    private final List<String> yValues;
+    private List<String> xValues;
+    private List<String> yValues;
     private boolean flag = true;
 
     public MyTableModel(List<String> xValues, List<String> yValues) {
@@ -71,5 +72,10 @@ public class MyTableModel extends AbstractTableModel {
             default -> super.getColumnName(column);
         };
     }
+
+    public void removeAll() {
+        xValues = new ArrayList<>();
+        yValues = new ArrayList<>();
+        }
 
 }

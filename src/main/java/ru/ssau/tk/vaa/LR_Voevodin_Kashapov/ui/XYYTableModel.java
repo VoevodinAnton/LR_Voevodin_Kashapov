@@ -14,11 +14,13 @@ public class XYYTableModel extends AbstractTableModel {
     private List<String> y1Values;
     private List<String> y2Values;
     private boolean flag = true;
+    private int count;
 
     public XYYTableModel(List<String> xValues, List<String> y1Values, List<String> y2Values) {
         this.xValues = xValues;
         this.y1Values = y1Values;
         this.y2Values = y2Values;
+        this.count = xValues.size();
     }
 
     @Override
@@ -88,7 +90,6 @@ public class XYYTableModel extends AbstractTableModel {
         y2Values = new ArrayList<>();
         y1Values = new ArrayList<>();
     }
-
 }
 
 

@@ -15,17 +15,19 @@ import java.util.List;
 
 public class SimpleOperationsWindow extends JDialog {
     //Lists
-    private final List<String> xValues = new ArrayList<>();
-    private final List<String> xResValues = new ArrayList<>();
-    private final List<String> y1Values = new ArrayList<>();
-    private final List<String> y2Values = new ArrayList<>();
-    private final List<String> result = new ArrayList<>();
+    private List<String> xValues = new ArrayList<>();
+    private List<String> xResValues = new ArrayList<>();
+    private List<String> y1Values = new ArrayList<>();
+    private List<String> y2Values = new ArrayList<>();
+    private List<String> result = new ArrayList<>();
 
     //Tables
     private XYYTableModel myTableXYYModel = new XYYTableModel(xValues, y1Values, y2Values);
-    private final MyTableModel myTableResModel = new MyTableModel(xResValues, result);
+    private MyTableModel myTableResModel = new MyTableModel(xResValues, result);
     private JTable table0 = new JTable(myTableXYYModel);
     private JTable table1 = new JTable(myTableResModel);
+    JScrollPane tableScrollPane1 = new JScrollPane(table0);
+    JScrollPane tableScrollPane2 = new JScrollPane(table1);
 
     //Labels&TextFields
     private final JTextField countGet = new JTextField(10);
@@ -80,6 +82,9 @@ public class SimpleOperationsWindow extends JDialog {
     }
 
     private void createTable1() {
+        table0 = new JTable(myTableXYYModel);
+        table1 = new JTable(myTableResModel);
+        compose();
         for (int i = 0; i < count; i++) {
             xValues.add(i, "");
             y1Values.add(i, "");
@@ -91,13 +96,18 @@ public class SimpleOperationsWindow extends JDialog {
     }
 
     private void createTable2() {
+        //System.out.println(xResValues.size());
+        table0 = new JTable(myTableXYYModel);
+        table1 = new JTable(myTableResModel);
+        compose();
         for (int i = 0; i < count; i++) {
-            double x = function3.getX(i);
-            double y = function3.getY(i);
-            xResValues.add(i, String.valueOf(x));
-            result.add(i, String.valueOf(y));
+            xResValues.add(i, String.valueOf(function3.getX(i)));
+            result.add(i, String.valueOf(function3.getY(i)));
             myTableResModel.fireTableDataChanged();
         }
+        xResValues = new ArrayList<>();
+        result = new ArrayList<>();
+        myTableResModel.fireTableDataChanged();
         saveButton3.setEnabled(true);
     }
 
@@ -106,8 +116,6 @@ public class SimpleOperationsWindow extends JDialog {
         getContentPane().setLayout(layout);
         layout.setAutoCreateGaps(true);
         layout.setAutoCreateContainerGaps(true);
-        JScrollPane tableScrollPane1 = new JScrollPane(table0);
-        JScrollPane tableScrollPane2 = new JScrollPane(table1);
 
         layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER)
                 .addGroup(layout.createSequentialGroup()
@@ -199,12 +207,10 @@ public class SimpleOperationsWindow extends JDialog {
 
         operateButton.addActionListener(evt -> {
             try {
-                clearTable2();
                 String func = (String) operationsBox.getSelectedItem();
                 function3 = selectOperation.get(func);
                 createTable2();
                 saveButton3.setEnabled(true);
-                downloadButton1.setEnabled(true);
             } catch (Exception exception) {
                 new ErrorWindow(this, exception);
             }
@@ -226,11 +232,16 @@ public class SimpleOperationsWindow extends JDialog {
         });
 
         downloadButton1.addActionListener(evt -> {
-            clearTable1();
             int returnVal = downloadChooser.showOpenDialog(this);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File file = downloadChooser.getSelectedFile();
                 try (BufferedInputStream in = new BufferedInputStream(new FileInputStream(file))) {
+                    if (function1 != null) {
+                        xValues = new ArrayList<>();
+                        y1Values = new ArrayList<>();
+                        y2Values = new ArrayList<>();
+                        myTableXYYModel.fireTableDataChanged();
+                    }
                     function1 = FunctionsIO.deserialize(in);
                     count = function1.getCount();
                     for (int i = 0; i < count; i++) {
@@ -316,32 +327,36 @@ public class SimpleOperationsWindow extends JDialog {
             }
         });
 
-        clearTableButton.addActionListener(evt -> clearTable1());
+        clearTableButton.addActionListener(evt -> {
+            clearTables();
+            operateButton.setEnabled(false);
+            operationsBox.setEnabled(false);
+            funcRealise.setEnabled(false);
+            saveButton1.setEnabled(false);
+            saveButton2.setEnabled(false);
+            saveButton3.setEnabled(false);
+            downloadButton1.setEnabled(true);
+            downloadButton2.setEnabled(false);
+        });
     }
 
-    public void clearTable1() {
+    public void clearTables() {
         myTableXYYModel.removeAll();
+        myTableResModel.removeAll();
         myTableXYYModel.fireTableDataChanged();
+        myTableResModel.fireTableDataChanged();
+        //xValues = new ArrayList<>();
+        //y1Values = new ArrayList<>();
+        //y2Values = new ArrayList<>();
+        //xResValues = new ArrayList<>();
+        //result = new ArrayList<>();
         myTableXYYModel = new XYYTableModel(xValues, y1Values, y2Values);
+        myTableResModel = new MyTableModel(xResValues, result);
         table0 = new JTable(myTableXYYModel);
-        compose();
-        //table0 = new JTable(myTableResModel);
-
-        downloadButton1.setEnabled(true);
-        operateButton.setEnabled(false);
-        operationsBox.setEnabled(false);
-        funcRealise.setEnabled(false);
-        saveButton1.setEnabled(false);
-        saveButton2.setEnabled(false);
-        saveButton3.setEnabled(false);
-        downloadButton2.setEnabled(false);
-        countGet.setEnabled(true);
-        countLabel.setEnabled(true);
-        funcCreate.setEnabled(true);
-    }
-
-    public void clearTable2() {
         table1 = new JTable(myTableResModel);
+        tableScrollPane1 = new JScrollPane(table0);
+        tableScrollPane2 = new JScrollPane(table1);
+        compose();
     }
 
     public void fillMap() {
@@ -370,4 +385,8 @@ public class SimpleOperationsWindow extends JDialog {
         }
         return array;
     }
+
+    /*public static void main(String[] args) {
+        SwingUtilities.invokeLater(SimpleOperationsWindow::new);
+    }*/
 }
