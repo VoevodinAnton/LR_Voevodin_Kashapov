@@ -9,18 +9,18 @@ import java.awt.*;
 import java.util.*;
 
 public class MathFuncWindow extends JDialog {
-    public static TabulatedFunctionFactory factory;
-    private JComboBox<String> funcBox = new JComboBox<>();
+    public static TabulatedFunctionFactory factory = new ArrayTabulatedFunctionFactory();
+    private final JComboBox<String> funcBox = new JComboBox<>();
     private final JButton buttonCreateFunction = new JButton("Создать функцию");
-    private JLabel xFrom = new JLabel("Начальная точка");
-    private JLabel xTo = new JLabel("Конечная точка");
-    private JLabel xCount = new JLabel("Количество точек");
-    private JTextField xFromField = new JTextField();
-    private JTextField xToField = new JTextField();
-    private JTextField xCountField = new JTextField();
-    private Map<String, MathFunction> selectFunc = new HashMap<>();
+    private final JLabel xFrom = new JLabel("Начальная точка");
+    private final JLabel xTo = new JLabel("Конечная точка");
+    private final JLabel xCount = new JLabel("Количество точек");
+    private final JTextField xFromField = new JTextField();
+    private final JTextField xToField = new JTextField();
+    private final JTextField xCountField = new JTextField();
+    private final Map<String, MathFunction> selectFunc = new HashMap<>();
     protected TabulatedFunction function;
-    private int count;
+    private final int count;
 
 
     public MathFuncWindow(int count) {
