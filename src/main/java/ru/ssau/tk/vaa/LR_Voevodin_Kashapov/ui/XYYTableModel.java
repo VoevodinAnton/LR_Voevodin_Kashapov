@@ -86,9 +86,9 @@ public class XYYTableModel extends AbstractTableModel {
     }
 
     public void removeAll() {
-        xValues = new ArrayList<>();
-        y2Values = new ArrayList<>();
-        y1Values = new ArrayList<>();
+        xValues.clear();
+        y2Values.clear();
+        y1Values.clear();
     }
 }
 

@@ -249,12 +249,10 @@ public class SimpleOperationsWindow extends JDialog {
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File file = downloadChooser.getSelectedFile();
                 try (BufferedInputStream in = new BufferedInputStream(new FileInputStream(file))) {
-                    if (function1 != null) {
-                        xValues = new ArrayList<>();
-                        y1Values = new ArrayList<>();
-                        y2Values = new ArrayList<>();
-                        myTableXYYModel.fireTableDataChanged();
-                    }
+                    xValues.clear();
+                    y1Values.clear();
+                    y2Values.clear();
+                    myTableXYYModel.fireTableDataChanged();
                     function1 = FunctionsIO.deserialize(in);
                     count = function1.getCount();
                     for (int i = 0; i < count; i++) {
@@ -277,7 +275,9 @@ public class SimpleOperationsWindow extends JDialog {
             }
         });
 
-        saveButton2.addActionListener(evt -> {
+        saveButton2.addActionListener(evt ->
+
+        {
             int returnVal = saveChooser.showSaveDialog(this);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File file = new File(saveChooser.getSelectedFile() + ".bin");
@@ -296,7 +296,9 @@ public class SimpleOperationsWindow extends JDialog {
             }
         });
 
-        downloadButton2.addActionListener(evt -> {
+        downloadButton2.addActionListener(evt ->
+
+        {
             int returnVal = downloadChooser.showOpenDialog(this);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File file = downloadChooser.getSelectedFile();
@@ -328,7 +330,9 @@ public class SimpleOperationsWindow extends JDialog {
             }
         });
 
-        saveButton3.addActionListener(evt -> {
+        saveButton3.addActionListener(evt ->
+
+        {
             int returnVal = saveChooser.showSaveDialog(this);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File file = new File(saveChooser.getSelectedFile() + ".bin");
@@ -347,7 +351,9 @@ public class SimpleOperationsWindow extends JDialog {
             }
         });
 
-        clearTableButton.addActionListener(evt -> {
+        clearTableButton.addActionListener(evt ->
+
+        {
             clearTables();
             operateButton.setEnabled(false);
             operationsBox.setEnabled(false);
@@ -363,22 +369,13 @@ public class SimpleOperationsWindow extends JDialog {
     }
 
     public void clearTables() {
-        myTableXYYModel.removeAll();
-        myTableResModel.removeAll();
+        xValues.clear();
+        xResValues.clear();
+        y1Values.clear();
+        y2Values.clear();
+        result.clear();
         myTableXYYModel.fireTableDataChanged();
         myTableResModel.fireTableDataChanged();
-        xValues = new ArrayList<>();
-        y1Values = new ArrayList<>();
-        y2Values = new ArrayList<>();
-        xResValues = new ArrayList<>();
-        result = new ArrayList<>();
-        myTableXYYModel = new XYYTableModel(xValues, y1Values, y2Values);
-        myTableResModel = new MyTableModel(xResValues, result);
-        table0 = new JTable(myTableXYYModel);
-        table1 = new JTable(myTableResModel);
-        tableScrollPane1 = new JScrollPane(table0);
-        tableScrollPane2 = new JScrollPane(table1);
-        compose();
     }
 
     public void fillMap() {
