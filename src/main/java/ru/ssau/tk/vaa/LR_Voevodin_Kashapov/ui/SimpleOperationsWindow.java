@@ -26,11 +26,11 @@ public class SimpleOperationsWindow extends JDialog {
     private MyTableModel myTableResModel = new MyTableModel(xResValues, result);
     private JTable table0 = new JTable(myTableXYYModel);
     private JTable table1 = new JTable(myTableResModel);
-    JScrollPane tableScrollPane1 = new JScrollPane(table0);
-    JScrollPane tableScrollPane2 = new JScrollPane(table1);
+    private JScrollPane tableScrollPane1 = new JScrollPane(table0);
+    private JScrollPane tableScrollPane2 = new JScrollPane(table1);
 
     //Labels&TextFields
-    private final JTextField countGet = new JTextField(10);
+    private JTextField countGet = new JTextField(10);
     private final JLabel countLabel = new JLabel("Введите количество точек");
 
     //Buttons
@@ -82,9 +82,6 @@ public class SimpleOperationsWindow extends JDialog {
     }
 
     private void createTable1() {
-        table0 = new JTable(myTableXYYModel);
-        table1 = new JTable(myTableResModel);
-        compose();
         for (int i = 0; i < count; i++) {
             xValues.add(i, "");
             y1Values.add(i, "");
@@ -97,14 +94,12 @@ public class SimpleOperationsWindow extends JDialog {
 
     private void createTable2() {
         //System.out.println(xResValues.size());
-        table0 = new JTable(myTableXYYModel);
-        table1 = new JTable(myTableResModel);
-        compose();
         for (int i = 0; i < count; i++) {
             xResValues.add(i, String.valueOf(function3.getX(i)));
             result.add(i, String.valueOf(function3.getY(i)));
             myTableResModel.fireTableDataChanged();
         }
+        //System.out.println(String.valueOf(result));
         xResValues = new ArrayList<>();
         result = new ArrayList<>();
         myTableResModel.fireTableDataChanged();
@@ -176,6 +171,8 @@ public class SimpleOperationsWindow extends JDialog {
                 if (count < 2) {
                     throw new WrongNumberOfElementsException();
                 }
+                countGet.setText("");
+                countGet.setEnabled(false);
                 createTable1();
                 funcRealise.setEnabled(true);
                 funcCreate.setEnabled(false);
@@ -251,7 +248,7 @@ public class SimpleOperationsWindow extends JDialog {
                         myTableXYYModel.fireTableDataChanged();
                     }
                     funcCreate.setEnabled(false);
-                    funcRealise.setEnabled(false);
+                    funcRealise.setEnabled(true);
                     countGet.setEnabled(false);
                     countLabel.setEnabled(false);
                     funcCreate.setEnabled(false);
@@ -288,7 +285,6 @@ public class SimpleOperationsWindow extends JDialog {
                 } catch (IOException | ClassNotFoundException e) {
                     new ErrorWindow(this, e);
                 }
-
                 try {
                     if (function1.similar(function2)) {
                         for (int i = 0; i < count; i++) {
@@ -337,6 +333,8 @@ public class SimpleOperationsWindow extends JDialog {
             saveButton3.setEnabled(false);
             downloadButton1.setEnabled(true);
             downloadButton2.setEnabled(false);
+            countGet.setEnabled(true);
+            funcCreate.setEnabled(true);
         });
     }
 
@@ -345,11 +343,11 @@ public class SimpleOperationsWindow extends JDialog {
         myTableResModel.removeAll();
         myTableXYYModel.fireTableDataChanged();
         myTableResModel.fireTableDataChanged();
-        //xValues = new ArrayList<>();
-        //y1Values = new ArrayList<>();
-        //y2Values = new ArrayList<>();
-        //xResValues = new ArrayList<>();
-        //result = new ArrayList<>();
+        xValues = new ArrayList<>();
+        y1Values = new ArrayList<>();
+        y2Values = new ArrayList<>();
+        xResValues = new ArrayList<>();
+        result = new ArrayList<>();
         myTableXYYModel = new XYYTableModel(xValues, y1Values, y2Values);
         myTableResModel = new MyTableModel(xResValues, result);
         table0 = new JTable(myTableXYYModel);
