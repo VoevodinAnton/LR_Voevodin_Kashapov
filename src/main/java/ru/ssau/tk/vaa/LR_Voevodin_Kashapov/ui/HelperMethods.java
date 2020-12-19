@@ -5,6 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class HelperMethods {
+
     public static File getFinalNewDestinationFile(File destinationFolder, File fileToCopy){
 
         String destFolderPath = destinationFolder.getAbsolutePath()+File.separator;
