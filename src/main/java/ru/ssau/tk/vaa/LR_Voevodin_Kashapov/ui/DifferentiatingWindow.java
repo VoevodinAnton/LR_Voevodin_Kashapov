@@ -27,8 +27,8 @@ public class DifferentiatingWindow extends JDialog {
     private final AbstractTableModel myTable1Model = new MyTableModel(xResValues, result);
     private final JTable table0 = new JTable(myTable0Model);
     private final JTable table1 = new JTable(myTable1Model);
-    JFileChooser saveChooser = new JFileChooser();
-    JFileChooser downloadChooser = new JFileChooser();
+    private final JFileChooser saveChooser = new JFileChooser();
+    private final JFileChooser downloadChooser = new JFileChooser();
 
     //Buttons
     private final JButton funcCreate = new JButton("Создать таблицу");
@@ -37,6 +37,7 @@ public class DifferentiatingWindow extends JDialog {
     private final JButton saveButton0 = new JButton("Сохранить");
     private final JButton saveButton1 = new JButton("Сохранить");
     private final JButton downloadButton0 = new JButton("Загрузить");
+    private final JButton clearButton = new JButton("Очистить таблицы");
 
     private static final TabulatedDifferentialOperator differentialOperator = new TabulatedDifferentialOperator();
     protected TabulatedFunction function0;
@@ -55,7 +56,6 @@ public class DifferentiatingWindow extends JDialog {
         downloadChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         downloadChooser.addChoosableFileFilter(new FileNameExtensionFilter("Bin files", "bin"));
         downloadChooser.setCurrentDirectory(new File("output"));
-
 
         saveChooser.setDialogTitle("Сохранение файла");
         saveChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -86,14 +86,14 @@ public class DifferentiatingWindow extends JDialog {
     }
 
     private void createTable2() {
+        xResValues.clear();
+        result.clear();
         for (int i = 0; i < count; i++) {
-            double x = functionD.getX(i);
-            double y = functionD.getY(i);
-            xResValues.add(i, String.valueOf(x));
-            result.add(i, String.valueOf(y));
+            xResValues.add(i, String.valueOf(functionD.getX(i)));
+            result.add(i, String.valueOf(functionD.getY(i)));
             myTable1Model.fireTableDataChanged();
-            saveButton1.setEnabled(true);
         }
+        saveButton1.setEnabled(true);
     }
 
     private void compose() {
@@ -120,7 +120,8 @@ public class DifferentiatingWindow extends JDialog {
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED,
                                 GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup()
-                                .addComponent(saveButton1, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(saveButton1, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(clearButton, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(operateButton)
         );
 
@@ -138,8 +139,8 @@ public class DifferentiatingWindow extends JDialog {
                                 .addComponent(downloadButton0)
                                 .addComponent(saveButton0))
                         .addGroup(layout.createSequentialGroup()
-                                .addComponent(saveButton1))
-                )
+                                .addComponent(saveButton1)
+                                .addComponent(clearButton)))
                 .addComponent(operateButton)
         );
     }
@@ -147,6 +148,8 @@ public class DifferentiatingWindow extends JDialog {
     private void addButtonListeners() {
         funcCreate.addActionListener(evt -> {
             try {
+                xValues.clear();
+                yValues.clear();
                 this.count = Integer.parseInt(countGet.getText());
                 if (count < 2) {
                     throw new WrongNumberOfElementsException();
@@ -163,13 +166,11 @@ public class DifferentiatingWindow extends JDialog {
                 if (table0.isEditing()) {
                     table0.getCellEditor().stopCellEditing();
                 }
-                double[] x = toArray(xValues);
-                double[] y = toArray(yValues);
-                function0 = SimpleOperationsWindow.factory.create(x, y);
-                System.out.println(function0.toString());
+                function0 = SimpleOperationsWindow.factory.create(toArray(xValues), toArray(yValues));
+                //System.out.println(function0.toString());
                 funcSave.setEnabled(false);
                 operateButton.setEnabled(true);
-                table0.setEnabled(false);
+                countGet.setText("");
 
             } catch (Exception exception) {
                 new ErrorWindow(this, exception);
@@ -285,6 +286,23 @@ public class DifferentiatingWindow extends JDialog {
                     new ErrorWindow(this, e);
                 }
             }
+        });
+
+        clearButton.addActionListener(evt -> {
+            xValues.clear();
+            xResValues.clear();
+            yValues.clear();
+            result.clear();
+            myTable0Model.fireTableDataChanged();
+            myTable1Model.fireTableDataChanged();
+            countGet.setEnabled(true);
+            countGet.setText("");
+            funcCreate.setEnabled(true);
+            funcSave.setEnabled(false);
+            downloadButton0.setEnabled(true);
+            saveButton1.setEnabled(false);
+            saveButton0.setEnabled(false);
+            operateButton.setEnabled(false);
         });
     }
 
