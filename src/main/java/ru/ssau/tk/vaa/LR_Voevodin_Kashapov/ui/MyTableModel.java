@@ -1,8 +1,9 @@
 package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.ui;
 
+import org.apache.commons.lang3.StringUtils;
+
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.AbstractTableModel;
-import java.util.ArrayList;
 import java.util.List;
 
 public class MyTableModel extends AbstractTableModel {
@@ -51,11 +52,7 @@ public class MyTableModel extends AbstractTableModel {
 
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        if (getValueAt(rowIndex, columnIndex) == "" | getValueAt(rowIndex, columnIndex) == " ") {
-            return true;
-        } else {
-            return flag;
-        }
+        return !StringUtils.isNumeric((String) getValueAt(rowIndex, columnIndex));
     }
 
     @Override
