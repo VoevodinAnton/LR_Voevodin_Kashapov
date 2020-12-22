@@ -12,13 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.table.AbstractTableModel;
 
 public class PointsWindow extends JDialog {
     private final int count;
     private final List<String> xValues = new ArrayList<>();
     private final List<String> yValues = new ArrayList<>();
-    private final AbstractTableModel myTableModel = new MyTableModel(xValues, yValues);
+    private final MyTableModel myTableModel = new MyTableModel(xValues, yValues);
     private final JTable table = new JTable(myTableModel);
     protected TabulatedFunction function;
 
@@ -27,6 +26,7 @@ public class PointsWindow extends JDialog {
     //Buttons
     private final JButton buttonCreateFunction = new JButton("Создать функцию");
     private final JButton saveButton = new JButton("Сохранить");
+    private final JButton clearButton = new JButton("Ввести заново");
 
     public PointsWindow(int count) {
         this.count = count;
@@ -63,13 +63,10 @@ public class PointsWindow extends JDialog {
             try {
                 if (table.isEditing())
                     table.getCellEditor().stopCellEditing();
-                double[] x = toArray(xValues);
-                double[] y = toArray(yValues);
-                function = SettingsWindow.factory.create(x, y);
-                System.out.println(function.toString());
+                function = SettingsWindow.factory.create(toArray(xValues), toArray(yValues));
                 saveButton.setEnabled(true);
-
             } catch (Exception exception) {
+                removeElements();
                 new ErrorWindow(this, exception);
             }
         });
@@ -81,9 +78,7 @@ public class PointsWindow extends JDialog {
                     try {
                         if (table.isEditing())
                             table.getCellEditor().stopCellEditing();
-                        double[] x = toArray(xValues);
-                        double[] y = toArray(yValues);
-                        function = SettingsWindow.factory.create(x, y);
+                        function = SettingsWindow.factory.create(toArray(xValues), toArray(yValues));
                         System.out.println(function.toString());
                         saveButton.setEnabled(true);
                     } catch (Exception exception) {
@@ -133,6 +128,17 @@ public class PointsWindow extends JDialog {
 
             }
         });
+
+        clearButton.addActionListener(evt -> {
+            myTableModel.removeAll();
+            createTable();
+        });
+    }
+
+    private void removeElements() {
+        xValues.clear();
+        yValues.clear();
+        createTable();
     }
 
     private void compose() {
@@ -146,14 +152,16 @@ public class PointsWindow extends JDialog {
                 .addComponent(tableScrollPane)
                 .addGroup(layout.createSequentialGroup()
                         .addComponent(buttonCreateFunction)
-                        .addComponent(saveButton))
+                        .addComponent(saveButton)
+                        .addComponent(clearButton))
         );
 
         layout.setVerticalGroup(layout.createSequentialGroup()
                 .addComponent(tableScrollPane)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addComponent(buttonCreateFunction)
-                        .addComponent(saveButton))
+                        .addComponent(saveButton)
+                        .addComponent(clearButton))
         );
 
 

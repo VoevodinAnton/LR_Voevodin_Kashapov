@@ -51,7 +51,7 @@ public class MyTableModel extends AbstractTableModel {
 
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        if (getValueAt(rowIndex, columnIndex) == "") {
+        if (getValueAt(rowIndex, columnIndex) == "" | getValueAt(rowIndex, columnIndex) == " ") {
             return true;
         } else {
             return flag;
@@ -74,8 +74,8 @@ public class MyTableModel extends AbstractTableModel {
     }
 
     public void removeAll() {
-        xValues = new ArrayList<>();
-        yValues = new ArrayList<>();
+        xValues.clear();
+        yValues.clear();
         }
 
 }
