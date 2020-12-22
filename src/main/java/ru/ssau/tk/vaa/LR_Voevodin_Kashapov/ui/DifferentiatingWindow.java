@@ -252,6 +252,7 @@ public class DifferentiatingWindow extends JDialog {
             }
 
         });
+
         downloadButton0.addActionListener(evt -> {
             int returnVal = downloadChooser.showOpenDialog(this);
             if (returnVal == JFileChooser.APPROVE_OPTION) {

@@ -8,12 +8,13 @@ public class GraphicInterface extends JFrame {
     JButton functionCreate = new JButton("Создать функцию");
     JButton simpleOperationsButton = new JButton("Выполнить операцию");
     JButton differentiatingButton = new JButton("Дифференцирование функции");
-    ImageIcon imageIcon = new ImageIcon("settingsButton.png");
+    //ImageIcon imageIcon = new ImageIcon("settingsButton.png");
     String mainImageFilePath = Objects.requireNonNull(this.getClass().getClassLoader().getResource("main.jpg")).getFile();
     JLabel mainImage = new JLabel(new ImageIcon(mainImageFilePath));
     JButton settingsButton = new JButton("Настройки");
 
-    //String iconFilePath = this.getClass().getClassLoader().getResource("settingsButton.png").getFile();
+    //String iconFilePath = Objects.requireNonNull(this.getClass().getClassLoader().getResource("settingsButton.png")).getFile();
+    //JLabel setImage = new JLabel(new ImageIcon(iconFilePath));
 
     public GraphicInterface() {
         super("Главное окно");
@@ -24,11 +25,12 @@ public class GraphicInterface extends JFrame {
         addButtonListeners();
         setVisible(true);
 
+        System.out.println(mainImageFilePath);
         // не добавляется картинка на кнопку
-        //settingsButton.setBounds(30, 30, 100, 100);
-        //settingsButton.setBorder(BorderFactory.createEmptyBorder());
-        //settingsButton.setContentAreaFilled(false);
-        //settingsButton.setFocusable(false);
+        /*settingsButton.setBounds(30, 30, 100, 100);
+        settingsButton.setBorder(BorderFactory.createEmptyBorder());
+        settingsButton.setContentAreaFilled(false);
+        settingsButton.setFocusable(false);*/
     }
 
 
