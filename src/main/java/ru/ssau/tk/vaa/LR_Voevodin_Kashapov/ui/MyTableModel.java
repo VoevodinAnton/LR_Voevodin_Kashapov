@@ -1,6 +1,6 @@
 package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.ui;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.AbstractTableModel;
@@ -10,9 +10,8 @@ public class MyTableModel extends AbstractTableModel {
     private static final int X_COLUMN = 0;
     private static final int Y_COLUMN = 1;
     private static final long serialVersionUID = -443916866115057318L;
-    private List<String> xValues;
-    private List<String> yValues;
-    private boolean flag = true;
+    private final List<String> xValues;
+    private final List<String> yValues;
 
     public MyTableModel(List<String> xValues, List<String> yValues) {
         this.xValues = xValues;
@@ -52,13 +51,13 @@ public class MyTableModel extends AbstractTableModel {
 
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return !StringUtils.isNumeric((String) getValueAt(rowIndex, columnIndex));
+        return !NumberUtils.isNumber((String) getValueAt(rowIndex, columnIndex));
     }
 
     @Override
     public void fireTableDataChanged() {
         fireTableChanged(new TableModelEvent(this));
-        flag = false;
+        boolean flag = false;
     }
 
     @Override

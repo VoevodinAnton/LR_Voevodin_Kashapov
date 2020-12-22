@@ -20,8 +20,8 @@ public class DifferentiatingWindow extends JDialog {
     private final List<String> xResValues = new ArrayList<>();
     private final List<String> yValues = new ArrayList<>();
     private final List<String> result = new ArrayList<>();
-    private final AbstractTableModel myTable0Model = new MyTableModel(xValues, yValues);
-    private final AbstractTableModel myTable1Model = new MyTableModel(xResValues, result);
+    private final MyTableModel myTable0Model = new MyTableModel(xValues, yValues);
+    private final MyTableModel myTable1Model = new MyTableModel(xResValues, result);
     private final JTable table0 = new JTable(myTable0Model);
     private final JTable table1 = new JTable(myTable1Model);
     private final JFileChooser saveChooser = new JFileChooser();
@@ -59,9 +59,6 @@ public class DifferentiatingWindow extends JDialog {
         saveChooser.addChoosableFileFilter(new FileNameExtensionFilter("Bin files", "bin"));
         saveChooser.setCurrentDirectory(new File("output"));
 
-        table1.setCellSelectionEnabled(false);
-        table1.setEnabled(false);
-        table1.setDragEnabled(false);
         addButtonListeners();
         compose();
         setLocationRelativeTo(null);
@@ -73,8 +70,8 @@ public class DifferentiatingWindow extends JDialog {
             xValues.add(i, "");
             yValues.add(i, "");
             myTable0Model.fireTableDataChanged();
-            saveButton0.setEnabled(true);
         }
+        saveButton0.setEnabled(true);
     }
 
     private void createTable2() {
@@ -165,6 +162,9 @@ public class DifferentiatingWindow extends JDialog {
                 countGet.setText("");
 
             } catch (Exception exception) {
+                xValues.clear();
+                yValues.clear();
+                createTable1();
                 new ErrorWindow(this, exception);
             }
         });
