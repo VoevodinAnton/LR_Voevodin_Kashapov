@@ -1,8 +1,6 @@
 package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.ui;
 
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.*;
-import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.factory.ArrayTabulatedFunctionFactory;
-import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.factory.TabulatedFunctionFactory;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.io.FunctionsIO;
 
 import javax.swing.*;
@@ -14,7 +12,6 @@ import java.io.IOException;
 import java.util.*;
 
 public class MathFuncWindow extends JDialog {
-    public static TabulatedFunctionFactory factory = new ArrayTabulatedFunctionFactory();
     private final JComboBox<String> funcBox = new JComboBox<>();
 
     //Buttons
@@ -25,7 +22,6 @@ public class MathFuncWindow extends JDialog {
 
     private final JLabel xFrom = new JLabel("Начальная точка");
     private final JLabel xTo = new JLabel("Конечная точка");
-    private final JLabel xCount = new JLabel("Количество точек");
     private final JTextField xFromField = new JTextField();
     private final JTextField xToField = new JTextField();
     private final Map<String, MathFunction> selectFunc = new HashMap<>();
@@ -50,10 +46,6 @@ public class MathFuncWindow extends JDialog {
         setLocationRelativeTo(null);
         setVisible(true);
 
-    }
-
-    public static void set(TabulatedFunctionFactory factory) {
-        MathFuncWindow.factory = factory;
     }
 
     public void fillMap() {
@@ -113,7 +105,8 @@ public class MathFuncWindow extends JDialog {
                 MathFunction selectedFunction = selectFunc.get(func);
                 double xFrom = Double.parseDouble(xFromField.getText());
                 double xTo = Double.parseDouble(xToField.getText());
-                function = MathFuncWindow.factory.create(selectedFunction, xFrom, xTo, count);
+                function = SettingsWindow.factory.create(selectedFunction, xFrom, xTo, count);
+                //System.out.println(String.valueOf(function));
                 saveButton.setEnabled(true);
                 System.out.println(function.toString());
             } catch (Exception e) {

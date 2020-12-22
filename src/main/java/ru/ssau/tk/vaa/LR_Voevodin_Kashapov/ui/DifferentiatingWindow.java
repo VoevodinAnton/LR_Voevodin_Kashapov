@@ -2,8 +2,6 @@ package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.ui;
 
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.exeptions.WrongNumberOfElementsException;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.*;
-import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.factory.ArrayTabulatedFunctionFactory;
-import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.factory.TabulatedFunctionFactory;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.io.FunctionsIO;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.operations.TabulatedDifferentialOperator;
 
@@ -15,7 +13,6 @@ import java.util.*;
 import java.util.List;
 
 public class DifferentiatingWindow extends JDialog {
-    public static TabulatedFunctionFactory factory = new ArrayTabulatedFunctionFactory();
     private final JLabel countLabel = new JLabel("Введите количество точек");
     private final JTextField countGet = new JTextField(10);
     private int count;
@@ -69,11 +66,6 @@ public class DifferentiatingWindow extends JDialog {
         compose();
         setLocationRelativeTo(null);
         setVisible(true);
-    }
-
-    public static void set(TabulatedFunctionFactory factory) {
-        DifferentiatingWindow.factory = factory;
-        differentialOperator.setFactory(factory);
     }
 
     private void createTable1() {
@@ -166,7 +158,7 @@ public class DifferentiatingWindow extends JDialog {
                 if (table0.isEditing()) {
                     table0.getCellEditor().stopCellEditing();
                 }
-                function0 = SimpleOperationsWindow.factory.create(toArray(xValues), toArray(yValues));
+                function0 = SettingsWindow.factory.create(toArray(xValues), toArray(yValues));
                 //System.out.println(function0.toString());
                 funcSave.setEnabled(false);
                 operateButton.setEnabled(true);
@@ -222,7 +214,6 @@ public class DifferentiatingWindow extends JDialog {
                     }
                 }
             }
-
         });
         saveButton1.addActionListener(evt -> {
             int returnVal = saveChooser.showSaveDialog(this);

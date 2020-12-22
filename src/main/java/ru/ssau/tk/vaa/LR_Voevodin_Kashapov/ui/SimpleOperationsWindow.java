@@ -57,8 +57,7 @@ public class SimpleOperationsWindow extends JDialog {
     //Other
     private final Map<String, TabulatedFunction> selectOperation = new HashMap<>();
     private final JComboBox<String> operationsBox = new JComboBox<>();
-    public static TabulatedFunctionFactory factory = new ArrayTabulatedFunctionFactory();
-    private TabulatedFunctionFactory resFactory = new ArrayTabulatedFunctionFactory();
+    private TabulatedFunctionFactory resFactory;
     private int count;
     protected TabulatedFunction function1;
     protected TabulatedFunction function2;
@@ -95,10 +94,7 @@ public class SimpleOperationsWindow extends JDialog {
         compose();
         setLocationRelativeTo(null);
         setVisible(true);
-    }
-
-    public static void set(TabulatedFunctionFactory factory) {
-        SimpleOperationsWindow.factory = factory;
+        resFactory = SettingsWindow.factory;
     }
 
     private void createTable1() {
@@ -223,8 +219,8 @@ public class SimpleOperationsWindow extends JDialog {
                 double[] x = toArray(xValues);
                 double[] y1 = toArray(y1Values);
                 double[] y2 = toArray(y2Values);
-                function1 = SimpleOperationsWindow.factory.create(x, y1);
-                function2 = SimpleOperationsWindow.factory.create(x, y2);
+                function1 = SettingsWindow.factory.create(x, y1);
+                function2 = SettingsWindow.factory.create(x, y2);
                 funcRealise.setEnabled(false);
                 operateButton.setEnabled(true);
                 operationsBox.setEnabled(true);

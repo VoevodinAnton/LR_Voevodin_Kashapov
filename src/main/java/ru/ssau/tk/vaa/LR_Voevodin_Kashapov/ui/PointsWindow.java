@@ -1,8 +1,6 @@
 package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.ui;
 
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.TabulatedFunction;
-import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.factory.ArrayTabulatedFunctionFactory;
-import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.factory.TabulatedFunctionFactory;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.io.FunctionsIO;
 
 import java.awt.event.*;
@@ -17,7 +15,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.AbstractTableModel;
 
 public class PointsWindow extends JDialog {
-    public static TabulatedFunctionFactory factory = new ArrayTabulatedFunctionFactory();
     private final int count;
     private final List<String> xValues = new ArrayList<>();
     private final List<String> yValues = new ArrayList<>();
@@ -53,10 +50,6 @@ public class PointsWindow extends JDialog {
         setVisible(true);
     }
 
-    public static void set(TabulatedFunctionFactory factory) {
-        PointsWindow.factory = factory;
-    }
-
     private void createTable() {
         for (int i = 0; i < count; i++) {
             xValues.add(i, "");
@@ -72,7 +65,7 @@ public class PointsWindow extends JDialog {
                     table.getCellEditor().stopCellEditing();
                 double[] x = toArray(xValues);
                 double[] y = toArray(yValues);
-                function = PointsWindow.factory.create(x, y);
+                function = SettingsWindow.factory.create(x, y);
                 System.out.println(function.toString());
                 saveButton.setEnabled(true);
 
@@ -90,7 +83,7 @@ public class PointsWindow extends JDialog {
                             table.getCellEditor().stopCellEditing();
                         double[] x = toArray(xValues);
                         double[] y = toArray(yValues);
-                        function = PointsWindow.factory.create(x, y);
+                        function = SettingsWindow.factory.create(x, y);
                         System.out.println(function.toString());
                         saveButton.setEnabled(true);
                     } catch (Exception exception) {
