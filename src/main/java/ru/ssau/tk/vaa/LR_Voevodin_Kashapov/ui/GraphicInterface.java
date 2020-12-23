@@ -23,7 +23,7 @@ public class GraphicInterface extends JFrame {
     private final JLabel mainImage = new JLabel(image);
 
     private final String iconFilePath = Objects.requireNonNull(this.getClass().getClassLoader().getResource("settingsButton.png")).getFile();
-    //JLabel setImage = new JLabel(new ImageIcon(iconFilePath));
+    JLabel setImage = new JLabel(new ImageIcon(iconFilePath));
     private final ImageIcon imageIcon = new ImageIcon(iconFilePath);
     private final JButton settingsButton = new JButton(imageIcon);
 
@@ -66,6 +66,7 @@ public class GraphicInterface extends JFrame {
                         .addGroup(layout.createSequentialGroup()
                                 .addComponent(mainImage))
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER)
+                                .addComponent(setImage)
                                 .addGroup(layout.createSequentialGroup()
                                         .addComponent(settingsButton, 0, GroupLayout.DEFAULT_SIZE, 64)
                                         .addComponent(functionCreate, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -81,6 +82,7 @@ public class GraphicInterface extends JFrame {
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                 .addComponent(mainImage))
                         .addGroup(layout.createSequentialGroup()
+                                .addComponent(setImage)
                                 .addGroup(layout.createParallelGroup()
                                         .addComponent(settingsButton, 0, GroupLayout.DEFAULT_SIZE, 64)
                                         .addComponent(functionCreate, 0, GroupLayout.DEFAULT_SIZE, 64))

@@ -44,6 +44,8 @@ public class MathFuncWindow extends JDialog {
 
         addButtonListeners();
         compose();
+
+        setModal(true);
         setLocationRelativeTo(null);
         setVisible(true);
 

@@ -46,6 +46,7 @@ public class PointsWindow extends JDialog {
         addButtonListeners();
         compose();
 
+        setModal(true);
         setLocationRelativeTo(null);
         setVisible(true);
     }

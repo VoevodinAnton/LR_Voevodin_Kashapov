@@ -20,8 +20,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class IllustratingWindow extends JDialog {
+    private int count;
+
     private final JLabel countLabel = new JLabel("Введите количество точек");
-    private final JTextField countGet = new JTextField(10);
+    private final JTextField countGet = new JTextField();
+    private final JLabel interpolation = new JLabel("x:");
+    private final JTextField xGet = new JTextField();
+    private final JLabel interpolationResult = new JLabel("y:");
+    private final JTextField yGet = new JTextField();
+
 
     private final java.util.List<String> xValues = new ArrayList<>();
     private final List<String> yValues = new ArrayList<>();
@@ -29,13 +36,16 @@ public class IllustratingWindow extends JDialog {
     private final JTable table = new JTable(myTableModel);
     protected TabulatedFunction function;
 
+
+    //plot
+
+    private final XYSeries functionSeries = new XYSeries("function");
+    private final XYSeriesCollection dataset = new XYSeriesCollection();
     JFreeChart chart = ChartFactory
             .createXYLineChart("График функции", "x", "y",
-                    createDataSet(),
+                    dataset,
                     PlotOrientation.VERTICAL,
                     false, true, true);
-
-    private int count;
 
     JFileChooser saveChooser = new JFileChooser();
     JFileChooser downloadChooser = new JFileChooser();
@@ -48,8 +58,13 @@ public class IllustratingWindow extends JDialog {
     JButton buildButton = new JButton("Построить");
 
     public IllustratingWindow() {
-        setSize(1000, 400);
+        setSize(1000, 500);
         setTitle("plot");
+
+        downloadChooser.setDialogTitle("Загрузка функции");
+        downloadChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        downloadChooser.addChoosableFileFilter(new FileNameExtensionFilter("Bin files", "bin"));
+        downloadChooser.setCurrentDirectory(new File("output"));
 
         saveChooser.setDialogTitle("Сохранение файла");
         saveChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -63,6 +78,7 @@ public class IllustratingWindow extends JDialog {
         addButtonListeners();
         compose();
 
+        setModal(true);
         setLocationRelativeTo(null);
         setVisible(true);
     }
@@ -98,7 +114,13 @@ public class IllustratingWindow extends JDialog {
                                 .addComponent(saveButton, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED,
                                 GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(buildButton))
+                        .addComponent(interpolation)
+                        .addComponent(xGet)
+                        .addComponent(interpolationResult)
+                        .addComponent(yGet)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED,
+                                GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(buildButton))
         );
 
         layout.setVerticalGroup(layout.createSequentialGroup()
@@ -114,7 +136,11 @@ public class IllustratingWindow extends JDialog {
                         .addGroup(layout.createSequentialGroup()
                                 .addComponent(downloadButton)
                                 .addComponent(saveButton))
-                .addComponent(buildButton))
+                        .addComponent(interpolation)
+                        .addComponent(xGet,0, GroupLayout.DEFAULT_SIZE, 30)
+                        .addComponent(interpolationResult)
+                        .addComponent(yGet, 0, GroupLayout.DEFAULT_SIZE, 30)
+                        .addComponent(buildButton))
         );
     }
 
@@ -141,7 +167,8 @@ public class IllustratingWindow extends JDialog {
                     table.getCellEditor().stopCellEditing();
                 }
                 function = SettingsWindow.factory.create(toArray(xValues), toArray(yValues));
-                chart.plotChanged(new PlotChangeEvent(chart.getPlot()));
+                createDataSet();
+                chart.fireChartChanged();
                 System.out.println(function.toString());
                 funcSaveButton.setEnabled(false);
                 buildButton.setEnabled(true);
@@ -155,7 +182,7 @@ public class IllustratingWindow extends JDialog {
             }
         });
 
-        buildButton.addActionListener(evt ->{
+        buildButton.addActionListener(evt -> {
 
 
         });
@@ -215,16 +242,23 @@ public class IllustratingWindow extends JDialog {
             }
         });
 
+        xGet.addActionListener(evt ->{
+            try {
+                double x = Double.parseDouble(xGet.getText());
+                double y = function.apply(x);
+                yGet.setText(Double.toString(y));
+            } catch (Exception exception) {
+                new ErrorWindow(this, exception);
+            }
+        });
+
     }
 
-    private XYDataset createDataSet(){
-        final XYSeries functionSeries = new XYSeries("function");
-        for (int i = 0; i < count; i++){
+    private void createDataSet() {
+        for (int i = 0; i < count; i++) {
             functionSeries.add(function.getX(i), function.getY(i));
         }
-        final XYSeriesCollection dataset = new XYSeriesCollection( );
-        dataset.addSeries( functionSeries );
-        return dataset;
+        dataset.addSeries(functionSeries);
     }
 
 
@@ -237,4 +271,4 @@ public class IllustratingWindow extends JDialog {
         return array;
     }
 
-    }
+}

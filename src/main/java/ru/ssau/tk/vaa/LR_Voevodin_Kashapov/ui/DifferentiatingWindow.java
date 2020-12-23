@@ -62,6 +62,8 @@ public class DifferentiatingWindow extends JDialog {
 
         addButtonListeners();
         compose();
+
+        setModal(true);
         setLocationRelativeTo(null);
         setModal(true);
         setVisible(true);
@@ -224,32 +226,29 @@ public class DifferentiatingWindow extends JDialog {
                         case (0):
                             file = HelperMethods.getFinalNewDestinationFile(new File("output"), file);
                             break;
-                        case (1):
-                            break;
-                        default:
+                        case (2):
                             flag = -1;
+                        default:
                             break;
                     }
-
-                    if (flag != -1) {
-                        try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(file))) {
-                            if (functionD != null) {
-                                FunctionsIO.serialize(out, functionD);
-                                JOptionPane.showMessageDialog(this,
-                                        "Файл '" + file.getName() +
-                                                " сохранен");
-                            } else {
-                                throw new IOException();
-                            }
-                        } catch (Exception e) {
-                            new ErrorWindow(this, e);
+                }
+                if (flag != -1) {
+                    try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(file))) {
+                        if (functionD != null) {
+                            FunctionsIO.serialize(out, functionD);
+                            JOptionPane.showMessageDialog(this,
+                                    "Файл '" + file.getName() +
+                                            " сохранен");
+                        } else {
+                            throw new IOException();
                         }
+                    } catch (Exception e) {
+                        new ErrorWindow(this, e);
                     }
                 }
 
             }
         });
-
 
         downloadButton0.addActionListener(evt ->
         {
