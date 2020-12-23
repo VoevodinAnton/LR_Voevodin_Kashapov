@@ -62,6 +62,7 @@ public class DifferentiatingWindow extends JDialog {
         addButtonListeners();
         compose();
         setLocationRelativeTo(null);
+        setModal(true);
         setVisible(true);
     }
 

@@ -8,10 +8,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 
-public class ErrorWindow {
+public class ErrorWindow extends JDialog {
 
     ErrorWindow(Component parent, Exception e) {
         getErrorWindow(parent, e);
+        setModal(true);
     }
 
     public void getErrorWindow(Component parent, Exception e) {

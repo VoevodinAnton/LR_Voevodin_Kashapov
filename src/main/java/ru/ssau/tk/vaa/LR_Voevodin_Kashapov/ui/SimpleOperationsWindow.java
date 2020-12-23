@@ -64,6 +64,7 @@ public class SimpleOperationsWindow extends JDialog {
     protected TabulatedFunction function3;
 
     public SimpleOperationsWindow() {
+        this.setModal(true);
         setSize(1100, 500);
         setTitle("Операции");
         operateButton.setEnabled(false);
