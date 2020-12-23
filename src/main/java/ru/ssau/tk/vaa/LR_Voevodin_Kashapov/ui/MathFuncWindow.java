@@ -18,7 +18,7 @@ public class MathFuncWindow extends JDialog {
     private final JButton buttonCreateFunction = new JButton("Создать функцию");
     private final JButton saveButton = new JButton("Сохранить");
 
-    JFileChooser saveChooser = new JFileChooser();
+    private final JFileChooser saveChooser = new JFileChooser();
 
     private final JLabel xFrom = new JLabel("Начальная точка");
     private final JLabel xTo = new JLabel("Конечная точка");
@@ -30,8 +30,9 @@ public class MathFuncWindow extends JDialog {
 
 
     public MathFuncWindow(int count) {
+        this.setModal(true);
         setSize(500, 150);
-        setTitle("Function");
+        setTitle("Плавная функция");
         fillMap();
         this.count = count;
 

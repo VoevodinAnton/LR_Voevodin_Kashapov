@@ -5,17 +5,19 @@ import java.util.Objects;
 
 public class GraphicInterface extends JFrame {
 
+    // кнопки-окна
     private final JButton functionCreate = new JButton("Создать функцию");
     private final JButton simpleOperationsButton = new JButton("Выполнить операцию");
     private final JButton differentiatingButton = new JButton("Дифференцирование функции");
     private final JButton integratingButton = new JButton("Интегрирование функции");
-    //ImageIcon imageIcon = new ImageIcon("settingsButton.png");
+    private final JButton compositeFunctionButton = new JButton("Сложная функция");
+
     private final String mainImageFilePath = Objects.requireNonNull(this.getClass().getClassLoader().getResource("main.jpg")).getFile();
     private final JLabel mainImage = new JLabel(new ImageIcon(mainImageFilePath));
-    private final JButton settingsButton = new JButton("Настройки");
-
-    //String iconFilePath = Objects.requireNonNull(this.getClass().getClassLoader().getResource("settingsButton.png")).getFile();
+    private final String iconFilePath = Objects.requireNonNull(this.getClass().getClassLoader().getResource("settingsButton.png")).getFile();
     //JLabel setImage = new JLabel(new ImageIcon(iconFilePath));
+    private final ImageIcon imageIcon = new ImageIcon(iconFilePath);
+    private final JButton settingsButton = new JButton(imageIcon);
 
     public GraphicInterface() {
         super("Главное окно");
@@ -28,10 +30,10 @@ public class GraphicInterface extends JFrame {
 
         System.out.println(mainImageFilePath);
         // не добавляется картинка на кнопку
-        /*settingsButton.setBounds(30, 30, 100, 100);
-        settingsButton.setBorder(BorderFactory.createEmptyBorder());
+        //settingsButton.setBounds(30, 30, 100, 100);
+        //settingsButton.setBorder(BorderFactory.createEmptyBorder());
         settingsButton.setContentAreaFilled(false);
-        settingsButton.setFocusable(false);*/
+        settingsButton.setFocusable(false);
     }
 
 
@@ -57,11 +59,13 @@ public class GraphicInterface extends JFrame {
                         .addGroup(layout.createSequentialGroup()
                                 .addComponent(mainImage))
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER)
-                                .addComponent(settingsButton, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(functionCreate, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createSequentialGroup()
+                                        .addComponent(settingsButton, 0, GroupLayout.DEFAULT_SIZE, 64)
+                                        .addComponent(functionCreate, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addComponent(simpleOperationsButton, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(differentiatingButton, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(integratingButton, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(integratingButton, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(compositeFunctionButton, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         layout.setVerticalGroup(layout.createSequentialGroup()
@@ -69,11 +73,13 @@ public class GraphicInterface extends JFrame {
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                 .addComponent(mainImage))
                         .addGroup(layout.createSequentialGroup()
-                                .addComponent(settingsButton)
-                                .addComponent(functionCreate)
+                                .addGroup(layout.createParallelGroup()
+                                        .addComponent(settingsButton, 0, GroupLayout.DEFAULT_SIZE, 64)
+                                        .addComponent(functionCreate, 0, GroupLayout.DEFAULT_SIZE, 64))
                                 .addComponent(simpleOperationsButton)
                                 .addComponent(differentiatingButton)
-                                .addComponent(integratingButton)))
+                                .addComponent(integratingButton)
+                                .addComponent(compositeFunctionButton)))
         );
     }
 
