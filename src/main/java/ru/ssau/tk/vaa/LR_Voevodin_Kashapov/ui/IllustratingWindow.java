@@ -2,6 +2,7 @@ package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.ui;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
+import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.event.PlotChangeEvent;
 import org.jfree.chart.plot.PlotOrientation;
@@ -30,6 +31,8 @@ public class IllustratingWindow extends JDialog {
     private final JTextField yGet = new JTextField();
 
 
+    private final JMenuBar menuBar = new JMenuBar();
+
     private final java.util.List<String> xValues = new ArrayList<>();
     private final List<String> yValues = new ArrayList<>();
     private final MyTableModel myTableModel = new MyTableModel(xValues, yValues);
@@ -46,20 +49,21 @@ public class IllustratingWindow extends JDialog {
                     PlotOrientation.VERTICAL,
                     false, true, true);
 
-    //chooser
+    //choosers
     JFileChooser saveChooser = new JFileChooser();
     JFileChooser downloadChooser = new JFileChooser();
+    JFileChooser savePictureChooser = new JFileChooser();
 
     //Buttons
+    JMenuItem downloadButton = new JMenuItem("Загрузить");
+    JMenuItem saveButton = new JMenuItem("Сохранить");
+    JMenuItem savePictureButton = new JMenuItem("Сохранить график");
     JButton createTableButton = new JButton("Создать таблицу");
     JButton funcSaveButton = new JButton("Записать функцию");
-    JButton downloadButton = new JButton("Загрузить");
-    JButton saveButton = new JButton("Сохранить");
     JButton buildButton = new JButton("Построить");
-    JButton savePictureButton = new JButton("Сохранить график");
 
     public IllustratingWindow() {
-        setSize(1000, 500);
+        setSize(1100, 600);
         setTitle("plot");
         funcSaveButton.setEnabled(false);
         saveButton.setEnabled(false);
@@ -68,6 +72,9 @@ public class IllustratingWindow extends JDialog {
         xGet.setEnabled(false);
         interpolationResult.setEnabled(false);
         yGet.setEnabled(false);
+        savePictureButton.setEnabled(false);
+
+        menuBar.add(createMenuFile());
 
         downloadChooser.setDialogTitle("Загрузка функции");
         downloadChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -78,6 +85,11 @@ public class IllustratingWindow extends JDialog {
         saveChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         saveChooser.addChoosableFileFilter(new FileNameExtensionFilter("Bin files", "bin"));
         saveChooser.setCurrentDirectory(new File("output"));
+
+        savePictureChooser.setDialogTitle("Сохранение графика");
+        savePictureChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        savePictureChooser.addChoosableFileFilter(new FileNameExtensionFilter("JPEG images", "jpeg"));
+        savePictureChooser.setCurrentDirectory(new File("pictures"));
 
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
@@ -107,6 +119,10 @@ public class IllustratingWindow extends JDialog {
 
         layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER)
                 .addGroup(layout.createSequentialGroup()
+                        .addComponent(menuBar)
+                        .addGap(1, 10000, Short.MAX_VALUE))
+                .addGroup(layout.createSequentialGroup()
+                        .addGap(60)
                         .addComponent(countLabel)
                         .addComponent(countGet)
                         .addComponent(createTableButton)
@@ -115,9 +131,6 @@ public class IllustratingWindow extends JDialog {
                         .addComponent(tableScrollPane1)
                         .addComponent(chartPanel))
                 .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup()
-                                .addComponent(downloadButton, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(saveButton, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED,
                                 GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(interpolation)
@@ -130,6 +143,7 @@ public class IllustratingWindow extends JDialog {
         );
 
         layout.setVerticalGroup(layout.createSequentialGroup()
+                .addComponent(menuBar)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addComponent(countLabel)
                         .addComponent(countGet)
@@ -139,11 +153,8 @@ public class IllustratingWindow extends JDialog {
                         .addComponent(tableScrollPane1)
                         .addComponent(chartPanel))
                 .addGroup(layout.createParallelGroup()
-                        .addGroup(layout.createSequentialGroup()
-                                .addComponent(downloadButton)
-                                .addComponent(saveButton))
                         .addComponent(interpolation)
-                        .addComponent(xGet,0, GroupLayout.DEFAULT_SIZE, 30)
+                        .addComponent(xGet, 0, GroupLayout.DEFAULT_SIZE, 30)
                         .addComponent(interpolationResult)
                         .addComponent(yGet, 0, GroupLayout.DEFAULT_SIZE, 30)
                         .addComponent(buildButton))
@@ -182,7 +193,6 @@ public class IllustratingWindow extends JDialog {
                 interpolation.setEnabled(true);
                 xGet.setEnabled(true);
                 interpolationResult.setEnabled(true);
-                yGet.setEnabled(true);
                 countGet.setText("");
 
             } catch (Exception exception) {
@@ -196,6 +206,7 @@ public class IllustratingWindow extends JDialog {
         buildButton.addActionListener(evt -> {
             createDataSet();
             chart.fireChartChanged();
+            savePictureButton.setEnabled(true);
         });
 
         saveButton.addActionListener(evt -> {
@@ -259,7 +270,7 @@ public class IllustratingWindow extends JDialog {
             }
         });
 
-        xGet.addActionListener(evt ->{
+        xGet.addActionListener(evt -> {
             try {
                 double x = Double.parseDouble(xGet.getText());
                 double y = function.apply(x);
@@ -269,6 +280,45 @@ public class IllustratingWindow extends JDialog {
             }
         });
 
+        savePictureButton.addActionListener(evt -> {
+            int width = 640;   /* Width of the image */
+            int height = 480;  /* Height of the image */
+
+
+            int returnVal = savePictureChooser.showSaveDialog(this);
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                String fileName = savePictureChooser.getSelectedFile() + ".jpeg";
+                File XYChart = new File(fileName);
+                if (XYChart.exists()) {
+                    int ind = JOptionPane.showConfirmDialog(this, "Файл с таким названием уже существует в данном расположении. Вы хотите сохранить файл с названием " +
+                                    HelperMethods.getFinalNewDestinationFile(new File("pictures"), XYChart).getName() + "?",
+                            "Предупреждение", JOptionPane.YES_NO_OPTION);
+                    if (ind == 0) {
+                        XYChart = HelperMethods.getFinalNewDestinationFile(new File("pictures"), XYChart);
+                    }
+                }
+                try {
+                    ChartUtilities.saveChartAsJPEG(XYChart, chart, width, height);
+
+                } catch (Exception e) {
+                    new ErrorWindow(this, e);
+                }
+            }
+
+        });
+
+    }
+
+    private JMenu createMenuFile(){
+        JMenu menu = new JMenu("меню");
+
+        menu.add(downloadButton);
+        menu.add(saveButton);
+        menu.add(savePictureButton);
+
+        menuBar.add(menu);
+
+        return menu;
     }
 
     private void createDataSet() {
