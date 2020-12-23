@@ -27,11 +27,12 @@ public class PointsWindow extends JDialog {
     private final JButton buttonCreateFunction = new JButton("Создать функцию");
     private final JButton saveButton = new JButton("Сохранить");
     private final JButton clearButton = new JButton("Ввести заново");
+    private final JButton okButton = new JButton("Готово");
 
     public PointsWindow(int count) {
         this.count = count;
         setSize(500, 200);
-        setTitle("coordinates");
+        setTitle("Точки");
 
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         createTable();
@@ -42,9 +43,77 @@ public class PointsWindow extends JDialog {
         saveChooser.setCurrentDirectory(new File("output"));
 
         saveButton.setEnabled(false);
+        okButton.setVisible(false);
+        okButton.setEnabled(false);
 
         addButtonListeners();
         compose();
+
+        setModal(true);
+        setLocationRelativeTo(null);
+        setVisible(true);
+    }
+
+    public PointsWindow(int count, boolean flag) {
+        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        this.count = count;
+        if (flag) {
+            boolean happy = true;
+        }
+
+        setSize(400, 200);
+        setTitle("Точки");
+
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        createTable();
+
+        saveChooser.setDialogTitle("Сохранение файла");
+        saveChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        saveChooser.addChoosableFileFilter(new FileNameExtensionFilter("Bin files", "bin"));
+        saveChooser.setCurrentDirectory(new File("output"));
+
+        saveButton.setEnabled(false);
+        saveButton.setVisible(false);
+        okButton.setVisible(true);
+        okButton.setEnabled(false);
+
+        addButtonListeners();
+        compose();
+
+        setModal(true);
+        setLocationRelativeTo(null);
+        setVisible(true);
+    }
+
+    public PointsWindow(TabulatedFunction function) {
+        this.count = function.getCount();
+        setSize(300, 250);
+        setTitle("Точки");
+
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        saveChooser.setDialogTitle("Сохранение файла");
+        saveChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        saveChooser.addChoosableFileFilter(new FileNameExtensionFilter("Bin files", "bin"));
+        saveChooser.setCurrentDirectory(new File("output"));
+
+        saveButton.setEnabled(false);
+        saveButton.setVisible(false);
+        clearButton.setVisible(false);
+        clearButton.setEnabled(false);
+        buttonCreateFunction.setEnabled(false);
+        buttonCreateFunction.setVisible(false);
+        okButton.setVisible(true);
+        okButton.setEnabled(true);
+
+        addButtonListeners();
+        compose();
+
+        for (int i = 0; i < count; i++) {
+            xValues.add(i, String.valueOf(function.getX(i)));
+            yValues.add(i, String.valueOf(function.getY(i)));
+            myTableModel.fireTableDataChanged();
+        }
 
         setModal(true);
         setLocationRelativeTo(null);
@@ -66,6 +135,7 @@ public class PointsWindow extends JDialog {
                     table.getCellEditor().stopCellEditing();
                 function = SettingsWindow.factory.create(toArray(xValues), toArray(yValues));
                 saveButton.setEnabled(true);
+                okButton.setEnabled(true);
             } catch (Exception exception) {
                 removeElements();
                 new ErrorWindow(this, exception);
@@ -134,6 +204,13 @@ public class PointsWindow extends JDialog {
             myTableModel.removeAll();
             createTable();
         });
+
+        okButton.addActionListener(evt -> {
+            if (function != null) {
+                CompositeFunctionWindow.setFunctions(function);
+            }
+            this.dispose();
+        });
     }
 
     private void removeElements() {
@@ -154,7 +231,8 @@ public class PointsWindow extends JDialog {
                 .addGroup(layout.createSequentialGroup()
                         .addComponent(buttonCreateFunction)
                         .addComponent(saveButton)
-                        .addComponent(clearButton))
+                        .addComponent(clearButton)
+                        .addComponent(okButton))
         );
 
         layout.setVerticalGroup(layout.createSequentialGroup()
@@ -162,7 +240,8 @@ public class PointsWindow extends JDialog {
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addComponent(buttonCreateFunction)
                         .addComponent(saveButton)
-                        .addComponent(clearButton))
+                        .addComponent(clearButton)
+                        .addComponent(okButton))
         );
 
 

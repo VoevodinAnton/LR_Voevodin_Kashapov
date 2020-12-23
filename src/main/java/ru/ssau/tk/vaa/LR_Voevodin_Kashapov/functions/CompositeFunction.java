@@ -5,7 +5,7 @@ public class CompositeFunction implements MathFunction {
     private final MathFunction firstFunction;
     private final MathFunction secondFunction;
 
-    CompositeFunction(MathFunction firstFunction, MathFunction secondFunction) {
+    public CompositeFunction(MathFunction firstFunction, MathFunction secondFunction) {
         this.firstFunction = firstFunction;
         this.secondFunction = secondFunction;
     }
