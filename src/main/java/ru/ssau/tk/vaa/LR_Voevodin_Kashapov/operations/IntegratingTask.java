@@ -10,11 +10,11 @@ import java.util.concurrent.RecursiveAction;
 
 public class IntegratingTask extends RecursiveAction {
     private static final long serialVersionUID = -3422831134405022851L;
-    private TabulatedFunction function;
-    private double xFrom;
-    private double xTo;
+    private final TabulatedFunction function;
+    private final double xFrom;
+    private final double xTo;
     private static final double threshold = 1;
-    private List<Double> result;
+    private final List<Double> result;
 
     public IntegratingTask(TabulatedFunction function, double xFrom, double xTo, List<Double> result) {
         this.function = function;

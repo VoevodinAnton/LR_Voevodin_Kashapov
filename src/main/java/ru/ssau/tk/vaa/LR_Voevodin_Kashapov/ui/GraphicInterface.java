@@ -5,13 +5,14 @@ import java.util.Objects;
 
 public class GraphicInterface extends JFrame {
 
-    JButton functionCreate = new JButton("Создать функцию");
-    JButton simpleOperationsButton = new JButton("Выполнить операцию");
-    JButton differentiatingButton = new JButton("Дифференцирование функции");
+    private final JButton functionCreate = new JButton("Создать функцию");
+    private final JButton simpleOperationsButton = new JButton("Выполнить операцию");
+    private final JButton differentiatingButton = new JButton("Дифференцирование функции");
+    private final JButton integratingButton = new JButton("Интегрирование функции");
     //ImageIcon imageIcon = new ImageIcon("settingsButton.png");
-    String mainImageFilePath = Objects.requireNonNull(this.getClass().getClassLoader().getResource("main.jpg")).getFile();
-    JLabel mainImage = new JLabel(new ImageIcon(mainImageFilePath));
-    JButton settingsButton = new JButton("Настройки");
+    private final String mainImageFilePath = Objects.requireNonNull(this.getClass().getClassLoader().getResource("main.jpg")).getFile();
+    private final JLabel mainImage = new JLabel(new ImageIcon(mainImageFilePath));
+    private final JButton settingsButton = new JButton("Настройки");
 
     //String iconFilePath = Objects.requireNonNull(this.getClass().getClassLoader().getResource("settingsButton.png")).getFile();
     //JLabel setImage = new JLabel(new ImageIcon(iconFilePath));
@@ -42,6 +43,8 @@ public class GraphicInterface extends JFrame {
         simpleOperationsButton.addActionListener(evt -> new SimpleOperationsWindow());
 
         differentiatingButton.addActionListener(evt -> new DifferentiatingWindow());
+
+        integratingButton.addActionListener(evt -> new IntegratingWindow());
     }
 
     private void compose() {
@@ -57,7 +60,8 @@ public class GraphicInterface extends JFrame {
                                 .addComponent(settingsButton, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(functionCreate, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(simpleOperationsButton, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(differentiatingButton, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(differentiatingButton, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(integratingButton, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         layout.setVerticalGroup(layout.createSequentialGroup()
@@ -68,7 +72,8 @@ public class GraphicInterface extends JFrame {
                                 .addComponent(settingsButton)
                                 .addComponent(functionCreate)
                                 .addComponent(simpleOperationsButton)
-                                .addComponent(differentiatingButton)))
+                                .addComponent(differentiatingButton)
+                                .addComponent(integratingButton)))
         );
     }
 
