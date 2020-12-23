@@ -38,7 +38,6 @@ public class IllustratingWindow extends JDialog {
 
 
     //plot
-
     private final XYSeries functionSeries = new XYSeries("function");
     private final XYSeriesCollection dataset = new XYSeriesCollection();
     JFreeChart chart = ChartFactory
@@ -47,6 +46,7 @@ public class IllustratingWindow extends JDialog {
                     PlotOrientation.VERTICAL,
                     false, true, true);
 
+    //chooser
     JFileChooser saveChooser = new JFileChooser();
     JFileChooser downloadChooser = new JFileChooser();
 
@@ -56,10 +56,18 @@ public class IllustratingWindow extends JDialog {
     JButton downloadButton = new JButton("Загрузить");
     JButton saveButton = new JButton("Сохранить");
     JButton buildButton = new JButton("Построить");
+    JButton savePictureButton = new JButton("Сохранить график");
 
     public IllustratingWindow() {
         setSize(1000, 500);
         setTitle("plot");
+        funcSaveButton.setEnabled(false);
+        saveButton.setEnabled(false);
+        buildButton.setEnabled(false);
+        interpolation.setEnabled(false);
+        xGet.setEnabled(false);
+        interpolationResult.setEnabled(false);
+        yGet.setEnabled(false);
 
         downloadChooser.setDialogTitle("Загрузка функции");
         downloadChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -72,8 +80,6 @@ public class IllustratingWindow extends JDialog {
         saveChooser.setCurrentDirectory(new File("output"));
 
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
-        saveButton.setEnabled(false);
 
         addButtonListeners();
         compose();
@@ -153,6 +159,7 @@ public class IllustratingWindow extends JDialog {
                 if (count < 2) {
                     throw new WrongNumberOfElementsException();
                 }
+
                 createTable();
                 funcSaveButton.setEnabled(true);
                 createTableButton.setEnabled(false);
@@ -167,11 +174,15 @@ public class IllustratingWindow extends JDialog {
                     table.getCellEditor().stopCellEditing();
                 }
                 function = SettingsWindow.factory.create(toArray(xValues), toArray(yValues));
-                createDataSet();
-                chart.fireChartChanged();
-                System.out.println(function.toString());
+                //System.out.println(function.toString());
+
                 funcSaveButton.setEnabled(false);
+                saveButton.setEnabled(true);
                 buildButton.setEnabled(true);
+                interpolation.setEnabled(true);
+                xGet.setEnabled(true);
+                interpolationResult.setEnabled(true);
+                yGet.setEnabled(true);
                 countGet.setText("");
 
             } catch (Exception exception) {
@@ -183,8 +194,8 @@ public class IllustratingWindow extends JDialog {
         });
 
         buildButton.addActionListener(evt -> {
-
-
+            createDataSet();
+            chart.fireChartChanged();
         });
 
         saveButton.addActionListener(evt -> {
@@ -236,6 +247,12 @@ public class IllustratingWindow extends JDialog {
                     countGet.setEnabled(false);
                     countLabel.setEnabled(false);
                     saveButton.setEnabled(true);
+                    buildButton.setEnabled(true);
+                    interpolation.setEnabled(true);
+                    xGet.setEnabled(true);
+                    interpolationResult.setEnabled(true);
+                    yGet.setEnabled(true);
+                    countGet.setText("");
                 } catch (IOException | ClassNotFoundException e) {
                     new ErrorWindow(this, e);
                 }
@@ -255,6 +272,8 @@ public class IllustratingWindow extends JDialog {
     }
 
     private void createDataSet() {
+        functionSeries.clear();
+        dataset.removeAllSeries();
         for (int i = 0; i < count; i++) {
             functionSeries.add(function.getX(i), function.getY(i));
         }
