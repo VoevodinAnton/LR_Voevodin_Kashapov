@@ -1,6 +1,10 @@
 package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.ui;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.image.ImageObserver;
+import java.awt.image.ImageProducer;
+import java.io.File;
 import java.util.Objects;
 
 public class GraphicInterface extends JFrame {
@@ -13,8 +17,11 @@ public class GraphicInterface extends JFrame {
     private final JButton integratingButton = new JButton("Интегрирование функции");
     private final JButton compositeFunctionButton = new JButton("Сложная функция");
 
-    private final String mainImageFilePath = Objects.requireNonNull(this.getClass().getClassLoader().getResource("main.jpg")).getFile();
-    private final JLabel mainImage = new JLabel(new ImageIcon(mainImageFilePath));
+    //private final String mainIconFilePath = Objects.requireNonNull(this.getClass().getClassLoader().getResource("main.png")).getFile();
+    private final File file = new File("main.jpg");
+    private final ImageIcon image = new ImageIcon(Objects.requireNonNull(this.getClass().getClassLoader().getResource(file.getName())).getFile());
+    private final JLabel mainImage = new JLabel(image);
+
     private final String iconFilePath = Objects.requireNonNull(this.getClass().getClassLoader().getResource("settingsButton.png")).getFile();
     //JLabel setImage = new JLabel(new ImageIcon(iconFilePath));
     private final ImageIcon imageIcon = new ImageIcon(iconFilePath);
@@ -29,12 +36,9 @@ public class GraphicInterface extends JFrame {
         addButtonListeners();
         setVisible(true);
 
-        System.out.println(mainImageFilePath);
-        // не добавляется картинка на кнопку
-        //settingsButton.setBounds(30, 30, 100, 100);
-        //settingsButton.setBorder(BorderFactory.createEmptyBorder());
         settingsButton.setContentAreaFilled(false);
         settingsButton.setFocusable(false);
+        mainImage.setIcon(image);
     }
 
 
