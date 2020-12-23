@@ -9,6 +9,7 @@ public class GraphicInterface extends JFrame {
     private final JButton functionCreate = new JButton("Создать функцию");
     private final JButton simpleOperationsButton = new JButton("Выполнить операцию");
     private final JButton differentiatingButton = new JButton("Дифференцирование функции");
+    private final JButton plotButton = new JButton("Построить функцию");
     private final JButton integratingButton = new JButton("Интегрирование функции");
     private final JButton compositeFunctionButton = new JButton("Сложная функция");
 
@@ -46,6 +47,8 @@ public class GraphicInterface extends JFrame {
 
         differentiatingButton.addActionListener(evt -> new DifferentiatingWindow());
 
+        plotButton.addActionListener(evt -> new IllustratingWindow());
+
         integratingButton.addActionListener(evt -> new IntegratingWindow());
     }
 
@@ -62,6 +65,7 @@ public class GraphicInterface extends JFrame {
                                 .addGroup(layout.createSequentialGroup()
                                         .addComponent(settingsButton, 0, GroupLayout.DEFAULT_SIZE, 64)
                                         .addComponent(functionCreate, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(plotButton, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(simpleOperationsButton, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(differentiatingButton, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(integratingButton, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -76,6 +80,7 @@ public class GraphicInterface extends JFrame {
                                 .addGroup(layout.createParallelGroup()
                                         .addComponent(settingsButton, 0, GroupLayout.DEFAULT_SIZE, 64)
                                         .addComponent(functionCreate, 0, GroupLayout.DEFAULT_SIZE, 64))
+                                .addComponent(plotButton)
                                 .addComponent(simpleOperationsButton)
                                 .addComponent(differentiatingButton)
                                 .addComponent(integratingButton)

@@ -49,6 +49,7 @@ public class DifferentiatingWindow extends JDialog {
         saveButton1.setEnabled(false);
         table0.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
+
         downloadChooser.setDialogTitle("Загрузка функции");
         downloadChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         downloadChooser.addChoosableFileFilter(new FileNameExtensionFilter("Bin files", "bin"));
@@ -184,37 +185,30 @@ public class DifferentiatingWindow extends JDialog {
             int returnVal = saveChooser.showSaveDialog(this);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 String fileName = saveChooser.getSelectedFile() + ".bin";
-                int flag = 0;
                 File file = new File(fileName);
                 if (file.exists()) {
                     int ind = JOptionPane.showConfirmDialog(this, "Файл с таким названием уже существует в данном расположении. Вы хотите сохранить файл с названием " +
-                            HelperMethods.getFinalNewDestinationFile(new File("output"), file).getName() + "?" +
-                            "\n Нажмите \"Нет\", чтобы заменить файл");
-                    switch (ind) {
-                        case (0):
-                            file = HelperMethods.getFinalNewDestinationFile(new File("output"), file);
-                            break;
-                        case (2):
-                            flag = -1;
-                        default:
-                            break;
+                                    HelperMethods.getFinalNewDestinationFile(new File("output"), file).getName() + "?",
+                            "Предупреждение", JOptionPane.YES_NO_OPTION);
+                    if (ind == 0) {
+                        file = HelperMethods.getFinalNewDestinationFile(new File("output"), file);
                     }
+
                 }
-                if (flag != -1) {
-                    try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(file))) {
-                        if (function0 != null) {
-                            FunctionsIO.serialize(out, function0);
-                            JOptionPane.showMessageDialog(this,
-                                    "Файл '" + file.getName() +
-                                            " сохранен");
-                        } else {
-                            throw new IOException();
-                        }
-                    } catch (Exception e) {
-                        new ErrorWindow(this, e);
+                try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(file))) {
+                    if (function0 != null) {
+                        FunctionsIO.serialize(out, function0);
+                        JOptionPane.showMessageDialog(this,
+                                "Файл '" + file.getName() +
+                                        " сохранен");
+                    } else {
+                        throw new IOException();
                     }
+                } catch (Exception e) {
+                    new ErrorWindow(this, e);
                 }
             }
+
         });
         saveButton1.addActionListener(evt -> {
             int returnVal = saveChooser.showSaveDialog(this);
@@ -230,31 +224,35 @@ public class DifferentiatingWindow extends JDialog {
                         case (0):
                             file = HelperMethods.getFinalNewDestinationFile(new File("output"), file);
                             break;
-                        case (2):
-                            flag = -1;
+                        case (1):
+                            break;
                         default:
+                            flag = -1;
                             break;
                     }
-                }
-                if (flag != -1) {
-                    try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(file))) {
-                        if (functionD != null) {
-                            FunctionsIO.serialize(out, functionD);
-                            JOptionPane.showMessageDialog(this,
-                                    "Файл '" + file.getName() +
-                                            " сохранен");
-                        } else {
-                            throw new IOException();
+
+                    if (flag != -1) {
+                        try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(file))) {
+                            if (functionD != null) {
+                                FunctionsIO.serialize(out, functionD);
+                                JOptionPane.showMessageDialog(this,
+                                        "Файл '" + file.getName() +
+                                                " сохранен");
+                            } else {
+                                throw new IOException();
+                            }
+                        } catch (Exception e) {
+                            new ErrorWindow(this, e);
                         }
-                    } catch (Exception e) {
-                        new ErrorWindow(this, e);
                     }
                 }
-            }
 
+            }
         });
 
-        downloadButton0.addActionListener(evt -> {
+
+        downloadButton0.addActionListener(evt ->
+        {
             int returnVal = downloadChooser.showOpenDialog(this);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File file = downloadChooser.getSelectedFile();
@@ -281,7 +279,9 @@ public class DifferentiatingWindow extends JDialog {
             }
         });
 
-        clearButton.addActionListener(evt -> {
+        clearButton.addActionListener(evt ->
+
+        {
             xValues.clear();
             xResValues.clear();
             yValues.clear();
