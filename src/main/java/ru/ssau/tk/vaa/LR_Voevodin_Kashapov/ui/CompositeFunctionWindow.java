@@ -4,7 +4,10 @@ import javax.swing.*;
 
 public class CompositeFunctionWindow extends JDialog {
     public CompositeFunctionWindow() {
-        setSize(500, 150);
         setTitle("Сложная функция");
+        setSize(500, 150);
+        setLocationRelativeTo(null);
+        setModal(true);
+        setVisible(true);
     }
 }

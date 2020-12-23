@@ -43,6 +43,8 @@ public class GraphicInterface extends JFrame {
         plotButton.addActionListener(evt -> new IllustratingWindow());
 
         integratingButton.addActionListener(evt -> new IntegratingWindow());
+
+        compositeFunctionButton.addActionListener(evt -> new CompositeFunctionWindow());
     }
 
     private void compose() {
