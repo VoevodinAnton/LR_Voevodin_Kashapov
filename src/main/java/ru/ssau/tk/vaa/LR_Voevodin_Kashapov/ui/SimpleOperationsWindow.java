@@ -244,6 +244,14 @@ public class SimpleOperationsWindow extends JDialog {
 
                 String func = (String) operationsBox.getSelectedItem();
                 function3 = selectOperation.get(func);
+                double[] x = new double[function3.getCount()];
+                double[] y = new double[function3.getCount()];
+                for (int i = 0; i < function3.getCount(); i++) {
+                    x[i] = function3.getX(i);
+                    y[i] = function3.getY(i);
+                }
+                function3 = resFactory.create(x, y);
+                System.out.println(function3);
                 createTable2();
                 saveButton3.setEnabled(true);
             } catch (Exception exception) {
