@@ -175,6 +175,14 @@ public class DifferentiatingWindow extends JDialog {
         operateButton.addActionListener(evt -> {
             try {
                 functionD = differentialOperator.derive(function0);
+                double[] x = new double[functionD.getCount()];
+                double[] y = new double[functionD.getCount()];
+                for (int i = 0; i < functionD.getCount(); i++) {
+                    x[i] = functionD.getX(i);
+                    y[i] = functionD.getY(i);
+                }
+                functionD = SettingsWindow.factory.create(x, y);
+                System.out.println(functionD);
                 createTable2();
                 saveButton1.setEnabled(true);
 
