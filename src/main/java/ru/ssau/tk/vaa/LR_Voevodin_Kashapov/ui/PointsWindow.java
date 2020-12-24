@@ -134,6 +134,7 @@ public class PointsWindow extends JDialog {
                 if (table.isEditing())
                     table.getCellEditor().stopCellEditing();
                 function = SettingsWindow.factory.create(toArray(xValues), toArray(yValues));
+                System.out.println(function.toString());
                 saveButton.setEnabled(true);
                 okButton.setEnabled(true);
             } catch (Exception exception) {

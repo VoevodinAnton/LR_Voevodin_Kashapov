@@ -34,7 +34,7 @@ public class ErrorWindow extends JDialog {
             return "Что-то пошло не так...";
         }
         if (e instanceof IOException)
-            return "Неудалось прочитать/записать файл";
+            return "Не удалось прочитать/записать файл";
         if (e instanceof FunctionAreNotSimilarException)
             return "Абсциссы функций не совпадают";
         return "Неверные данные!";

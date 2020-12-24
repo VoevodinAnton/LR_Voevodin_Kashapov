@@ -46,7 +46,7 @@ public class SettingsWindow extends JDialog {
 
     public static void set(TabulatedFunctionFactory factory, int idicator) {
         SettingsWindow.factory = factory;
-        indicator = idicator;
+        SettingsWindow.indicator = idicator;
     }
 
     public void compose() {

@@ -4,9 +4,7 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.event.PlotChangeEvent;
 import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.exeptions.WrongNumberOfElementsException;
@@ -15,7 +13,6 @@ import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.io.FunctionsIO;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -254,16 +251,19 @@ public class IllustratingWindow extends JDialog {
                         yValues.add(i, String.valueOf(function.getY(i)));
                         myTableModel.fireTableDataChanged();
                     }
-                    createTableButton.setEnabled(false);
-                    countGet.setEnabled(false);
-                    countLabel.setEnabled(false);
-                    saveButton.setEnabled(true);
-                    buildButton.setEnabled(true);
-                    interpolation.setEnabled(true);
-                    xGet.setEnabled(true);
-                    interpolationResult.setEnabled(true);
-                    yGet.setEnabled(true);
-                    countGet.setText("");
+
+                    {
+                        createTableButton.setEnabled(false);
+                        countGet.setEnabled(false);
+                        countLabel.setEnabled(false);
+                        saveButton.setEnabled(true);
+                        buildButton.setEnabled(true);
+                        interpolation.setEnabled(true);
+                        xGet.setEnabled(true);
+                        interpolationResult.setEnabled(true);
+                        yGet.setEnabled(true);
+                        countGet.setText("");
+                    }
                 } catch (IOException | ClassNotFoundException e) {
                     new ErrorWindow(this, e);
                 }
@@ -295,6 +295,8 @@ public class IllustratingWindow extends JDialog {
                             "Предупреждение", JOptionPane.YES_NO_OPTION);
                     if (ind == 0) {
                         XYChart = HelperMethods.getFinalNewDestinationFile(new File("pictures"), XYChart);
+                    } else {
+                        dispose();
                     }
                 }
                 try {
@@ -309,7 +311,7 @@ public class IllustratingWindow extends JDialog {
 
     }
 
-    private JMenu createMenuFile(){
+    private JMenu createMenuFile() {
         JMenu menu = new JMenu("меню");
 
         menu.add(downloadButton);
@@ -317,7 +319,6 @@ public class IllustratingWindow extends JDialog {
         menu.add(savePictureButton);
 
         menuBar.add(menu);
-
         return menu;
     }
 

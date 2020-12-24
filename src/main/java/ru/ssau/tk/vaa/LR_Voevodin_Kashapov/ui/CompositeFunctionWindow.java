@@ -3,8 +3,14 @@ package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.ui;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.exeptions.WrongNumberOfElementsException;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.CompositeFunction;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.TabulatedFunction;
+import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.io.FunctionsIO;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -38,6 +44,7 @@ public class CompositeFunctionWindow extends JDialog {
     private final JButton select2Button = new JButton("Выбрать f");
     private final JButton compositeButton = new JButton("Создать сложную функцию");
     private final JButton clearButton = new JButton("Очистить все");
+    private final JMenuItem downloadButton = new JMenuItem("Загрузить");
 
     //Fields
     private final JTextField countField = new JTextField("");
@@ -54,6 +61,10 @@ public class CompositeFunctionWindow extends JDialog {
     private final JComboBox<String> funcBox = new JComboBox<>();
     private final Map<String, TabulatedFunction> selectFunc = new HashMap<>();
 
+    private final JMenuBar menuBar = new JMenuBar();
+
+    JFileChooser downloadChooser = new JFileChooser();
+
     public CompositeFunctionWindow() {
         setTitle("Сложная функция");
         setSize(700, 300);
@@ -61,6 +72,15 @@ public class CompositeFunctionWindow extends JDialog {
         setModal(true);
         compose();
         addButtonListeners();
+
+        downloadChooser.setDialogTitle("Загрузка функции");
+        downloadChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        downloadChooser.addChoosableFileFilter(new FileNameExtensionFilter("Bin files", "bin"));
+        downloadChooser.setCurrentDirectory(new File("output"));
+
+
+        menuBar.add(createMenuFile());
+
         numberOfFField.setEnabled(false);
         confirmButton.setEnabled(false);
         select1.setEnabled(false);
@@ -198,6 +218,34 @@ public class CompositeFunctionWindow extends JDialog {
                 new ErrorWindow(this, exception);
             }
         });
+
+        downloadButton.addActionListener(evt -> {
+            int returnVal = downloadChooser.showOpenDialog(this);
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                File file = downloadChooser.getSelectedFile();
+                try (BufferedInputStream in = new BufferedInputStream(new FileInputStream(file))) {
+                    xValues.clear();
+                    yValues.clear();
+                    myTableModel.fireTableDataChanged();
+                    function = FunctionsIO.deserialize(in);
+                    selectFunc.put("Функция #" + (numberOfFunctions + 1), function);
+                    numberOfFField.setText(String.valueOf(numberOfFunctions + 1));
+                    funcBox.addItem("Функция #" + (numberOfFunctions + 1));
+                    numberOfFunctions++;
+                    count = function.getCount();
+                    for (int i = 0; i < count; i++) {
+                        xValues.add(i, String.valueOf(function.getX(i)));
+                        yValues.add(i, String.valueOf(function.getY(i)));
+                        myTableModel.fireTableDataChanged();
+                    }
+
+                    countLabel.setEnabled(false);
+                } catch (IOException | ClassNotFoundException e) {
+                    new ErrorWindow(this, e);
+                }
+            }
+        });
+
     }
 
     private void createTable() {
@@ -208,6 +256,15 @@ public class CompositeFunctionWindow extends JDialog {
             yValues.add(i, String.valueOf(fg.getY(i)));
             myTableModel.fireTableDataChanged();
         }
+    }
+
+    private JMenu createMenuFile() {
+        JMenu menu = new JMenu("меню");
+
+        menu.add(downloadButton);
+
+        menuBar.add(menu);
+        return menu;
     }
 
 
@@ -223,6 +280,9 @@ public class CompositeFunctionWindow extends JDialog {
         JScrollPane tableScrollPane = new JScrollPane(table);
 
         layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER)
+                .addGroup(layout.createSequentialGroup()
+                        .addComponent(menuBar)
+                        .addGap(1, 10000, Short.MAX_VALUE))
                 .addGroup(layout.createSequentialGroup()
                         .addComponent(countLabel)
                         .addComponent(countField, 0, GroupLayout.DEFAULT_SIZE, 50)
@@ -250,6 +310,7 @@ public class CompositeFunctionWindow extends JDialog {
         );
 
         layout.setVerticalGroup(layout.createSequentialGroup()
+                .addComponent(menuBar)
                 .addGroup(layout.createParallelGroup()
                         .addComponent(countLabel)
                         .addComponent(countField)
