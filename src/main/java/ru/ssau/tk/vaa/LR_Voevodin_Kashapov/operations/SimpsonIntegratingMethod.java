@@ -1,5 +1,7 @@
 package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.operations;
 
+import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.AbstractTabulatedFunction;
+import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.ArrayTabulatedFunction;
 import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.TabulatedFunction;
 
 public class SimpsonIntegratingMethod implements IntegratingOperator<TabulatedFunction> {
@@ -17,7 +19,7 @@ public class SimpsonIntegratingMethod implements IntegratingOperator<TabulatedFu
             throw new IllegalArgumentException("Incorrect bounds: xFrom >= xTo");
         }
 
-        double n = 16384;
+        double n = Byte.MAX_VALUE;
         double h = (xTo - xFrom) / (n - 1);
         double xEven;
         double xOdd;
