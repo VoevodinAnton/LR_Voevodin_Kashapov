@@ -11,11 +11,11 @@ public class XYYTableModel extends AbstractTableModel {
     private static final int Y1_COLUMN = 1;
     private static final int Y2_COLUMN = 2;
     private static final long serialVersionUID = -443916866115057318L;
-    private List<String> xValues;
-    private List<String> y1Values;
-    private List<String> y2Values;
+    private final List<String> xValues;
+    private final List<String> y1Values;
+    private final List<String> y2Values;
     private boolean flag = true;
-    private int count;
+    private final int count;
 
     public XYYTableModel(List<String> xValues, List<String> y1Values, List<String> y2Values) {
         this.xValues = xValues;

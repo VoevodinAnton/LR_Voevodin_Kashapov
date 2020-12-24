@@ -37,13 +37,13 @@ public class CompositeFunctionWindow extends JDialog {
     private final JButton select1Button = new JButton("Выбрать g");
     private final JButton select2Button = new JButton("Выбрать f");
     private final JButton compositeButton = new JButton("Создать сложную функцию");
-
+    private final JButton clearButton = new JButton("Очистить все");
 
     //Fields
     private final JTextField countField = new JTextField("");
     private final JTextField numberOfFField = new JTextField("");
-    private final JTextField select1 = new JTextField("Первая функция (g)");
-    private final JTextField select2 = new JTextField("Вторая функция (f)");
+    private JTextField select1 = new JTextField("Первая функция (g)");
+    private JTextField select2 = new JTextField("Вторая функция (f)");
 
     //Labels
     private final JLabel countLabel = new JLabel("Введите количество точек");
@@ -67,6 +67,7 @@ public class CompositeFunctionWindow extends JDialog {
         select2.setEnabled(false);
         select1Button.setEnabled(false);
         select2Button.setEnabled(false);
+        compositeButton.setEnabled(false);
 
         setVisible(true);
     }
@@ -108,8 +109,12 @@ public class CompositeFunctionWindow extends JDialog {
                 numberOfFunctions++;
                 confirmButton.setEnabled(false);
                 funcGet.setEnabled(true);
-                select2Button.setEnabled(true);
-                select1Button.setEnabled(true);
+                if (!flag1) {
+                    select2Button.setEnabled(true);
+                }
+                if (!flag2) {
+                    select1Button.setEnabled(true);
+                }
             } catch (Exception exception) {
                 new ErrorWindow(this, exception);
             }
@@ -162,6 +167,33 @@ public class CompositeFunctionWindow extends JDialog {
                 compositeButton.setEnabled(false);
                 flag1 = false;
                 flag2 = false;
+                select1Button.setEnabled(true);
+                select2Button.setEnabled(true);
+            } catch (Exception exception) {
+                new ErrorWindow(this, exception);
+            }
+        });
+
+        clearButton.addActionListener(evt -> {
+            try {
+                xValues.clear();
+                yValues.clear();
+                myTableModel.fireTableDataChanged();
+                selectFunc.clear();
+                numberOfFField.setText("");
+                countField.setText("");
+                countField.setEnabled(true);
+                funcBox.removeAllItems();
+                numberOfFunctions = 0;
+                compositeButton.setEnabled(false);
+                flag1 = false;
+                flag2 = false;
+                funcGet.setEnabled(true);
+                confirmButton.setEnabled(false);
+                select1Button.setEnabled(false);
+                select2Button.setEnabled(false);
+                select1 = new JTextField("Первая функция (g)");
+                select2 = new JTextField("Вторая функция (f)");
             } catch (Exception exception) {
                 new ErrorWindow(this, exception);
             }
@@ -193,7 +225,8 @@ public class CompositeFunctionWindow extends JDialog {
         layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER)
                 .addGroup(layout.createSequentialGroup()
                         .addComponent(countLabel)
-                        .addComponent(countField, 0, GroupLayout.DEFAULT_SIZE, 50))
+                        .addComponent(countField, 0, GroupLayout.DEFAULT_SIZE, 50)
+                        .addComponent(clearButton))
                 .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                 .addGroup(layout.createSequentialGroup()
@@ -219,7 +252,8 @@ public class CompositeFunctionWindow extends JDialog {
         layout.setVerticalGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup()
                         .addComponent(countLabel)
-                        .addComponent(countField))
+                        .addComponent(countField)
+                        .addComponent(clearButton))
                 .addGroup(layout.createParallelGroup()
                         .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup()
