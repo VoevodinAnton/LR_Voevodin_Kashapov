@@ -302,6 +302,13 @@ public class SimpleOperationsWindow extends JDialog {
                     y2Values.clear();
                     myTableXYYModel.fireTableDataChanged();
                     function1 = FunctionsIO.deserialize(in);
+                    double[] x = new double[function1.getCount()];
+                    double[] y = new double[function1.getCount()];
+                    for (int i = 0; i < function1.getCount(); i++) {
+                        x[i] = function1.getX(i);
+                        y[i] = function1.getY(i);
+                    }
+                    function1 = SettingsWindow.factory.create(x, y);
                     count = function1.getCount();
                     for (int i = 0; i < count; i++) {
                         xValues.add(i, String.valueOf(function1.getX(i)));
@@ -364,6 +371,13 @@ public class SimpleOperationsWindow extends JDialog {
                 File file = downloadChooser.getSelectedFile();
                 try (BufferedInputStream in = new BufferedInputStream(new FileInputStream(file))) {
                     function2 = FunctionsIO.deserialize(in);
+                    double[] x = new double[function2.getCount()];
+                    double[] y = new double[function2.getCount()];
+                    for (int i = 0; i < function2.getCount(); i++) {
+                        x[i] = function2.getX(i);
+                        y[i] = function2.getY(i);
+                    }
+                    function2 = SettingsWindow.factory.create(x, y);
                 } catch (IOException | ClassNotFoundException e) {
                     new ErrorWindow(this, e);
                 }
