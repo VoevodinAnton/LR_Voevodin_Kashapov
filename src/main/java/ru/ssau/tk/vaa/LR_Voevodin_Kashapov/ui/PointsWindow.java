@@ -55,7 +55,8 @@ public class PointsWindow extends JDialog {
     }
 
     public PointsWindow(int count, boolean flag) {
-        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        //setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        CompositeFunctionWindow.setFunctions(function);
         this.count = count;
         if (flag) {
             boolean happy = true;
@@ -232,8 +233,8 @@ public class PointsWindow extends JDialog {
                 .addGroup(layout.createSequentialGroup()
                         .addComponent(buttonCreateFunction)
                         .addComponent(saveButton)
-                        .addComponent(clearButton)
-                        .addComponent(okButton))
+                        .addComponent(okButton)
+                        .addComponent(clearButton))
         );
 
         layout.setVerticalGroup(layout.createSequentialGroup()
@@ -241,8 +242,8 @@ public class PointsWindow extends JDialog {
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addComponent(buttonCreateFunction)
                         .addComponent(saveButton)
-                        .addComponent(clearButton)
-                        .addComponent(okButton))
+                        .addComponent(okButton)
+                        .addComponent(clearButton))
         );
 
 

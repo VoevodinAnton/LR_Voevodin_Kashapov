@@ -56,6 +56,8 @@ public class CompositeFunctionWindow extends JDialog {
     private final JLabel countLabel = new JLabel("Введите количество точек");
     private final JLabel numberOfFLabel = new JLabel("Количество функций:");
     private final JLabel info = new JLabel("f(g)");
+    private final JLabel helpInfo1 = new JLabel("Создайте функцию, подтвердите, выберите f и g, создайте f(g). ");
+    private final JLabel helpInfo2 = new JLabel("Чтобы посмотреть или выбрать функцию - выберите её (если вы ее создали) из выпадающего списка.");
 
     //Box
     private final JComboBox<String> funcBox = new JComboBox<>();
@@ -67,7 +69,7 @@ public class CompositeFunctionWindow extends JDialog {
 
     public CompositeFunctionWindow() {
         setTitle("Сложная функция");
-        setSize(700, 300);
+        setSize(900, 500);
         setLocationRelativeTo(null);
         setModal(true);
         compose();
@@ -136,6 +138,8 @@ public class CompositeFunctionWindow extends JDialog {
                     select1Button.setEnabled(true);
                 }
             } catch (Exception exception) {
+                confirmButton.setEnabled(false);
+                funcGet.setEnabled(true);
                 new ErrorWindow(this, exception);
             }
         });
@@ -224,22 +228,15 @@ public class CompositeFunctionWindow extends JDialog {
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File file = downloadChooser.getSelectedFile();
                 try (BufferedInputStream in = new BufferedInputStream(new FileInputStream(file))) {
-                    xValues.clear();
-                    yValues.clear();
-                    myTableModel.fireTableDataChanged();
-                    function = FunctionsIO.deserialize(in);
-                    selectFunc.put("Функция #" + (numberOfFunctions + 1), function);
+                    selectFunc.put("Функция #" + (numberOfFunctions + 1), FunctionsIO.deserialize(in));
                     numberOfFField.setText(String.valueOf(numberOfFunctions + 1));
                     funcBox.addItem("Функция #" + (numberOfFunctions + 1));
                     numberOfFunctions++;
-                    count = function.getCount();
-                    for (int i = 0; i < count; i++) {
-                        xValues.add(i, String.valueOf(function.getX(i)));
-                        yValues.add(i, String.valueOf(function.getY(i)));
-                        myTableModel.fireTableDataChanged();
-                    }
-
-                    countLabel.setEnabled(false);
+                    flag1 = false;
+                    flag2 = false;
+                    select1Button.setEnabled(true);
+                    select2Button.setEnabled(true);
+                    compositeButton.setEnabled(true);
                 } catch (IOException | ClassNotFoundException e) {
                     new ErrorWindow(this, e);
                 }
@@ -301,6 +298,12 @@ public class CompositeFunctionWindow extends JDialog {
                                         .addComponent(select1Button)
                                         .addComponent(select2Button)
                                         .addComponent(select2))
+                                .addGroup(layout.createSequentialGroup()
+                                        .addGap(50)
+                                        .addComponent(helpInfo1))
+                                .addGroup(layout.createSequentialGroup()
+                                        .addGap(50)
+                                        .addComponent(helpInfo2))
                                 .addComponent(compositeButton, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addComponent(tableScrollPane))
                 .addGroup(layout.createSequentialGroup()
@@ -323,10 +326,12 @@ public class CompositeFunctionWindow extends JDialog {
                                         .addComponent(confirmButton))
                                 .addComponent(info)
                                 .addGroup(layout.createParallelGroup()
-                                        .addComponent(select1)
-                                        .addComponent(select1Button)
-                                        .addComponent(select2Button)
-                                        .addComponent(select2))
+                                        .addComponent(select1, 0, GroupLayout.DEFAULT_SIZE, 40)
+                                        .addComponent(select1Button, 0, GroupLayout.DEFAULT_SIZE, 40)
+                                        .addComponent(select2Button, 0, GroupLayout.DEFAULT_SIZE, 40)
+                                        .addComponent(select2, 0, GroupLayout.DEFAULT_SIZE, 40))
+                                .addComponent(helpInfo1)
+                                .addComponent(helpInfo2)
                                 .addComponent(compositeButton))
                         .addComponent(tableScrollPane))
                 .addGroup(layout.createParallelGroup()
