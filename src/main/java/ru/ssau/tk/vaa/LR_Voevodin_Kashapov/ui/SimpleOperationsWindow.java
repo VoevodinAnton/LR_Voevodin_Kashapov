@@ -251,7 +251,6 @@ public class SimpleOperationsWindow extends JDialog {
                     y[i] = function3.getY(i);
                 }
                 function3 = resFactory.create(x, y);
-                System.out.println(function3);
                 createTable2();
                 saveButton3.setEnabled(true);
             } catch (Exception exception) {
