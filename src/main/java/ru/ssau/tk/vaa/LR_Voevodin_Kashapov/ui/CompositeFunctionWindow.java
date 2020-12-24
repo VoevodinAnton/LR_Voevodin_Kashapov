@@ -236,7 +236,6 @@ public class CompositeFunctionWindow extends JDialog {
                     flag2 = false;
                     select1Button.setEnabled(true);
                     select2Button.setEnabled(true);
-                    compositeButton.setEnabled(true);
                 } catch (IOException | ClassNotFoundException e) {
                     new ErrorWindow(this, e);
                 }
