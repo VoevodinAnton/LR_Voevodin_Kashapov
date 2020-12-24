@@ -197,23 +197,19 @@ public class IntegratingWindow extends JDialog {
             int returnVal = saveChooser.showSaveDialog(this);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 String fileName = saveChooser.getSelectedFile() + ".bin";
-                int flag = 0;
+                int flag = 1;
                 File file = new File(fileName);
                 if (file.exists()) {
+                    flag = -1;
                     int ind = JOptionPane.showConfirmDialog(this, "Файл с таким названием уже существует в данном расположении. Вы хотите сохранить файл с названием " +
-                            HelperMethods.getFinalNewDestinationFile(new File("output"), file).getName() + "?" +
-                            "\n Нажмите \"Нет\", чтобы заменить файл");
-                    switch (ind) {
-                        case (0):
-                            file = HelperMethods.getFinalNewDestinationFile(new File("output"), file);
-                            break;
-                        case (2):
-                            flag = -1;
-                        default:
-                            break;
+                                    HelperMethods.getFinalNewDestinationFile(new File("output"), file).getName() + "?",
+                            "Предупреждение", JOptionPane.YES_NO_OPTION);
+                    if (ind == 0) {
+                        file = HelperMethods.getFinalNewDestinationFile(new File("output"), file);
+                        flag = 1;
                     }
                 }
-                if (flag != -1) {
+                if (flag != -1){
                     try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(file))) {
                         if (function0 != null) {
                             FunctionsIO.serialize(out, function0);
@@ -227,7 +223,9 @@ public class IntegratingWindow extends JDialog {
                         new ErrorWindow(this, e);
                     }
                 }
+
             }
+
         });
 
         downloadButton0.addActionListener(evt -> {

@@ -120,21 +120,36 @@ public class MathFuncWindow extends JDialog {
         saveButton.addActionListener(evt -> {
             int returnVal = saveChooser.showSaveDialog(this);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
-                File file = new File(saveChooser.getSelectedFile() + ".bin");
-                try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(file))) {
-                    if (function != null) {
-                        FunctionsIO.serialize(out, function);
-                        JOptionPane.showMessageDialog(this,
-                                "Файл '" + saveChooser.getSelectedFile() +
-                                        ".bin' сохранен");
-                    } else {
-                        throw new IOException();
+                String fileName = saveChooser.getSelectedFile() + ".bin";
+                int flag = 1;
+                File file = new File(fileName);
+                if (file.exists()) {
+                    flag = -1;
+                    int ind = JOptionPane.showConfirmDialog(this, "Файл с таким названием уже существует в данном расположении. Вы хотите сохранить файл с названием " +
+                                    HelperMethods.getFinalNewDestinationFile(new File("output"), file).getName() + "?",
+                            "Предупреждение", JOptionPane.YES_NO_OPTION);
+                    if (ind == 0) {
+                        file = HelperMethods.getFinalNewDestinationFile(new File("output"), file);
+                        flag = 1;
                     }
-                } catch (IOException e) {
-                    new ErrorWindow(this, e);
+                }
+                if (flag != -1){
+                    try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(file))) {
+                        if (function != null) {
+                            FunctionsIO.serialize(out, function);
+                            JOptionPane.showMessageDialog(this,
+                                    "Файл '" + file.getName() +
+                                            " сохранен");
+                        } else {
+                            throw new IOException();
+                        }
+                    } catch (Exception e) {
+                        new ErrorWindow(this, e);
+                    }
                 }
 
             }
+
         });
     }
 }

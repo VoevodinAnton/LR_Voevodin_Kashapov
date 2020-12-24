@@ -1,5 +1,8 @@
 package ru.ssau.tk.vaa.LR_Voevodin_Kashapov.ui;
 
+import ru.ssau.tk.vaa.LR_Voevodin_Kashapov.functions.TabulatedFunction;
+
+import javax.swing.*;
 import java.io.File;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -60,4 +63,5 @@ public class HelperMethods {
             return filename.substring(index + 1).toLowerCase();
         }
     }
+
 }
